@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+/* ─── TailwindCSS v4 Theme Configuration ─────────────── */
+@theme {
+  /* Primary — Deep Forest Green (pegunungan/hutan) */
+  --color-primary: #2D6A4F;
+  --color-primary-dark: #1B4332;
+  --color-primary-light: #D8F3DC;
+
+  /* Secondary — Earthy Brown (tanah/pertanian) */
+  --color-secondary: #7F5539;
+  --color-accent: #DDA15E;
+
+  /* Neutrals — Warm tones */
+  --color-neutral-900: #1B2A1E;
+  --color-neutral-700: #344E41;
+  --color-neutral-500: #5E7D6B;
+  --color-neutral-300: #B7C4B1;
+  --color-neutral-200: #D4DED0;
+  --color-neutral-100: #EDF2EB;
+  --color-neutral-50: #F5F8F4;
+
+  /* Special */
+  --color-income: #40916C;
+  --color-expense: #BC4749;
+  --color-success: #40916C;
+  --color-warning: #DDA15E;
+  --color-error: #BC4749;
+  --color-info: #4A90A4;
+
+  /* Typography */
+  --font-heading: "Plus Jakarta Sans", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Animations */
+  --animate-fade-in: fade-in 0.3s ease-out;
+  --animate-fade-in-up: fade-in-up 0.5s ease-out;
+  --animate-scale-in: scale-in 0.2s ease-out;
+  --animate-slide-in-right: slide-in-right 0.3s ease-out;
+  --animate-bounce-slow: bounce 2s infinite;
+}
+
+/* ─── Animation Keyframes ────────────────────────────── */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ─── Base Styles ────────────────────────────────────── */
+body {
+  font-family: var(--font-body);
+  color: var(--color-neutral-700);
+  background-color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--color-neutral-900);
+}
+
+/* ─── Scrollbar Styling ──────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-neutral-300);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neutral-500);
+}
+
+/* ─── Selection Color ────────────────────────────────── */
+::selection {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary-dark);
+}

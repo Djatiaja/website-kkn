@@ -1,0 +1,187 @@
+{
+  "nav": {
+    "home": "Home",
+    "profile": "Village Profile",
+    "products": "Products & Potential",
+    "finance": "Financial Transparency",
+    "map": "Village Map",
+    "news": "News",
+    "gallery": "Gallery",
+    "admin": "Admin Panel",
+    "login": "Login",
+    "logout": "Logout"
+  },
+  "home": {
+    "hero": {
+      "title": "Welcome to Sukamakmur Village",
+      "subtitle": "Independent, Prosperous, and Cultured",
+      "cta_explore": "Explore Village",
+      "cta_products": "View Products"
+    },
+    "highlights": {
+      "population": "Population",
+      "area": "Area (Ha)",
+      "products": "SME Products",
+      "attractions": "Tourist Destinations"
+    },
+    "featured": {
+      "title": "Featured Village Products",
+      "view_all": "View All Products"
+    },
+    "news": {
+      "title": "Latest News & Announcements",
+      "view_all": "View All News"
+    },
+    "map": {
+      "title": "Village Location",
+      "view_full": "View Full Map"
+    }
+  },
+  "profile": {
+    "title": "Sukamakmur Village Profile",
+    "vision": { "title": "Vision" },
+    "mission": { "title": "Mission" },
+    "history": { "title": "Village History" },
+    "org": { "title": "Organization Structure" },
+    "demographics": {
+      "title": "Demographics",
+      "total": "Total Population",
+      "male": "Male",
+      "female": "Female",
+      "households": "Households"
+    }
+  },
+  "product": {
+    "title": "Village Products & Potential Catalog",
+    "subtitle": "Discover featured products and tourist destinations of Sukamakmur Village",
+    "search": "Search products...",
+    "filter": {
+      "all": "All",
+      "umkm": "Small Business",
+      "wisata": "Tourism",
+      "pertanian": "Agriculture",
+      "kerajinan": "Handicraft",
+      "kuliner": "Culinary"
+    },
+    "price": "Price",
+    "contact": "Contact Seller",
+    "whatsapp": "Order via WhatsApp",
+    "related": "Related Products",
+    "empty": "No products in this category yet",
+    "back": "Back to Catalog"
+  },
+  "finance": {
+    "title": "Village Financial Transparency",
+    "subtitle": "Financial information transparency for the community",
+    "year": "Fiscal Year",
+    "income": "Total Income",
+    "expense": "Total Expenditure",
+    "balance": "Budget Balance",
+    "yoy": "from previous year",
+    "chart_bar": { "title": "Budget vs Realization" },
+    "chart_donut": { "title": "Expenditure Distribution" },
+    "chart_line": { "title": "5-Year Financial Trend" },
+    "table": {
+      "title": "Budget & Realization Detail",
+      "category": "Category",
+      "budget": "Budget",
+      "actual": "Actual",
+      "percentage": "Percentage"
+    },
+    "income_section": "Income",
+    "expense_section": "Expenditure"
+  },
+  "map": {
+    "title": "Sukamakmur Village Map",
+    "legend": "Legend",
+    "boundary": "Village Boundary",
+    "poi": "Points of Interest",
+    "facility": "Public Facilities",
+    "road": "Roads",
+    "locations": { "title": "Key Locations" },
+    "layer": { "satellite": "Satellite", "street": "Street" },
+    "fullscreen": "Fullscreen"
+  },
+  "news": {
+    "title": "News & Announcements",
+    "filter": {
+      "all": "All",
+      "pengumuman": "Announcement",
+      "kegiatan": "Activity",
+      "pembangunan": "Development",
+      "umum": "General"
+    },
+    "read_more": "Read More",
+    "share": "Share",
+    "published": "Published",
+    "by": "By",
+    "related": "Other News",
+    "back": "Back to News",
+    "empty": "No news yet"
+  },
+  "gallery": {
+    "title": "Sukamakmur Village Gallery",
+    "filter": { "all": "All", "photo": "Photos", "video": "Videos" },
+    "load_more": "Load More",
+    "empty": "No photos or videos yet"
+  },
+  "footer": {
+    "description": "Sukamakmur Village — Independent, Prosperous, and Cultured",
+    "navigation": "Navigation",
+    "contact": "Contact",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "social": "Social Media",
+    "copyright": "© 2024 Sukamakmur Village. All rights reserved."
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Try Again",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "search": "Search...",
+    "no_data": "No data",
+    "confirm_delete": "Are you sure you want to delete?",
+    "success_save": "Successfully saved!",
+    "success_delete": "Successfully deleted!",
+    "per_page": "per page",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "admin": {
+    "dashboard": "Dashboard",
+    "welcome": "Welcome to Admin Panel",
+    "total_products": "Total Products",
+    "total_news": "Total News",
+    "total_gallery": "Total Gallery",
+    "total_income": "This Year's Income",
+    "manage_profile": "Manage Village Profile",
+    "manage_products": "Manage Products",
+    "manage_finance": "Manage Finance",
+    "manage_map": "Manage Map",
+    "manage_news": "Manage News",
+    "manage_gallery": "Manage Gallery",
+    "manage_users": "Manage Users",
+    "add_new": "Add New",
+    "draft": "Draft",
+    "published": "Published",
+    "active": "Active",
+    "inactive": "Inactive",
+    "upload_image": "Upload Image",
+    "upload_video": "Upload Video",
+    "drag_drop": "Drag & drop files here, or click to browse"
+  },
+  "auth": {
+    "login": "Login",
+    "email": "Email Address",
+    "password": "Password",
+    "submit": "Sign In",
+    "error": "Invalid email or password",
+    "logout_confirm": "Are you sure you want to logout?"
+  }
+}

@@ -1,0 +1,187 @@
+{
+  "nav": {
+    "home": "Beranda",
+    "profile": "Profil Desa",
+    "products": "Produk & Potensi",
+    "finance": "Transparansi Keuangan",
+    "map": "Peta Desa",
+    "news": "Berita",
+    "gallery": "Galeri",
+    "admin": "Admin Panel",
+    "login": "Masuk",
+    "logout": "Keluar"
+  },
+  "home": {
+    "hero": {
+      "title": "Selamat Datang di Desa Sukamakmur",
+      "subtitle": "Mandiri, Sejahtera, dan Berbudaya",
+      "cta_explore": "Jelajahi Desa",
+      "cta_products": "Lihat Produk"
+    },
+    "highlights": {
+      "population": "Penduduk",
+      "area": "Luas (Ha)",
+      "products": "Produk UMKM",
+      "attractions": "Destinasi Wisata"
+    },
+    "featured": {
+      "title": "Produk Unggulan Desa",
+      "view_all": "Lihat Semua Produk"
+    },
+    "news": {
+      "title": "Berita & Pengumuman Terbaru",
+      "view_all": "Lihat Semua Berita"
+    },
+    "map": {
+      "title": "Lokasi Desa",
+      "view_full": "Lihat Peta Lengkap"
+    }
+  },
+  "profile": {
+    "title": "Profil Desa Sukamakmur",
+    "vision": { "title": "Visi" },
+    "mission": { "title": "Misi" },
+    "history": { "title": "Sejarah Desa" },
+    "org": { "title": "Struktur Organisasi" },
+    "demographics": {
+      "title": "Data Kependudukan",
+      "total": "Total Penduduk",
+      "male": "Laki-laki",
+      "female": "Perempuan",
+      "households": "Kepala Keluarga"
+    }
+  },
+  "product": {
+    "title": "Katalog Produk & Potensi Desa",
+    "subtitle": "Temukan produk unggulan dan destinasi wisata Desa Sukamakmur",
+    "search": "Cari produk...",
+    "filter": {
+      "all": "Semua",
+      "umkm": "UMKM",
+      "wisata": "Wisata",
+      "pertanian": "Pertanian",
+      "kerajinan": "Kerajinan",
+      "kuliner": "Kuliner"
+    },
+    "price": "Harga",
+    "contact": "Hubungi Penjual",
+    "whatsapp": "Pesan via WhatsApp",
+    "related": "Produk Terkait",
+    "empty": "Belum ada produk dalam kategori ini",
+    "back": "Kembali ke Katalog"
+  },
+  "finance": {
+    "title": "Transparansi Keuangan Desa",
+    "subtitle": "Keterbukaan informasi keuangan untuk masyarakat",
+    "year": "Tahun Anggaran",
+    "income": "Total Pendapatan",
+    "expense": "Total Belanja",
+    "balance": "Sisa Anggaran",
+    "yoy": "dari tahun sebelumnya",
+    "chart_bar": { "title": "Anggaran vs Realisasi" },
+    "chart_donut": { "title": "Distribusi Belanja" },
+    "chart_line": { "title": "Tren Keuangan 5 Tahun" },
+    "table": {
+      "title": "Detail Anggaran & Realisasi",
+      "category": "Kategori",
+      "budget": "Anggaran",
+      "actual": "Realisasi",
+      "percentage": "Persentase"
+    },
+    "income_section": "Pendapatan",
+    "expense_section": "Belanja"
+  },
+  "map": {
+    "title": "Peta Desa Sukamakmur",
+    "legend": "Legenda",
+    "boundary": "Batas Wilayah",
+    "poi": "Titik Lokasi",
+    "facility": "Fasilitas Umum",
+    "road": "Jalan",
+    "locations": { "title": "Lokasi Penting" },
+    "layer": { "satellite": "Satelit", "street": "Jalan" },
+    "fullscreen": "Layar Penuh"
+  },
+  "news": {
+    "title": "Berita & Pengumuman",
+    "filter": {
+      "all": "Semua",
+      "pengumuman": "Pengumuman",
+      "kegiatan": "Kegiatan",
+      "pembangunan": "Pembangunan",
+      "umum": "Umum"
+    },
+    "read_more": "Baca Selengkapnya",
+    "share": "Bagikan",
+    "published": "Dipublikasikan",
+    "by": "Oleh",
+    "related": "Berita Lainnya",
+    "back": "Kembali ke Berita",
+    "empty": "Belum ada berita"
+  },
+  "gallery": {
+    "title": "Galeri Desa Sukamakmur",
+    "filter": { "all": "Semua", "photo": "Foto", "video": "Video" },
+    "load_more": "Muat Lebih Banyak",
+    "empty": "Belum ada foto atau video"
+  },
+  "footer": {
+    "description": "Desa Sukamakmur — Mandiri, Sejahtera, dan Berbudaya",
+    "navigation": "Navigasi",
+    "contact": "Kontak",
+    "address": "Alamat",
+    "phone": "Telepon",
+    "email": "Email",
+    "social": "Media Sosial",
+    "copyright": "© 2024 Desa Sukamakmur. Hak cipta dilindungi."
+  },
+  "common": {
+    "loading": "Memuat...",
+    "error": "Terjadi kesalahan",
+    "retry": "Coba Lagi",
+    "save": "Simpan",
+    "cancel": "Batal",
+    "delete": "Hapus",
+    "edit": "Edit",
+    "add": "Tambah",
+    "search": "Cari...",
+    "no_data": "Tidak ada data",
+    "confirm_delete": "Yakin ingin menghapus?",
+    "success_save": "Berhasil disimpan!",
+    "success_delete": "Berhasil dihapus!",
+    "per_page": "per halaman",
+    "previous": "Sebelumnya",
+    "next": "Selanjutnya"
+  },
+  "admin": {
+    "dashboard": "Dashboard",
+    "welcome": "Selamat datang di Admin Panel",
+    "total_products": "Total Produk",
+    "total_news": "Total Berita",
+    "total_gallery": "Total Galeri",
+    "total_income": "Pendapatan Tahun Ini",
+    "manage_profile": "Kelola Profil Desa",
+    "manage_products": "Kelola Produk",
+    "manage_finance": "Kelola Keuangan",
+    "manage_map": "Kelola Peta",
+    "manage_news": "Kelola Berita",
+    "manage_gallery": "Kelola Galeri",
+    "manage_users": "Kelola Pengguna",
+    "add_new": "Tambah Baru",
+    "draft": "Draf",
+    "published": "Dipublikasikan",
+    "active": "Aktif",
+    "inactive": "Nonaktif",
+    "upload_image": "Unggah Gambar",
+    "upload_video": "Unggah Video",
+    "drag_drop": "Seret & lepas file di sini, atau klik untuk memilih"
+  },
+  "auth": {
+    "login": "Masuk",
+    "email": "Alamat Email",
+    "password": "Kata Sandi",
+    "submit": "Masuk",
+    "error": "Email atau kata sandi salah",
+    "logout_confirm": "Yakin ingin keluar?"
+  }
+}

@@ -1,0 +1,204 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Enums ──────────────────────────────────────────────
+
+enum UserRole {
+  ADMIN
+  EDITOR
+}
+
+enum ProductCategory {
+  UMKM
+  WISATA
+  PERTANIAN
+  KERAJINAN
+  KULINER
+}
+
+enum FinanceType {
+  INCOME
+  EXPENSE
+}
+
+enum MapFeatureType {
+  BOUNDARY
+  POI
+  ROAD
+  FACILITY
+}
+
+enum NewsCategory {
+  PENGUMUMAN
+  KEGIATAN
+  PEMBANGUNAN
+  UMUM
+}
+
+enum GalleryType {
+  PHOTO
+  VIDEO
+}
+
+// ─── Models ─────────────────────────────────────────────
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  password  String
+  role      UserRole @default(EDITOR)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  news      News[]
+
+  @@map("users")
+}
+
+model VillageProfile {
+  id            String   @id @default(cuid())
+  name          String
+  descriptionId String   @map("description_id") @db.Text
+  descriptionEn String   @map("description_en") @db.Text
+  visionId      String   @map("vision_id") @db.Text
+  visionEn      String   @map("vision_en") @db.Text
+  missionId     String   @map("mission_id") @db.Text
+  missionEn     String   @map("mission_en") @db.Text
+  historyId     String   @map("history_id") @db.Text
+  historyEn     String   @map("history_en") @db.Text
+  heroVideoUrl  String?  @map("hero_video_url")
+  address       String
+  phone         String?
+  email         String?
+  population    Int?
+  area          Float?
+  socialMedia   Json?    @map("social_media")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+  members       OrganizationMember[]
+
+  @@map("village_profiles")
+}
+
+model OrganizationMember {
+  id         String         @id @default(cuid())
+  name       String
+  positionId String         @map("position_id")
+  positionEn String         @map("position_en")
+  photoUrl   String?        @map("photo_url")
+  order      Int
+  profileId  String         @map("profile_id")
+  profile    VillageProfile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  createdAt  DateTime       @default(now()) @map("created_at")
+  updatedAt  DateTime       @updatedAt @map("updated_at")
+
+  @@map("organization_members")
+}
+
+model Product {
+  id            String          @id @default(cuid())
+  nameId        String          @map("name_id")
+  nameEn        String          @map("name_en")
+  descriptionId String          @map("description_id") @db.Text
+  descriptionEn String          @map("description_en") @db.Text
+  category      ProductCategory
+  price         Float?
+  unit          String?
+  imageUrl      String?         @map("image_url")
+  gallery       Json?           @default("[]")
+  contact       String?
+  isActive      Boolean         @default(true) @map("is_active")
+  createdAt     DateTime        @default(now()) @map("created_at")
+  updatedAt     DateTime        @updatedAt @map("updated_at")
+
+  @@index([category])
+  @@index([isActive])
+  @@map("products")
+}
+
+model FinanceRecord {
+  id             String      @id @default(cuid())
+  year           Int
+  type           FinanceType
+  categoryId     String      @map("category_id")
+  categoryEn     String      @map("category_en")
+  subcategoryId  String?     @map("subcategory_id")
+  subcategoryEn  String?     @map("subcategory_en")
+  amount         Float
+  budget         Float?
+  sourceId       String?     @map("source_id")
+  sourceEn       String?     @map("source_en")
+  descriptionId  String?     @map("description_id") @db.Text
+  descriptionEn  String?     @map("description_en") @db.Text
+  createdAt      DateTime    @default(now()) @map("created_at")
+  updatedAt      DateTime    @updatedAt @map("updated_at")
+
+  @@index([year])
+  @@index([type])
+  @@map("finance_records")
+}
+
+model MapFeature {
+  id            String         @id @default(cuid())
+  nameId        String         @map("name_id")
+  nameEn        String         @map("name_en")
+  type          MapFeatureType
+  icon          String?
+  geometry      Json
+  properties    Json?
+  descriptionId String?        @map("description_id") @db.Text
+  descriptionEn String?        @map("description_en") @db.Text
+  isVisible     Boolean        @default(true) @map("is_visible")
+  createdAt     DateTime       @default(now()) @map("created_at")
+  updatedAt     DateTime       @updatedAt @map("updated_at")
+
+  @@index([type])
+  @@map("map_features")
+}
+
+model News {
+  id            String       @id @default(cuid())
+  titleId       String       @map("title_id")
+  titleEn       String       @map("title_en")
+  slug          String       @unique
+  contentId     String       @map("content_id") @db.Text
+  contentEn     String       @map("content_en") @db.Text
+  excerptId     String?      @map("excerpt_id")
+  excerptEn     String?      @map("excerpt_en")
+  coverImageUrl String?      @map("cover_image_url")
+  category      NewsCategory
+  isPublished   Boolean      @default(false) @map("is_published")
+  authorId      String       @map("author_id")
+  author        User         @relation(fields: [authorId], references: [id])
+  publishedAt   DateTime?    @map("published_at")
+  createdAt     DateTime     @default(now()) @map("created_at")
+  updatedAt     DateTime     @updatedAt @map("updated_at")
+
+  @@index([category])
+  @@index([isPublished])
+  @@index([slug])
+  @@map("news")
+}
+
+model GalleryItem {
+  id            String      @id @default(cuid())
+  titleId       String      @map("title_id")
+  titleEn       String      @map("title_en")
+  descriptionId String?     @map("description_id")
+  descriptionEn String?     @map("description_en")
+  type          GalleryType
+  url           String
+  thumbnailUrl  String?     @map("thumbnail_url")
+  category      String?
+  createdAt     DateTime    @default(now()) @map("created_at")
+  updatedAt     DateTime    @updatedAt @map("updated_at")
+
+  @@index([type])
+  @@map("gallery_items")
+}

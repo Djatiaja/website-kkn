@@ -6,7 +6,7 @@ import { ScrollReveal } from "./ScrollReveal";
 interface StatItem {
   value: number;
   label: string;
-  icon: string;
+  icon: React.ReactNode;
   suffix?: string;
 }
 

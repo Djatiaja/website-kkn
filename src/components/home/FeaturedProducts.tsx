@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Product } from "@/types";
+import { Store, MountainSnow, Sprout, Paintbrush, UtensilsCrossed, Package } from "lucide-react";
 
 interface FeaturedProductsProps {
   products: Product[];
@@ -22,12 +23,12 @@ export function FeaturedProducts({
     KULINER: "bg-warning/10 text-secondary",
   };
 
-  const categoryIcons: Record<string, string> = {
-    UMKM: "🏪",
-    WISATA: "🏔️",
-    PERTANIAN: "🌾",
-    KERAJINAN: "🎨",
-    KULINER: "🍜",
+  const categoryIcons: Record<string, React.ReactNode> = {
+    UMKM: <Store className="w-12 h-12 text-neutral-300" />,
+    WISATA: <MountainSnow className="w-12 h-12 text-neutral-300" />,
+    PERTANIAN: <Sprout className="w-12 h-12 text-neutral-300" />,
+    KERAJINAN: <Paintbrush className="w-12 h-12 text-neutral-300" />,
+    KULINER: <UtensilsCrossed className="w-12 h-12 text-neutral-300" />,
   };
 
   return (
@@ -60,8 +61,8 @@ export function FeaturedProducts({
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-5xl">
-                      {categoryIcons[product.category] || "📦"}
+                    <div className="w-full h-full flex items-center justify-center">
+                      {categoryIcons[product.category] || <Package className="w-12 h-12 text-neutral-300" />}
                     </div>
                   )}
                   {/* Badge */}

@@ -5,7 +5,12 @@ import { newsService } from "@/services/news.service";
 
 export const GET = withErrorHandler(async (_req: NextRequest, context: unknown) => {
   const { id } = await (context as { params: Promise<{ id: string }> }).params;
-  const news = await newsService.getById(id);
+  let news;
+  try {
+    news = await newsService.getById(id);
+  } catch (error) {
+    news = await newsService.getBySlug(id);
+  }
   return NextResponse.json(news);
 });
 

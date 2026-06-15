@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslations } from "next-intl";
+import { TrendingUp, TrendingDown, Banknote } from "lucide-react";
 import { AnimatedCounter } from "@/components/home/AnimatedCounter";
 
 interface BudgetOverviewProps {
@@ -24,21 +26,21 @@ export function BudgetOverview({ totalIncome, totalExpense, balance, labels }: B
     {
       label: labels.income,
       value: totalIncome,
-      icon: "📈",
+      icon: <TrendingUp className="w-5 h-5 text-success" />,
       color: "border-income/30 bg-income/5",
       textColor: "text-income",
     },
     {
       label: labels.expense,
       value: totalExpense,
-      icon: "📉",
+      icon: <TrendingDown className="w-5 h-5 text-error" />,
       color: "border-expense/30 bg-expense/5",
       textColor: "text-expense",
     },
     {
       label: labels.balance,
       value: balance,
-      icon: "💵",
+      icon: <Banknote className="w-5 h-5 text-primary" />,
       color: "border-info/30 bg-info/5",
       textColor: "text-info",
     },

@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+import { Building2, User } from "lucide-react";
 import { ScrollReveal } from "@/components/home/ScrollReveal";
 
 interface Member {
@@ -25,8 +27,8 @@ export function OrganizationChart({ title, members, locale }: OrganizationChartP
     <section className="py-16 bg-white">
       <div className="container mx-auto px-4 max-w-5xl">
         <ScrollReveal>
-          <h2 className="text-2xl font-heading font-bold text-neutral-900 mb-2 text-center">
-            🏛️ {title}
+          <h2 className="flex justify-center items-center gap-2 text-2xl font-heading font-bold text-neutral-900 mb-6">
+            <Building2 className="w-6 h-6 text-primary" /> {title}
           </h2>
           <div className="w-16 h-1 bg-primary mx-auto rounded-full mb-12" />
         </ScrollReveal>
@@ -89,7 +91,9 @@ function MemberCard({
             className="w-full h-full object-cover"
           />
         ) : (
-          <span className={isHead ? "text-3xl" : "text-2xl"}>👤</span>
+          <div className="w-full h-full bg-neutral-100 flex items-center justify-center text-neutral-400">
+            <User className={isHead ? "w-10 h-10" : "w-8 h-8"} />
+          </div>
         )}
       </div>
 

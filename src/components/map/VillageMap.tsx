@@ -4,6 +4,8 @@ import { useEffect, useRef } from "react";
 import { MapContainer, TileLayer, GeoJSON, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { renderToString } from "react-dom/server";
+import { Building2, School, Hospital, Droplet, MapPin } from "lucide-react";
 import type { MapFeature } from "@/types";
 
 // Fix default marker icon
@@ -18,24 +20,25 @@ const defaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = defaultIcon;
 
-const iconMap: Record<string, string> = {
-  building: "🏛️",
-  school: "🏫",
-  mosque: "🕌",
-  hospital: "🏥",
-  waterfall: "💧",
+const iconMap: Record<string, React.ReactNode> = {
+  building: <Building2 className="w-5 h-5 text-neutral-600" />,
+  school: <School className="w-5 h-5 text-neutral-600" />,
+  hospital: <Hospital className="w-5 h-5 text-neutral-600" />,
+  waterfall: <Droplet className="w-5 h-5 text-neutral-600" />,
 };
 
-function createEmojiIcon(icon?: string | null) {
-  const emoji = icon ? iconMap[icon] || "📍" : "📍";
+const createCustomIcon = (icon?: string | null) => {
+  const node = icon ? iconMap[icon] || <MapPin className="w-5 h-5 text-neutral-600" /> : <MapPin className="w-5 h-5 text-neutral-600" />;
+  const iconHtml = renderToString(node);
+  
   return L.divIcon({
-    html: `<span style="font-size:24px">${emoji}</span>`,
-    className: "emoji-marker",
-    iconSize: [30, 30],
-    iconAnchor: [15, 15],
-    popupAnchor: [0, -15],
+    html: `<div class="bg-white border-2 border-primary rounded-full w-8 h-8 flex items-center justify-center shadow-lg">${iconHtml}</div>`,
+    className: "custom-leaflet-icon",
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
   });
-}
+};
 
 interface FlyToProps {
   coords: [number, number] | null;
@@ -117,7 +120,7 @@ export function VillageMap({ features, locale, flyTo }: VillageMapProps) {
           <Marker
             key={p.id}
             position={[geom.coordinates[1], geom.coordinates[0]]}
-            icon={createEmojiIcon(p.icon)}
+            icon={createCustomIcon(p.icon)}
           >
             <Popup>
               <div className="text-sm">

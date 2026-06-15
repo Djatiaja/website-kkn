@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { FolderUp, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface FileUploadProps {
@@ -62,7 +63,7 @@ function FileUpload({
           isUploading && "opacity-50 pointer-events-none"
         )}
       >
-        <div className="text-3xl">📁</div>
+        <FolderUp className="w-8 h-8 text-neutral-400" />
         <div className="text-center">
           <p className="text-sm font-medium text-neutral-700">
             Seret & lepas file di sini

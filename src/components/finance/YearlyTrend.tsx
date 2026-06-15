@@ -20,9 +20,13 @@ interface TrendData {
 interface YearlyTrendProps {
   data: TrendData[];
   title: string;
+  labels: {
+    income: string;
+    expense: string;
+  };
 }
 
-export function YearlyTrend({ data, title }: YearlyTrendProps) {
+export function YearlyTrend({ data, title, labels }: YearlyTrendProps) {
   const formatRupiah = (value: number) => {
     if (value >= 1_000_000_000) return `${(value / 1_000_000_000).toFixed(1)}M`;
     if (value >= 1_000_000) return `${(value / 1_000_000).toFixed(0)}Jt`;
@@ -39,14 +43,14 @@ export function YearlyTrend({ data, title }: YearlyTrendProps) {
             <XAxis dataKey="year" tick={{ fontSize: 12, fill: "#6B7280" }} />
             <YAxis tick={{ fontSize: 11, fill: "#6B7280" }} tickFormatter={formatRupiah} />
             <Tooltip
-              formatter={(value) => [`Rp ${Number(value).toLocaleString("id-ID")}`, ""]}
+              formatter={(value, name) => [`Rp ${Number(value).toLocaleString("id-ID")}`, name]}
               contentStyle={{ borderRadius: 12, border: "1px solid #E5E7EB" }}
             />
             <Legend />
             <Line
               type="monotone"
               dataKey="income"
-              name="Pendapatan"
+              name={labels.income}
               stroke="#40916C"
               strokeWidth={3}
               dot={{ r: 5, fill: "#40916C" }}
@@ -55,7 +59,7 @@ export function YearlyTrend({ data, title }: YearlyTrendProps) {
             <Line
               type="monotone"
               dataKey="expense"
-              name="Belanja"
+              name={labels.expense}
               stroke="#BC4749"
               strokeWidth={3}
               dot={{ r: 5, fill: "#BC4749" }}

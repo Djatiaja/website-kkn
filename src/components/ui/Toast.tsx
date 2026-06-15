@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState, useCallback } from "react";
 import { cn } from "@/lib/utils";
+import { CheckCircle2, XCircle, AlertTriangle, X, Info } from "lucide-react";
 
 // ─── Types ──────────────────────────────────────────────
 interface ToastOptions {
@@ -68,10 +69,10 @@ function ToastItem({
   onDismiss: () => void;
 }) {
   const icons = {
-    success: "✓",
-    error: "✕",
-    warning: "⚠",
-    info: "ℹ",
+    success: <CheckCircle2 className="w-4 h-4" />,
+    error: <XCircle className="w-4 h-4" />,
+    warning: <AlertTriangle className="w-4 h-4" />,
+    info: <Info className="w-4 h-4" />,
   };
 
   const variants = {
@@ -101,7 +102,7 @@ function ToastItem({
         onClick={onDismiss}
         className="flex-shrink-0 opacity-60 hover:opacity-100 transition-opacity"
       >
-        ✕
+        <X className="w-4 h-4" />
       </button>
     </div>
   );

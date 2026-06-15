@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import { ProductCard } from "./ProductCard";
+import { LightboxGallery } from "@/components/ui/LightboxGallery";
+import { Package, Lightbulb, Phone, Map as MapIcon, Camera } from "lucide-react";
 import type { Product } from "@/types";
 
 interface ProductDetailProps {
@@ -21,12 +23,16 @@ interface ProductDetailProps {
 export function ProductDetail({ product, relatedProducts, locale, labels }: ProductDetailProps) {
   const name = locale === "id" ? product.nameId : product.nameEn;
   const description = locale === "id" ? product.descriptionId : product.descriptionEn;
+  const specifications = locale === "id" ? product.specificationsId : product.specificationsEn;
 
-  const images = product.imageUrl
-    ? [product.imageUrl, ...product.gallery]
-    : product.gallery.length > 0
-      ? product.gallery
-      : [];
+  const topImages = [
+    product.imageUrl,
+    product.storeImageUrl,
+    product.productionImageUrl,
+  ].filter(Boolean) as string[];
+
+  const parsedGallery = (product.gallery || []).filter(Boolean) as string[];
+  const galleryImages = parsedGallery.length > 0 ? parsedGallery : ["https://placehold.co/600x400"];
 
   const [activeImage, setActiveImage] = useState(0);
 
@@ -56,22 +62,22 @@ export function ProductDetail({ product, relatedProducts, locale, labels }: Prod
         {/* Gallery */}
         <div>
           <div className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-primary/5 to-secondary/5 border border-neutral-200">
-            {images.length > 0 ? (
+            {topImages.length > 0 ? (
               <img
-                src={images[activeImage]}
+                src={topImages[activeImage]}
                 alt={name}
                 className="w-full h-full object-cover"
               />
             ) : (
-              <div className="w-full h-full flex items-center justify-center text-7xl opacity-50">
-                📦
+              <div className="w-full h-full flex items-center justify-center text-neutral-300">
+                <Package className="w-16 h-16 opacity-50" />
               </div>
             )}
           </div>
           {/* Thumbnails */}
-          {images.length > 1 && (
+          {topImages.length > 1 && (
             <div className="flex gap-2 mt-3">
-              {images.map((img, idx) => (
+              {topImages.map((img, idx) => (
                 <button
                   key={idx}
                   onClick={() => setActiveImage(idx)}
@@ -89,7 +95,7 @@ export function ProductDetail({ product, relatedProducts, locale, labels }: Prod
         {/* Info */}
         <div>
           <span className={`inline-block px-3 py-1 text-xs font-medium rounded-full mb-3 ${categoryColors[product.category] || "bg-neutral-100"}`}>
-            {product.category}
+            {product.category === "WISATA" ? (product.isPotential ? "Potensi Wisata" : "Wisata") : product.category}
           </span>
 
           <h1 className="text-2xl md:text-3xl font-heading font-bold text-neutral-900 mb-4">
@@ -109,14 +115,50 @@ export function ProductDetail({ product, relatedProducts, locale, labels }: Prod
           )}
 
           <div className="mb-6">
-            <p className="text-neutral-700 leading-relaxed">{description}</p>
+            <p className="text-neutral-700 leading-relaxed whitespace-pre-wrap">{description}</p>
           </div>
+
+          {specifications && (
+            <div className="mb-6">
+              <h3 className="text-lg font-heading font-bold text-neutral-900 mb-2">
+                {locale === "id" ? "Spesifikasi" : "Specifications"}
+              </h3>
+              <p className="text-neutral-700 leading-relaxed whitespace-pre-wrap">
+                {specifications}
+              </p>
+            </div>
+          )}
+
+          {/* Investment Info for Tourism */}
+          {product.category === "WISATA" && (product.investmentRequired || product.investmentDetailsId) && (
+            <div className="mb-6 p-5 bg-primary/5 border border-primary/20 rounded-2xl">
+              <h3 className="text-lg font-heading font-bold text-primary mb-3 flex items-center gap-2">
+                <Lightbulb className="w-5 h-5" /> {locale === "id" ? "Peluang Investasi" : "Investment Opportunity"}
+              </h3>
+              {product.investmentRequired && (
+                <div className="mb-3">
+                  <p className="text-sm text-neutral-500">{locale === "id" ? "Kebutuhan Dana" : "Required Funds"}</p>
+                  <p className="text-xl font-bold text-neutral-900">
+                    Rp {new Intl.NumberFormat("id-ID").format(product.investmentRequired)}
+                  </p>
+                </div>
+              )}
+              {product.investmentDetailsId && (
+                <div>
+                  <p className="text-sm text-neutral-500 mb-1">{locale === "id" ? "Detail Penggunaan" : "Usage Details"}</p>
+                  <p className="text-neutral-700 text-sm leading-relaxed whitespace-pre-wrap">
+                    {locale === "id" ? product.investmentDetailsId : (product.investmentDetailsEn || product.investmentDetailsId)}
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
 
           {/* Contact */}
           {product.contact && (
             <div className="border-t border-neutral-200 pt-6 space-y-3">
-              <p className="text-sm text-neutral-500">
-                📞 {labels.contact}: <span className="font-medium text-neutral-700">{product.contact}</span>
+              <p className="flex items-center gap-2 text-sm text-neutral-500">
+                <Phone className="w-4 h-4" /> {labels.contact}: <span className="font-medium text-neutral-700">{product.contact}</span>
               </p>
               {whatsappLink && (
                 <a
@@ -137,11 +179,57 @@ export function ProductDetail({ product, relatedProducts, locale, labels }: Prod
         </div>
       </div>
 
+      {/* Map & Gallery Section */}
+      {(product.locationUrl || galleryImages.length > 0) && (
+        <div className="mt-16 pt-16 border-t border-neutral-200">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Map */}
+            {product.locationUrl && (
+              <div>
+                <h2 className="text-xl font-heading font-bold text-neutral-900 mb-6 flex items-center gap-2">
+                  <MapIcon className="w-6 h-6 text-primary" /> {locale === "id" ? "Lokasi" : "Location"}
+                </h2>
+                <div className="w-full aspect-video md:aspect-[4/3] rounded-2xl overflow-hidden bg-neutral-100 border border-neutral-200">
+                  {product.locationUrl.includes("<iframe") ? (
+                    <div 
+                      className="w-full h-full [&>iframe]:w-full [&>iframe]:h-full"
+                      dangerouslySetInnerHTML={{ __html: product.locationUrl }} 
+                    />
+                  ) : (
+                    <iframe 
+                      src={product.locationUrl} 
+                      className="w-full h-full border-0" 
+                      allowFullScreen 
+                      loading="lazy" 
+                      referrerPolicy="no-referrer-when-downgrade"
+                    />
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Gallery */}
+            {galleryImages.length > 0 && (
+              <div className={!product.locationUrl ? "lg:col-span-2" : ""}>
+                <h2 className="text-xl font-heading font-bold text-neutral-900 mb-6 flex items-center gap-2">
+                  <Camera className="w-6 h-6 text-primary" /> {locale === "id" ? "Galeri Foto" : "Photo Gallery"}
+                </h2>
+                <LightboxGallery 
+                  images={galleryImages} 
+                  title={name} 
+                  columns={!product.locationUrl ? "4" : "3"} 
+                />
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Related Products */}
       {relatedProducts.length > 0 && (
         <div className="mt-16">
-          <h2 className="text-xl font-heading font-bold text-neutral-900 mb-6">
-            📦 {labels.related}
+          <h2 className="flex items-center gap-2 text-xl font-heading font-bold text-neutral-900 mb-6">
+            <Package className="w-6 h-6 text-primary" /> {labels.related}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {relatedProducts.map((p) => (

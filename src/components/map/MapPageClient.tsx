@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
+import { Map as MapIcon } from "lucide-react";
 import { api } from "@/lib/api";
 import { ScrollReveal } from "@/components/home/ScrollReveal";
 import type { MapFeature } from "@/types";
@@ -42,8 +43,8 @@ export function MapPageClient({ locale }: { locale: "id" | "en" }) {
       <div className="container mx-auto px-4">
         <ScrollReveal>
           <div className="text-center mb-8">
-            <h1 className="text-3xl md:text-4xl font-heading font-bold text-neutral-900 mb-2">
-              🗺️ {t("title")}
+            <h1 className="flex items-center justify-center gap-3 text-3xl md:text-4xl font-heading font-bold text-neutral-900 mb-2">
+              <MapIcon className="w-8 h-8 text-primary" /> {t("title")}
             </h1>
           </div>
         </ScrollReveal>

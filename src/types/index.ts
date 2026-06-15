@@ -27,8 +27,17 @@ export interface Product {
   price: number | null;
   unit: string | null;
   imageUrl: string | null;
-  gallery: string[];
+  storeImageUrl: string | null;
+  productionImageUrl: string | null;
+  gallery: string[] | null;
   contact: string | null;
+  locationUrl: string | null;
+  specificationsId: string | null;
+  specificationsEn: string | null;
+  isPotential: boolean;
+  investmentRequired: number | null;
+  investmentDetailsId: string | null;
+  investmentDetailsEn: string | null;
   isActive: boolean;
   createdAt: string;
   updatedAt: string;

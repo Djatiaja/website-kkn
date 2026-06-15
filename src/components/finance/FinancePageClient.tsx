@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { YearSelector } from "@/components/finance/YearSelector";
 import { BudgetOverview } from "@/components/finance/BudgetOverview";
+import { Wallet } from "lucide-react";
 import { IncomeExpenseChart } from "@/components/finance/IncomeExpenseChart";
 import { ExpenseDonut } from "@/components/finance/ExpenseDonut";
 import { YearlyTrend } from "@/components/finance/YearlyTrend";
@@ -60,8 +61,8 @@ export function FinancePageClient({ locale }: { locale: "id" | "en" }) {
         {/* Header */}
         <ScrollReveal>
           <div className="text-center mb-10">
-            <h1 className="text-3xl md:text-4xl font-heading font-bold text-neutral-900 mb-2">
-              💰 {t("title")}
+            <h1 className="flex items-center justify-center gap-3 text-3xl md:text-4xl font-heading font-bold text-neutral-900 mb-2">
+              <Wallet className="w-8 h-8 text-primary" /> {t("title")}
             </h1>
             <p className="text-neutral-500">{t("subtitle")}</p>
           </div>
@@ -102,6 +103,10 @@ export function FinancePageClient({ locale }: { locale: "id" | "en" }) {
                   records={records}
                   locale={locale}
                   title={t("chart_bar.title")}
+                  labels={{
+                    budget: t("table.budget"),
+                    actual: t("table.actual"),
+                  }}
                 />
               </ScrollReveal>
               <ScrollReveal delay={250}>
@@ -116,7 +121,14 @@ export function FinancePageClient({ locale }: { locale: "id" | "en" }) {
             {/* Trend Chart */}
             {trend.length > 1 && (
               <ScrollReveal delay={300}>
-                <YearlyTrend data={trend} title={t("chart_line.title")} />
+                <YearlyTrend
+                  data={trend}
+                  title={t("chart_line.title")}
+                  labels={{
+                    income: t("income"),
+                    expense: t("expense"),
+                  }}
+                />
               </ScrollReveal>
             )}
 

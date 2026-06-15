@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { Home } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
@@ -63,7 +64,7 @@ export function Navbar({ locale }: NavbarProps) {
               isScrolled ? "text-neutral-900" : "text-white"
             )}
           >
-            <span className="text-2xl">🏘️</span>
+            <Home className="w-6 h-6 text-primary" />
             <span className="hidden sm:inline">Desa Sukamakmur</span>
           </Link>
 
@@ -151,7 +152,7 @@ export function Navbar({ locale }: NavbarProps) {
             <div className="p-6">
               <div className="flex items-center justify-between mb-8">
                 <span className="font-heading font-bold text-lg text-neutral-900">
-                  🏘️ Menu
+                  <Home className="w-5 h-5 mr-2 inline" /> Menu
                 </span>
                 <button
                   onClick={() => setIsMobileOpen(false)}

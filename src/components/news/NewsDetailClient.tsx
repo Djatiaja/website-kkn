@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
+import { useQuery } from "@tanstack/react-query";
+import { Newspaper, Inbox } from "lucide-react";
 import { api } from "@/lib/api";
 import { ScrollReveal } from "@/components/home/ScrollReveal";
 import { Badge, Skeleton } from "@/components/ui";
@@ -41,9 +43,12 @@ export function NewsDetailClient({ id, locale }: NewsDetailClientProps) {
 
   if (!news) {
     return (
-      <div className="pt-28 pb-20 text-center">
-        <p className="text-5xl mb-4">😕</p>
-        <p className="text-neutral-500">Berita tidak ditemukan</p>
+      <div className="pt-32 pb-20 text-center flex flex-col items-center">
+        <Inbox className="w-16 h-16 mb-4 text-neutral-300" />
+        <h1 className="text-2xl font-bold text-neutral-800">Berita tidak ditemukan</h1>
+        <Link href="/berita" className="text-primary mt-4 hover:underline">
+          Kembali ke daftar berita
+        </Link>
       </div>
     );
   }

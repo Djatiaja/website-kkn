@@ -33,7 +33,7 @@ export const POST = withAuth(
   withErrorHandler(async (req: NextRequest) => {
     const body = await req.json();
     const validated = createProductSchema.parse(body);
-    const product = await productService.create(validated);
+    const product = await productService.create(validated as any);
     return NextResponse.json(product, { status: 201 });
   })
 );

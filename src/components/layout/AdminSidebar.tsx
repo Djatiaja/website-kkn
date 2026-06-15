@@ -5,23 +5,27 @@ import { usePathname } from "next/navigation";
 import { useSidebar } from "@/contexts/SidebarContext";
 import { cn } from "@/lib/utils";
 import { signOut } from "next-auth/react";
+import { 
+  LayoutDashboard, FileText, ShoppingBag, DollarSign, Map as MapIcon, 
+  Newspaper, Image as ImageIcon, Users, Home, ExternalLink, LogOut 
+} from "lucide-react";
 
 interface AdminSidebarProps {
   userRole: "ADMIN" | "EDITOR";
 }
 
 const menuItems = [
-  { label: "Dashboard", icon: "📊", href: "/admin" },
-  { label: "Profil Desa", icon: "📋", href: "/admin/profil" },
-  { label: "Produk", icon: "🛍️", href: "/admin/produk" },
-  { label: "Keuangan", icon: "💰", href: "/admin/keuangan" },
-  { label: "Peta", icon: "🗺️", href: "/admin/peta" },
-  { label: "Berita", icon: "📰", href: "/admin/berita" },
-  { label: "Galeri", icon: "📸", href: "/admin/galeri" },
+  { label: "Dashboard", icon: LayoutDashboard, href: "/admin" },
+  { label: "Profil Desa", icon: FileText, href: "/admin/profil" },
+  { label: "Produk", icon: ShoppingBag, href: "/admin/produk" },
+  { label: "Keuangan", icon: DollarSign, href: "/admin/keuangan" },
+  { label: "Peta", icon: MapIcon, href: "/admin/peta" },
+  { label: "Berita", icon: Newspaper, href: "/admin/berita" },
+  { label: "Galeri", icon: ImageIcon, href: "/admin/galeri" },
 ];
 
 const adminOnlyItems = [
-  { label: "Pengguna", icon: "👤", href: "/admin/users" },
+  { label: "Pengguna", icon: Users, href: "/admin/users" },
 ];
 
 export function AdminSidebar({ userRole }: AdminSidebarProps) {
@@ -44,7 +48,7 @@ export function AdminSidebar({ userRole }: AdminSidebarProps) {
       <div className="p-4 border-b border-neutral-100 flex items-center justify-between">
         {isOpen && (
           <div className="flex items-center gap-2">
-            <span className="text-xl">🏘️</span>
+            <Home className="w-5 h-5 text-neutral-700" />
             <div>
               <p className="font-heading font-bold text-sm text-neutral-900">
                 Admin
@@ -96,7 +100,9 @@ export function AdminSidebar({ userRole }: AdminSidebarProps) {
               )}
               title={!isOpen ? item.label : undefined}
             >
-              <span className="text-base flex-shrink-0">{item.icon}</span>
+              <span className="flex-shrink-0">
+                <item.icon className="w-5 h-5" />
+              </span>
               {isOpen && <span>{item.label}</span>}
             </Link>
           );
@@ -113,7 +119,7 @@ export function AdminSidebar({ userRole }: AdminSidebarProps) {
           )}
           title={!isOpen ? "Ke Website" : undefined}
         >
-          <span className="text-base flex-shrink-0">🔗</span>
+          <ExternalLink className="w-5 h-5 flex-shrink-0" />
           {isOpen && <span>Ke Website</span>}
         </Link>
         <button
@@ -124,7 +130,7 @@ export function AdminSidebar({ userRole }: AdminSidebarProps) {
           )}
           title={!isOpen ? "Logout" : undefined}
         >
-          <span className="text-base flex-shrink-0">🚪</span>
+          <LogOut className="w-5 h-5 flex-shrink-0" />
           {isOpen && <span>Logout</span>}
         </button>
       </div>

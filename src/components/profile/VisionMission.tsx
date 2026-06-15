@@ -1,5 +1,6 @@
 "use client";
 
+import { Target, Flag } from "lucide-react";
 import { ScrollReveal } from "@/components/home/ScrollReveal";
 
 interface VisionMissionProps {
@@ -18,8 +19,8 @@ export function VisionMission({ visionTitle, missionTitle, vision, mission }: Vi
         {/* Vision */}
         <ScrollReveal>
           <div className="text-center mb-12">
-            <h2 className="text-2xl font-heading font-bold text-neutral-900 mb-2">
-              🎯 {visionTitle}
+            <h2 className="flex justify-center items-center gap-2 text-2xl font-heading font-bold text-neutral-900 mb-2">
+              <Target className="w-6 h-6 text-primary" /> {visionTitle}
             </h2>
             <div className="w-16 h-1 bg-primary mx-auto rounded-full mb-6" />
             <blockquote className="text-lg md:text-xl text-neutral-700 italic leading-relaxed bg-primary/5 p-6 rounded-2xl border-l-4 border-primary">
@@ -31,8 +32,8 @@ export function VisionMission({ visionTitle, missionTitle, vision, mission }: Vi
         {/* Mission */}
         <ScrollReveal delay={200}>
           <div>
-            <h2 className="text-2xl font-heading font-bold text-neutral-900 mb-6 text-center">
-              📌 {missionTitle}
+            <h2 className="flex items-center justify-center gap-2 text-2xl font-heading font-bold text-neutral-900 mb-6">
+              <Flag className="w-6 h-6 text-primary" /> {missionTitle}
             </h2>
             <div className="space-y-3">
               {missionItems.map((item, idx) => {

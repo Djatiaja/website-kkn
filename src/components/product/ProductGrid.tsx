@@ -6,6 +6,8 @@ import { ProductCard } from "./ProductCard";
 import { ProductFilter } from "./ProductFilter";
 import type { Product, PaginatedResponse } from "@/types";
 import { api } from "@/lib/api";
+import { useTranslations } from "next-intl";
+import { PackageOpen } from "lucide-react";
 
 interface ProductGridProps {
   locale: "id" | "en";
@@ -26,6 +28,7 @@ interface ProductGridProps {
 export function ProductGrid({ locale, labels }: ProductGridProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const t = useTranslations("Products");
 
   const [products, setProducts] = useState<Product[]>([]);
   const [total, setTotal] = useState(0);
@@ -104,9 +107,9 @@ export function ProductGrid({ locale, labels }: ProductGridProps) {
           ))}
         </div>
       ) : products.length === 0 ? (
-        <div className="text-center py-20">
-          <span className="text-5xl block mb-4">📦</span>
-          <p className="text-neutral-500">{labels.empty}</p>
+        <div className="flex flex-col items-center justify-center py-16 text-neutral-500">
+          <PackageOpen className="w-16 h-16 mb-4 text-neutral-300" />
+          <p>{t("empty")}</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

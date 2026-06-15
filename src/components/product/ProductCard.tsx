@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Store, MountainSnow, Sprout, Paintbrush, UtensilsCrossed, Package } from "lucide-react";
 import type { Product } from "@/types";
 
 interface ProductCardProps {
@@ -16,12 +18,12 @@ const categoryColors: Record<string, string> = {
   KULINER: "bg-warning/10 text-secondary",
 };
 
-const categoryIcons: Record<string, string> = {
-  UMKM: "🏪",
-  WISATA: "🏔️",
-  PERTANIAN: "🌾",
-  KERAJINAN: "🎨",
-  KULINER: "🍜",
+const categoryIcons: Record<string, React.ReactNode> = {
+  UMKM: <Store className="w-12 h-12 text-neutral-300" />,
+  WISATA: <MountainSnow className="w-12 h-12 text-neutral-300" />,
+  PERTANIAN: <Sprout className="w-12 h-12 text-neutral-300" />,
+  KERAJINAN: <Paintbrush className="w-12 h-12 text-neutral-300" />,
+  KULINER: <UtensilsCrossed className="w-12 h-12 text-neutral-300" />,
 };
 
 export function ProductCard({ product, locale }: ProductCardProps) {
@@ -43,11 +45,11 @@ export function ProductCard({ product, locale }: ProductCardProps) {
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-5xl">
-            {categoryIcons[product.category] || "📦"}
+            {categoryIcons[product.category] || <Package className="w-12 h-12 text-neutral-300" />}
           </div>
         )}
         <span className={`absolute top-3 left-3 px-2.5 py-1 text-xs font-medium rounded-full ${colorClass}`}>
-          {product.category}
+          {product.category === "WISATA" ? (product.isPotential ? "Potensi Wisata" : "Wisata") : product.category}
         </span>
       </div>
 
@@ -56,12 +58,16 @@ export function ProductCard({ product, locale }: ProductCardProps) {
         <h3 className="font-heading font-semibold text-sm text-neutral-900 mb-1 line-clamp-2 group-hover:text-primary transition-colors">
           {name}
         </h3>
-        {product.price && (
-          <p className="text-primary font-bold text-sm">
+        {product.price && product.price > 0 ? (
+          <p className="text-primary font-bold text-sm mt-1">
             Rp {new Intl.NumberFormat("id-ID").format(product.price)}
             {product.unit && (
               <span className="text-neutral-400 font-normal text-xs"> / {product.unit}</span>
             )}
+          </p>
+        ) : (
+          <p className="text-neutral-500 text-xs line-clamp-2 mt-1 leading-relaxed">
+            {locale === "id" ? product.descriptionId : product.descriptionEn}
           </p>
         )}
       </div>

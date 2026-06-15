@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { News } from "@/types";
+import { Newspaper } from "lucide-react";
 
 interface LatestNewsProps {
   news: News[];
@@ -48,7 +49,7 @@ export function LatestNews({
             return (
               <Link
                 key={article.id}
-                href={`/berita/${article.slug}`}
+                href={`/${locale}/berita/${article.slug}`}
                 className="group bg-white rounded-2xl border border-neutral-200 overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all duration-300"
               >
                 {/* Cover */}
@@ -60,8 +61,8 @@ export function LatestNews({
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-4xl opacity-50">
-                      📰
+                    <div className="w-full h-full flex items-center justify-center opacity-50">
+                      <Newspaper className="w-12 h-12" />
                     </div>
                   )}
                   <span className={`absolute top-3 left-3 px-2.5 py-1 text-xs font-medium rounded-full ${colorClass}`}>
@@ -91,7 +92,7 @@ export function LatestNews({
 
         <div className="text-center mt-10">
           <Link
-            href="/berita"
+            href={`/${locale}/berita`}
             className="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all duration-300"
           >
             {viewAllText} →

@@ -1,5 +1,6 @@
 "use client";
 
+import { History as HistoryIcon } from "lucide-react";
 import { ScrollReveal } from "@/components/home/ScrollReveal";
 
 interface HistoryProps {
@@ -38,8 +39,8 @@ export function History({ title, content }: HistoryProps) {
     <section className="py-16 bg-neutral-50">
       <div className="container mx-auto px-4 max-w-4xl">
         <ScrollReveal>
-          <h2 className="text-2xl font-heading font-bold text-neutral-900 mb-2 text-center">
-            📜 {title}
+          <h2 className="flex justify-center items-center gap-2 text-2xl font-heading font-bold text-neutral-900 mb-2">
+            <HistoryIcon className="w-6 h-6 text-primary" /> {title}
           </h2>
           <div className="w-16 h-1 bg-primary mx-auto rounded-full mb-10" />
         </ScrollReveal>

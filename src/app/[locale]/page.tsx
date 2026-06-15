@@ -5,6 +5,7 @@ import { FeaturedProducts } from "@/components/home/FeaturedProducts";
 import { LatestNews } from "@/components/home/LatestNews";
 import { MiniMap } from "@/components/home/MiniMap";
 import { prisma } from "@/lib/prisma";
+import { Users, Sprout, ShoppingBag, MountainSnow } from "lucide-react";
 
 async function getHomeData() {
   const [profile, products, news] = await Promise.all([
@@ -39,22 +40,22 @@ export default async function HomePage({
     {
       value: profile?.population || 5247,
       label: t("highlights.population"),
-      icon: "👥",
+      icon: <Users className="w-8 h-8" />,
     },
     {
       value: profile?.area ? Math.round(profile.area) : 1200,
       label: t("highlights.area"),
-      icon: "🌾",
+      icon: <Sprout className="w-8 h-8" />,
     },
     {
       value: 45,
       label: t("highlights.products"),
-      icon: "🛍️",
+      icon: <ShoppingBag className="w-8 h-8" />,
     },
     {
       value: 12,
       label: t("highlights.attractions"),
-      icon: "🏔️",
+      icon: <MountainSnow className="w-8 h-8" />,
     },
   ];
 

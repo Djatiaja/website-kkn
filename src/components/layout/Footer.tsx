@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { Home, MapPin, Phone, Mail } from "lucide-react";
 
 interface FooterProps {
   locale: "id" | "en";
@@ -26,7 +27,7 @@ export function Footer({ locale }: FooterProps) {
           {/* Village Info */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <span className="text-2xl">🏘️</span>
+              <Home className="w-6 h-6 text-primary" />
               <h3 className="font-heading font-bold text-lg">
                 Desa Sukamakmur
               </h3>
@@ -89,7 +90,7 @@ export function Footer({ locale }: FooterProps) {
             <h4 className="font-heading font-semibold mb-4">{t("contact")}</h4>
             <div className="space-y-3 text-sm text-neutral-400">
               <div className="flex items-start gap-2">
-                <span>📍</span>
+                <MapPin className="w-5 h-5 text-neutral-400 mt-0.5" />
                 <div>
                   <p className="font-medium text-neutral-300">
                     {t("address")}
@@ -101,7 +102,7 @@ export function Footer({ locale }: FooterProps) {
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <span>📞</span>
+                <Phone className="w-5 h-5 text-neutral-400" />
                 <div>
                   <span className="font-medium text-neutral-300">
                     {t("phone")}:
@@ -110,7 +111,7 @@ export function Footer({ locale }: FooterProps) {
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <span>✉️</span>
+                <Mail className="w-5 h-5 text-neutral-400" />
                 <div>
                   <span className="font-medium text-neutral-300">
                     {t("email")}:

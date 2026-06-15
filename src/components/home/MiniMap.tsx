@@ -18,17 +18,15 @@ export function MiniMap({ title, viewFullText }: MiniMapProps) {
 
         <div className="max-w-4xl mx-auto">
           <div className="relative rounded-2xl overflow-hidden border border-neutral-200 shadow-sm bg-white">
-            {/* Static map placeholder — replaced with Mapbox in Sprint 5 */}
-            <div className="h-72 md:h-96 bg-gradient-to-br from-primary/5 via-neutral-50 to-secondary/5 flex items-center justify-center">
-              <div className="text-center">
-                <span className="text-6xl block mb-4">🗺️</span>
-                <p className="text-neutral-500 text-sm">
-                  Desa Sukamakmur, Kec. Sukamakmur, Kab. Bogor
-                </p>
-                <p className="text-neutral-400 text-xs mt-1">
-                  -6.730°S, 106.838°E
-                </p>
-              </div>
+            {/* Google Maps Embed */}
+            <div className="h-72 md:h-96 w-full">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126748.56347862248!2d106.838!3d-6.730!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwNDMnNDguMCJTIDEwNsKwNTAnMTYuOCJF!5e0!3m2!1sen!2sid!4v1709405625447!5m2!1sen!2sid" 
+                className="w-full h-full border-0" 
+                allowFullScreen 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
 
             {/* Overlay link */}

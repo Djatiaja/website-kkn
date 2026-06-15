@@ -16,16 +16,28 @@ interface IncomeExpenseChartProps {
   records: FinanceRecord[];
   locale: "id" | "en";
   title: string;
+  labels: {
+    budget: string;
+    actual: string;
+  };
 }
 
-export function IncomeExpenseChart({ records, locale, title }: IncomeExpenseChartProps) {
+export function IncomeExpenseChart({ records, locale, title, labels }: IncomeExpenseChartProps) {
   // Group by category, show budget vs actual
   const expenseRecords = records.filter((r) => r.type === "EXPENSE");
 
-  const chartData = expenseRecords.map((r) => ({
-    category: locale === "id" ? r.categoryId : r.categoryEn,
-    anggaran: r.budget || 0,
-    realisasi: r.amount,
+  const grouped = expenseRecords.reduce((acc, r) => {
+    const category = locale === "id" ? r.categoryId : r.categoryEn;
+    if (!acc[category]) acc[category] = { anggaran: 0, realisasi: 0 };
+    acc[category].anggaran += r.budget || 0;
+    acc[category].realisasi += r.amount;
+    return acc;
+  }, {} as Record<string, { anggaran: number; realisasi: number }>);
+
+  const chartData = Object.entries(grouped).map(([category, data]) => ({
+    category,
+    anggaran: data.anggaran,
+    realisasi: data.realisasi,
   }));
 
   const formatRupiah = (value: number) => {
@@ -50,12 +62,12 @@ export function IncomeExpenseChart({ records, locale, title }: IncomeExpenseChar
             />
             <YAxis tick={{ fontSize: 11, fill: "#6B7280" }} tickFormatter={formatRupiah} />
             <Tooltip
-              formatter={(value) => [`Rp ${Number(value).toLocaleString("id-ID")}`, ""]}
+              formatter={(value, name) => [`Rp ${Number(value).toLocaleString("id-ID")}`, name]}
               contentStyle={{ borderRadius: 12, border: "1px solid #E5E7EB" }}
             />
             <Legend wrapperStyle={{ paddingTop: 10 }} />
-            <Bar dataKey="anggaran" name="Anggaran" fill="#B7C4B1" radius={[4, 4, 0, 0]} />
-            <Bar dataKey="realisasi" name="Realisasi" fill="#2D6A4F" radius={[4, 4, 0, 0]} />
+            <Bar dataKey="anggaran" name={labels.budget} fill="#B7C4B1" radius={[4, 4, 0, 0]} />
+            <Bar dataKey="realisasi" name={labels.actual} fill="#2D6A4F" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>

@@ -9,6 +9,16 @@ export const productSchema = z.object({
   price: z.number().min(0, "Harga harus >= 0").optional().nullable(),
   unit: z.string().optional().nullable(),
   contact: z.string().optional().nullable(),
+  storeImageUrl: z.string().optional().nullable(),
+  productionImageUrl: z.string().optional().nullable(),
+  gallery: z.array(z.string()).optional().nullable(),
+  locationUrl: z.string().optional().nullable(),
+  specificationsId: z.string().optional().nullable(),
+  specificationsEn: z.string().optional().nullable(),
+  isPotential: z.boolean().default(false),
+  investmentRequired: z.number().min(0, "Investasi harus >= 0").optional().nullable(),
+  investmentDetailsId: z.string().optional().nullable(),
+  investmentDetailsEn: z.string().optional().nullable(),
   isActive: z.boolean().default(true),
 });
 

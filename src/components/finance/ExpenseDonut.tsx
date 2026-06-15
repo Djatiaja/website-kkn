@@ -22,10 +22,17 @@ export function ExpenseDonut({ records, locale, title }: ExpenseDonutProps) {
   const expenseRecords = records.filter((r) => r.type === "EXPENSE");
   const totalExpense = expenseRecords.reduce((sum, r) => sum + r.amount, 0);
 
-  const chartData = expenseRecords.map((r) => ({
-    name: locale === "id" ? r.categoryId : r.categoryEn,
-    value: r.amount,
-    percentage: ((r.amount / totalExpense) * 100).toFixed(1),
+  const grouped = expenseRecords.reduce((acc, r) => {
+    const name = locale === "id" ? r.categoryId : r.categoryEn;
+    if (!acc[name]) acc[name] = 0;
+    acc[name] += r.amount;
+    return acc;
+  }, {} as Record<string, number>);
+
+  const chartData = Object.entries(grouped).map(([name, value]) => ({
+    name,
+    value,
+    percentage: ((value / totalExpense) * 100).toFixed(1),
   }));
 
   const formatRupiah = (value: number) => {
@@ -56,7 +63,7 @@ export function ExpenseDonut({ records, locale, title }: ExpenseDonutProps) {
               ))}
             </Pie>
             <Tooltip
-              formatter={(value) => [formatRupiah(Number(value)), ""]}
+              formatter={(value, name) => [formatRupiah(Number(value)), name]}
               contentStyle={{ borderRadius: 12, border: "1px solid #E5E7EB" }}
             />
           </PieChart>

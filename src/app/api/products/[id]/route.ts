@@ -19,7 +19,7 @@ export const PUT = withAuth(
     const { id } = await params;
     const body = await req.json();
     const validated = updateProductSchema.parse(body);
-    const product = await productService.update(id, validated);
+    const product = await productService.update(id, validated as any);
     return NextResponse.json(product);
   })
 );

@@ -1,6 +1,7 @@
 "use client";
 
 import type { MapFeature } from "@/types";
+import { MapPin, Building2, Route, Map, School, Hospital, Droplet } from "lucide-react";
 
 interface LocationListProps {
   features: MapFeature[];
@@ -8,19 +9,18 @@ interface LocationListProps {
   onLocationClick: (coords: [number, number]) => void;
 }
 
-const typeIcons: Record<string, string> = {
-  POI: "📍",
-  FACILITY: "🏛️",
-  ROAD: "🛤️",
-  BOUNDARY: "🗺️",
+const typeIcons: Record<string, React.ReactNode> = {
+  POI: <MapPin className="w-4 h-4 text-primary" />,
+  FACILITY: <Building2 className="w-4 h-4 text-primary" />,
+  ROAD: <Route className="w-4 h-4 text-primary" />,
+  BOUNDARY: <Map className="w-4 h-4 text-primary" />,
 };
 
-const featureIcons: Record<string, string> = {
-  building: "🏛️",
-  school: "🏫",
-  mosque: "🕌",
-  hospital: "🏥",
-  waterfall: "💧",
+const iconMap: Record<string, React.ReactNode> = {
+  building: <Building2 className="w-4 h-4 text-neutral-500" />,
+  school: <School className="w-4 h-4 text-neutral-500" />,
+  hospital: <Hospital className="w-4 h-4 text-neutral-500" />,
+  waterfall: <Droplet className="w-4 h-4 text-neutral-500" />,
 };
 
 export function LocationList({ features, locale, onLocationClick }: LocationListProps) {
@@ -31,7 +31,6 @@ export function LocationList({ features, locale, onLocationClick }: LocationList
       {features.map((feature) => {
         const name = locale === "id" ? feature.nameId : feature.nameEn;
         const desc = locale === "id" ? feature.descriptionId : feature.descriptionEn;
-        const icon = feature.icon ? featureIcons[feature.icon] || typeIcons[feature.type] : typeIcons[feature.type];
         const geom = feature.geometry as { coordinates: [number, number] };
 
         return (
@@ -40,7 +39,9 @@ export function LocationList({ features, locale, onLocationClick }: LocationList
             onClick={() => onLocationClick(geom.coordinates)}
             className="flex items-start gap-3 p-4 rounded-xl border border-neutral-200 bg-white hover:border-primary/30 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 text-left"
           >
-            <span className="text-2xl flex-shrink-0">{icon}</span>
+            <span className="flex-shrink-0 mt-0.5">
+              {feature.icon ? iconMap[feature.icon] || <MapPin className="w-4 h-4 text-neutral-500" /> : typeIcons[feature.type] || <MapPin className="w-4 h-4 text-neutral-500" />}
+            </span>
             <div className="min-w-0">
               <p className="font-heading font-semibold text-sm text-neutral-900 truncate">{name}</p>
               {desc && (

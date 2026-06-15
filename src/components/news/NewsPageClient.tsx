@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { Newspaper, Inbox } from "lucide-react";
 import { useNewsList } from "@/hooks/useNews";
 import { ScrollReveal } from "@/components/home/ScrollReveal";
 import { NewsCard } from "@/components/news/NewsCard";
@@ -28,8 +29,8 @@ export function NewsPageClient({ locale }: { locale: "id" | "en" }) {
       <div className="container mx-auto px-4">
         <ScrollReveal>
           <div className="text-center mb-8">
-            <h1 className="text-3xl md:text-4xl font-heading font-bold text-neutral-900 mb-2">
-              📰 {t("title")}
+            <h1 className="flex items-center justify-center gap-3 text-3xl md:text-4xl font-heading font-bold text-neutral-900 mb-2">
+              <Newspaper className="w-8 h-8 text-primary" /> {t("title")}
             </h1>
           </div>
         </ScrollReveal>
@@ -80,8 +81,8 @@ export function NewsPageClient({ locale }: { locale: "id" | "en" }) {
             )}
           </>
         ) : (
-          <div className="text-center py-16 text-neutral-500">
-            <p className="text-5xl mb-4">📭</p>
+          <div className="flex flex-col items-center justify-center py-16 text-neutral-500">
+            <Inbox className="w-16 h-16 mb-4 text-neutral-300" />
             <p>{t("empty")}</p>
           </div>
         )}

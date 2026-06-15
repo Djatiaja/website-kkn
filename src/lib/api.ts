@@ -1,5 +1,6 @@
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL
-  ? `${process.env.NEXT_PUBLIC_APP_URL}/api`
+const isServer = typeof window === "undefined";
+const BASE_URL = isServer
+  ? (process.env.NEXT_PUBLIC_APP_URL ? `${process.env.NEXT_PUBLIC_APP_URL}/api` : "http://localhost:3000/api")
   : "/api";
 
 class ApiError extends Error {

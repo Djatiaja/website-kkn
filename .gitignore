@@ -76,6 +76,7 @@ Thumbs.db
 !/public/uploads/.gitkeep
 /public/videos/*
 !/public/videos/.gitkeep
+!/public/videos/hero-video.mp4
 
 # Local development
 .vercel

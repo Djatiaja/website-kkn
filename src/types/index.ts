@@ -56,6 +56,8 @@ export interface FinanceRecord {
   budget: number | null;
   sourceId: string | null;
   sourceEn: string | null;
+  descriptionId: string | null;
+  descriptionEn: string | null;
 }
 
 export interface FinanceSummary {
@@ -149,4 +151,32 @@ export interface User {
   email: string;
   name: string;
   role: "ADMIN" | "EDITOR";
+}
+
+// ─── Digital Material ────────────────────────────────────
+export type MaterialCategory =
+  | "PENDIDIKAN"
+  | "KESEHATAN"
+  | "PERTANIAN"
+  | "TEKNOLOGI"
+  | "UMUM";
+
+export type MaterialFileType = "PDF" | "DOC" | "VIDEO" | "IMAGE" | "OTHER";
+
+export interface DigitalMaterial {
+  id: string;
+  titleId: string;
+  titleEn: string;
+  descriptionId: string | null;
+  descriptionEn: string | null;
+  category: MaterialCategory;
+  fileUrl: string;
+  fileType: MaterialFileType;
+  fileSize: number;
+  fileName: string;
+  thumbnailUrl: string | null;
+  downloadCount: number;
+  isPublished: boolean;
+  createdAt: string;
+  updatedAt: string;
 }

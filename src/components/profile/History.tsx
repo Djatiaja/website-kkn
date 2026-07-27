@@ -14,21 +14,39 @@ interface TimelineEvent {
 }
 
 function parseHistory(content: string): TimelineEvent[] {
-  // Try to extract year-based events from the text
-  const yearRegex = /(?:pada\s+)?(?:tahun\s+)?(\d{4})[,.]?\s*([^.]+\.)/gi;
-  const events: TimelineEvent[] = [];
-  let match;
+  // Strip HTML tags for year detection, keep original HTML for rendering
+  const plainText = content.replace(/<[^>]+>/g, " ").replace(/&nbsp;/g, " ");
+  const yearRegex = /(?:pada\s+)?(?:tahun\s+)?(\d{4})[,.:]\s*/gi;
 
-  while ((match = yearRegex.exec(content)) !== null) {
-    events.push({ year: match[1], text: match[2].trim() });
+  // Find year positions in plain text, then map back to HTML segments
+  const yearPositions: { year: string; startIdx: number }[] = [];
+  let match;
+  while ((match = yearRegex.exec(plainText)) !== null) {
+    yearPositions.push({ year: match[1], startIdx: match.index + match[0].length });
   }
 
-  // If no year-based events found, just show as paragraphs
-  if (events.length === 0) {
+  // If no year-based events found, just show as a single block
+  if (yearPositions.length === 0) {
     return [{ year: "", text: content }];
   }
 
-  return events;
+  // Split HTML content by <p> tags (Quill output) and match years
+  const paragraphs = content.split(/(?=<p)/i).filter((s) => s.trim());
+  const events: TimelineEvent[] = [];
+  for (const para of paragraphs) {
+    const paraPlain = para.replace(/<[^>]+>/g, "").replace(/&nbsp;/g, " ");
+    const yearMatch = paraPlain.match(/(?:pada\s+)?(?:tahun\s+)?(\d{4})/i);
+    if (yearMatch) {
+      events.push({ year: yearMatch[1], text: para });
+    } else if (events.length > 0) {
+      // Append continuation text to previous event
+      events[events.length - 1].text += para;
+    } else {
+      events.push({ year: "", text: para });
+    }
+  }
+
+  return events.length > 0 ? events : [{ year: "", text: content }];
 }
 
 export function History({ title, content }: HistoryProps) {
@@ -63,9 +81,10 @@ export function History({ title, content }: HistoryProps) {
                       <span className="inline-block px-3 py-1 bg-primary text-white text-xs font-bold rounded-full mb-2">
                         {event.year}
                       </span>
-                      <p className="text-sm text-neutral-600 leading-relaxed">
-                        {event.text}
-                      </p>
+                      <div
+                        className="rich-text text-sm text-neutral-600 leading-relaxed"
+                        dangerouslySetInnerHTML={{ __html: event.text }}
+                      />
                     </div>
                   </div>
                 </ScrollReveal>
@@ -76,7 +95,10 @@ export function History({ title, content }: HistoryProps) {
           /* Simple text */
           <ScrollReveal>
             <div className="prose prose-neutral max-w-none">
-              <p className="text-neutral-700 leading-relaxed">{content}</p>
+              <div
+                className="rich-text text-neutral-700 leading-relaxed text-center"
+                dangerouslySetInnerHTML={{ __html: content }}
+              />
             </div>
           </ScrollReveal>
         )}

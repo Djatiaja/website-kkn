@@ -161,9 +161,7 @@ export function GalleryPageClient({ locale }: { locale: "id" | "en" }) {
               )}
               <div className="mt-4 text-center">
                 <h3 className="text-white font-medium text-lg">{locale === "id" ? selectedItem.titleId : selectedItem.titleEn}</h3>
-                {(locale === "id" ? selectedItem.descriptionId : selectedItem.descriptionEn) && (
-                  <p className="text-white/80 text-sm mt-2 max-w-2xl mx-auto">{locale === "id" ? selectedItem.descriptionId : selectedItem.descriptionEn}</p>
-                )}
+                {(() => { const d = locale === "id" ? selectedItem.descriptionId : selectedItem.descriptionEn; return d ? <p className="text-white/80 text-sm mt-2 max-w-2xl mx-auto [&_a]:underline" dangerouslySetInnerHTML={{ __html: d }} /> : null; })()}
               </div>
             </div>
 

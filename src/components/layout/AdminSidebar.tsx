@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { signOut } from "next-auth/react";
 import { 
   LayoutDashboard, FileText, ShoppingBag, DollarSign, Map as MapIcon, 
-  Newspaper, Image as ImageIcon, Users, Home, ExternalLink, LogOut 
+  Newspaper, Image as ImageIcon, Users, Home, ExternalLink, LogOut, Megaphone, BookOpen, Wallet 
 } from "lucide-react";
 
 interface AdminSidebarProps {
@@ -18,8 +18,9 @@ const menuItems = [
   { label: "Dashboard", icon: LayoutDashboard, href: "/admin" },
   { label: "Profil Desa", icon: FileText, href: "/admin/profil" },
   { label: "Produk", icon: ShoppingBag, href: "/admin/produk" },
-  { label: "Keuangan", icon: DollarSign, href: "/admin/keuangan" },
-  { label: "Peta", icon: MapIcon, href: "/admin/peta" },
+  { label: "Keuangan", icon: Wallet, href: "/admin/keuangan" },
+  { label: "Materi Digital", icon: BookOpen, href: "/admin/materi" },
+  { label: "Peta Potensi", icon: MapIcon, href: "/admin/peta" },
   { label: "Berita", icon: Newspaper, href: "/admin/berita" },
   { label: "Galeri", icon: ImageIcon, href: "/admin/galeri" },
 ];

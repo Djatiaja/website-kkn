@@ -10,10 +10,21 @@ const ALLOWED_VIDEO_TYPES = ["video/mp4", "video/webm"];
 const MAX_IMAGE_SIZE = 10_000_000; // 10MB
 const MAX_VIDEO_SIZE = 100_000_000; // 100MB
 
+const ALLOWED_DOC_TYPES = [
+  "application/pdf",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+];
+
 export const uploadService = {
   async saveFile(file: File, folder: string): Promise<string> {
     const isVideo = file.type.startsWith("video/");
-    const allowedTypes = isVideo ? ALLOWED_VIDEO_TYPES : ALLOWED_IMAGE_TYPES;
+    const isDoc = file.type.startsWith("application/");
+    const allowedTypes = isVideo 
+      ? ALLOWED_VIDEO_TYPES 
+      : isDoc 
+        ? ALLOWED_DOC_TYPES 
+        : ALLOWED_IMAGE_TYPES;
     const maxSize = isVideo ? MAX_VIDEO_SIZE : MAX_IMAGE_SIZE;
 
     if (!allowedTypes.includes(file.type)) {

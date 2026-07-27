@@ -1,8 +1,8 @@
 import { prisma } from "@/lib/prisma";
-import type { Prisma, NewsCategory } from "@prisma/client";
+import type { Prisma } from "@prisma/client";
 
 export interface NewsFilters {
-  category?: NewsCategory;
+  category?: string;
   isPublished?: boolean;
   search?: string;
   page?: number;
@@ -14,7 +14,7 @@ export const newsRepository = {
     const { category, isPublished, search, page = 1, pageSize = 10 } = filters;
 
     const where: Prisma.NewsWhereInput = {
-      ...(category && { category }),
+      ...(category && { category: category as Prisma.EnumNewsCategoryFilter }),
       ...(isPublished !== undefined && { isPublished }),
       ...(search && {
         OR: [

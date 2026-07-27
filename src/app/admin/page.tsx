@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Card } from "@/components/ui";
 import { api } from "@/lib/api";
+import { VILLAGE_CONFIG } from "@/lib/constants";
 
 interface DashboardStats {
   products: number;
@@ -40,7 +41,7 @@ export default function AdminDashboardPage() {
           Dashboard
         </h1>
         <p className="text-sm text-neutral-500 mt-1">
-          Selamat datang di Admin Panel Desa Sukamakmur
+          Selamat datang di Admin Panel {VILLAGE_CONFIG.name}
         </p>
       </div>
 

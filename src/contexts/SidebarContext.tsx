@@ -16,7 +16,7 @@ export function SidebarProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const stored = localStorage.getItem("admin-sidebar-open");
     if (stored !== null) {
-      setIsOpen(stored === "true");
+      setTimeout(() => setIsOpen(stored === "true"), 0);
     }
   }, []);
 

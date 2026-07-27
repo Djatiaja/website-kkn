@@ -3,6 +3,14 @@
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
 import { Button, Input, Textarea, Card } from "@/components/ui";
+import { RichTextEditor } from "@/components/ui/RichTextEditor";
+
+interface MissionItem {
+  id: string;
+  textId: string;
+  textEn: string;
+  order: number;
+}
 
 interface ProfileData {
   id: string;
@@ -26,6 +34,7 @@ interface ProfileData {
     instagram?: string;
     youtube?: string;
   };
+  missionItems?: MissionItem[];
 }
 
 export default function AdminProfilPage() {
@@ -33,10 +42,12 @@ export default function AdminProfilPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [missionItems, setMissionItems] = useState<MissionItem[]>([]);
 
   useEffect(() => {
     api.get<ProfileData>("/profile").then((data) => {
       setProfile(data);
+      setMissionItems(data.missionItems || []);
       setLoading(false);
     });
   }, []);
@@ -53,6 +64,33 @@ export default function AdminProfilPage() {
       ...profile,
       socialMedia: { ...profile.socialMedia, [field]: value },
     });
+    setSuccess(false);
+  };
+
+  const handleAddMissionItem = async () => {
+    if (!profile) return;
+    const newItem = await api.post<MissionItem>("/profile/mission-items", {
+      profileId: profile.id,
+      textId: "",
+      textEn: "",
+      order: missionItems.length,
+    });
+    setMissionItems([...missionItems, newItem]);
+    setSuccess(false);
+  };
+
+  const handleUpdateMissionItem = async (id: string, field: "textId" | "textEn", value: string) => {
+    setMissionItems(missionItems.map(item => 
+      item.id === id ? { ...item, [field]: value } : item
+    ));
+    await api.put(`/profile/mission-items/${id}`, { [field]: value });
+    setSuccess(false);
+  };
+
+  const handleDeleteMissionItem = async (id: string) => {
+    if (!confirm("Hapus item misi ini?")) return;
+    await api.delete(`/profile/mission-items/${id}`);
+    setMissionItems(missionItems.filter(item => item.id !== id));
     setSuccess(false);
   };
 
@@ -160,18 +198,14 @@ export default function AdminProfilPage() {
         <Card>
           <h2 className="text-lg font-heading font-semibold mb-4">Deskripsi</h2>
           <div className="space-y-4">
-            <Textarea
-              label="Deskripsi (ID)"
-              value={profile.descriptionId}
-              onChange={(e) => handleChange("descriptionId", e.target.value)}
-              rows={4}
-            />
-            <Textarea
-              label="Deskripsi (EN)"
-              value={profile.descriptionEn}
-              onChange={(e) => handleChange("descriptionEn", e.target.value)}
-              rows={4}
-            />
+            <div>
+              <label className="block text-sm font-medium text-neutral-700 mb-1.5">Deskripsi (ID)</label>
+              <RichTextEditor value={profile.descriptionId} onChange={(val) => handleChange("descriptionId", val)} />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-neutral-700 mb-1.5">Deskripsi (EN)</label>
+              <RichTextEditor value={profile.descriptionEn} onChange={(val) => handleChange("descriptionEn", val)} />
+            </div>
           </div>
         </Card>
 
@@ -179,30 +213,65 @@ export default function AdminProfilPage() {
         <Card>
           <h2 className="text-lg font-heading font-semibold mb-4">Visi & Misi</h2>
           <div className="space-y-4">
-            <Textarea
-              label="Visi (ID)"
-              value={profile.visionId}
-              onChange={(e) => handleChange("visionId", e.target.value)}
-              rows={2}
-            />
-            <Textarea
-              label="Visi (EN)"
-              value={profile.visionEn}
-              onChange={(e) => handleChange("visionEn", e.target.value)}
-              rows={2}
-            />
-            <Textarea
-              label="Misi (ID) — pisahkan dengan baris baru"
-              value={profile.missionId}
-              onChange={(e) => handleChange("missionId", e.target.value)}
-              rows={5}
-            />
-            <Textarea
-              label="Misi (EN)"
-              value={profile.missionEn}
-              onChange={(e) => handleChange("missionEn", e.target.value)}
-              rows={5}
-            />
+            <div>
+              <label className="block text-sm font-medium text-neutral-700 mb-1.5">Visi (ID)</label>
+              <RichTextEditor value={profile.visionId} onChange={(val) => handleChange("visionId", val)} />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-neutral-700 mb-1.5">Visi (EN)</label>
+              <RichTextEditor value={profile.visionEn} onChange={(val) => handleChange("visionEn", val)} />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-neutral-700 mb-1.5">Misi (ID) - Legacy</label>
+              <RichTextEditor value={profile.missionId} onChange={(val) => handleChange("missionId", val)} />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-neutral-700 mb-1.5">Misi (EN) - Legacy</label>
+              <RichTextEditor value={profile.missionEn} onChange={(val) => handleChange("missionEn", val)} />
+            </div>
+
+            {/* Mission Items */}
+            <div className="border-t pt-4 mt-4">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="font-semibold text-neutral-700">Daftar Misi (per baris)</h3>
+                <Button type="button" onClick={handleAddMissionItem}>
+                  + Tambah Misi
+                </Button>
+              </div>
+              {missionItems.map((item, idx) => (
+                <div key={item.id} className="mb-4 p-3 border rounded-lg bg-neutral-50">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-neutral-600">#{idx + 1}</span>
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteMissionItem(item.id)}
+                      className="text-red-500 text-sm hover:underline"
+                    >
+                      Hapus
+                    </button>
+                  </div>
+                  <div className="space-y-2">
+                    <div>
+                      <label className="block text-xs text-neutral-500 mb-1">Bahasa Indonesia</label>
+                      <RichTextEditor
+                        value={item.textId}
+                        onChange={(val) => handleUpdateMissionItem(item.id, "textId", val)}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs text-neutral-500 mb-1">English</label>
+                      <RichTextEditor
+                        value={item.textEn}
+                        onChange={(val) => handleUpdateMissionItem(item.id, "textEn", val)}
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+              {missionItems.length === 0 && (
+                <p className="text-sm text-neutral-400 italic">Belum ada item misi. Klik "Tambah Misi" untuk menambahkan.</p>
+              )}
+            </div>
           </div>
         </Card>
 
@@ -210,18 +279,14 @@ export default function AdminProfilPage() {
         <Card>
           <h2 className="text-lg font-heading font-semibold mb-4">Sejarah</h2>
           <div className="space-y-4">
-            <Textarea
-              label="Sejarah (ID)"
-              value={profile.historyId}
-              onChange={(e) => handleChange("historyId", e.target.value)}
-              rows={5}
-            />
-            <Textarea
-              label="Sejarah (EN)"
-              value={profile.historyEn}
-              onChange={(e) => handleChange("historyEn", e.target.value)}
-              rows={5}
-            />
+            <div>
+              <label className="block text-sm font-medium text-neutral-700 mb-1.5">Sejarah (ID)</label>
+              <RichTextEditor value={profile.historyId} onChange={(val) => handleChange("historyId", val)} />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-neutral-700 mb-1.5">Sejarah (EN)</label>
+              <RichTextEditor value={profile.historyEn} onChange={(val) => handleChange("historyEn", val)} />
+            </div>
           </div>
         </Card>
 

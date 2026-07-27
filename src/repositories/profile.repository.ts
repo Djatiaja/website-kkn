@@ -6,6 +6,7 @@ export const profileRepository = {
     return prisma.villageProfile.findFirst({
       include: {
         members: { orderBy: { order: "asc" } },
+        missionItems: { orderBy: { order: "asc" } },
       },
     });
   },
@@ -16,6 +17,7 @@ export const profileRepository = {
       data,
       include: {
         members: { orderBy: { order: "asc" } },
+        missionItems: { orderBy: { order: "asc" } },
       },
     });
   },
@@ -41,5 +43,25 @@ export const profileRepository = {
 
   async deleteMember(id: string) {
     return prisma.organizationMember.delete({ where: { id } });
+  },
+
+  // ─── Mission Items ──────────────────────────────────────
+  async getMissionItems(profileId: string) {
+    return prisma.missionItem.findMany({
+      where: { profileId },
+      orderBy: { order: "asc" },
+    });
+  },
+
+  async createMissionItem(data: Prisma.MissionItemUncheckedCreateInput) {
+    return prisma.missionItem.create({ data });
+  },
+
+  async updateMissionItem(id: string, data: Prisma.MissionItemUpdateInput) {
+    return prisma.missionItem.update({ where: { id }, data });
+  },
+
+  async deleteMissionItem(id: string) {
+    return prisma.missionItem.delete({ where: { id } });
   },
 };

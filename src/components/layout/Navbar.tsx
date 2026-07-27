@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Home } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { VILLAGE_CONFIG } from "@/lib/constants";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
 interface NavbarProps {
@@ -17,9 +18,10 @@ const navLinks = [
   { key: "profile", href: "/profil" },
   { key: "products", href: "/produk" },
   { key: "finance", href: "/keuangan" },
+  { key: "gallery", href: "/galeri" },
+  { key: "materials", href: "/materi" },
   { key: "map", href: "/peta" },
   { key: "news", href: "/berita" },
-  { key: "gallery", href: "/galeri" },
 ];
 
 export function Navbar({ locale }: NavbarProps) {
@@ -31,7 +33,7 @@ export function Navbar({ locale }: NavbarProps) {
 
   useEffect(() => {
     if (!isHome) {
-      setIsScrolled(true);
+      void setIsScrolled(true);
       return;
     }
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -42,7 +44,7 @@ export function Navbar({ locale }: NavbarProps) {
 
   // Close mobile menu on route change
   useEffect(() => {
-    setIsMobileOpen(false);
+    void setIsMobileOpen(false);
   }, [pathname]);
 
   return (
@@ -65,7 +67,7 @@ export function Navbar({ locale }: NavbarProps) {
             )}
           >
             <Home className="w-6 h-6 text-primary" />
-            <span className="hidden sm:inline">Desa Sukamakmur</span>
+            <span className="hidden sm:inline">{VILLAGE_CONFIG.name}</span>
           </Link>
 
           {/* Desktop Nav */}

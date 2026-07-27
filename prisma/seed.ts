@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { hash } from "bcryptjs";
+import { VILLAGE_CONFIG, ADMIN_CONFIG, ORGANIZATION_MEMBERS, MISSION_ITEMS } from "../src/lib/constants";
 
 const prisma = new PrismaClient();
 
@@ -7,15 +8,15 @@ async function main() {
   console.log("🌱 Seeding database...");
 
   // ─── 1. Admin User ──────────────────────────────────────
-  const hashedPassword = await hash("Admin@Desa2024", 12);
+  const hashedPassword = await hash(ADMIN_CONFIG.password, 12);
   const admin = await prisma.user.upsert({
-    where: { email: "admin@sukamakmur.desa.id" },
+    where: { email: ADMIN_CONFIG.email },
     update: {},
     create: {
-      email: "admin@sukamakmur.desa.id",
-      name: "Administrator",
+      email: ADMIN_CONFIG.email,
+      name: ADMIN_CONFIG.name,
       password: hashedPassword,
-      role: "ADMIN",
+      role: ADMIN_CONFIG.role,
     },
   });
   console.log("✅ Admin user created:", admin.email);
@@ -26,56 +27,46 @@ async function main() {
     update: {},
     create: {
       id: "village-profile-singleton",
-      name: "Desa Sukamakmur",
-      descriptionId:
-        "Desa Sukamakmur terletak di kaki Gunung Salak, Kabupaten Bogor, Jawa Barat. Desa ini dikenal dengan keindahan alam, hasil pertanian yang melimpah, dan keramahan penduduknya. Dengan luas wilayah 1.200 hektar, desa ini menjadi rumah bagi lebih dari 5.200 jiwa yang hidup harmonis dalam keberagaman.",
-      descriptionEn:
-        "Sukamakmur Village is located at the foot of Mount Salak, Bogor Regency, West Java. The village is known for its natural beauty, abundant agricultural products, and the hospitality of its residents. With an area of 1,200 hectares, this village is home to more than 5,200 people living in harmony.",
-      visionId:
-        "Mewujudkan Desa Sukamakmur yang mandiri, sejahtera, dan berbudaya berbasis potensi lokal.",
-      visionEn:
-        "To realize Sukamakmur Village as an independent, prosperous, and cultured village based on local potential.",
-      missionId:
-        "1. Meningkatkan kualitas pelayanan publik yang transparan dan akuntabel\n2. Mengembangkan potensi ekonomi lokal melalui UMKM dan wisata desa\n3. Membangun infrastruktur yang merata dan berkelanjutan\n4. Melestarikan budaya dan kearifan lokal\n5. Meningkatkan kualitas sumber daya manusia melalui pendidikan dan pelatihan",
-      missionEn:
-        "1. Improve the quality of transparent and accountable public services\n2. Develop local economic potential through SMEs and village tourism\n3. Build equitable and sustainable infrastructure\n4. Preserve culture and local wisdom\n5. Improve human resource quality through education and training",
-      historyId:
-        "Desa Sukamakmur berdiri pada tahun 1945 setelah kemerdekaan Indonesia. Awalnya merupakan bagian dari Desa Ciapus sebelum dimekarkan pada tahun 1970. Nama 'Sukamakmur' berasal dari bahasa Sunda yang berarti 'senang dan makmur', mencerminkan harapan para pendiri desa akan kehidupan yang sejahtera bagi seluruh warganya. Pada tahun 2015, desa ini mulai mengembangkan sektor wisata dan berhasil meraih penghargaan Desa Wisata Terbaik tingkat kabupaten pada tahun 2022.",
-      historyEn:
-        "Sukamakmur Village was established in 1945 after Indonesian independence. It was originally part of Ciapus Village before being divided in 1970. The name 'Sukamakmur' comes from Sundanese meaning 'happy and prosperous', reflecting the founders' hopes for a prosperous life for all residents. In 2015, the village began developing its tourism sector and won the Best Tourism Village award at the district level in 2022.",
+      name: VILLAGE_CONFIG.name,
+      descriptionId: VILLAGE_CONFIG.descriptionId,
+      descriptionEn: VILLAGE_CONFIG.descriptionEn,
+      visionId: VILLAGE_CONFIG.visionId,
+      visionEn: VILLAGE_CONFIG.visionEn,
+      missionId: VILLAGE_CONFIG.missionId,
+      missionEn: VILLAGE_CONFIG.missionEn,
+      historyId: VILLAGE_CONFIG.historyId,
+      historyEn: VILLAGE_CONFIG.historyEn,
       heroVideoUrl: "/videos/hero-video.mp4",
-      address:
-        "Jl. Raya Sukamakmur No. 1, Kec. Sukamakmur, Kab. Bogor, Jawa Barat 16830",
-      phone: "0251-8000123",
-      email: "desa@sukamakmur.desa.id",
-      population: 5247,
-      area: 1200.5,
-      socialMedia: {
-        facebook: "https://facebook.com/desasukamakmur",
-        instagram: "https://instagram.com/desasukamakmur",
-        youtube: "https://youtube.com/@desasukamakmur",
-      },
+      address: VILLAGE_CONFIG.address,
+      phone: VILLAGE_CONFIG.phone,
+      email: VILLAGE_CONFIG.email,
+      population: VILLAGE_CONFIG.population,
+      area: VILLAGE_CONFIG.area,
+      socialMedia: VILLAGE_CONFIG.socialMedia,
     },
   });
   console.log("✅ Village profile created:", profile.name);
 
   // ─── 3. Organization Members ────────────────────────────
-  const members = [
-    { name: "H. Ahmad Sudirman, S.Sos", positionId: "Kepala Desa", positionEn: "Village Head", photoUrl: "/images/org/kepala-desa.jpg", order: 1 },
-    { name: "Siti Nurhaliza, S.AP", positionId: "Sekretaris Desa", positionEn: "Village Secretary", photoUrl: "/images/org/sekretaris.jpg", order: 2 },
-    { name: "Budi Santoso", positionId: "Kaur Keuangan", positionEn: "Head of Finance", photoUrl: "/images/org/kaur-keuangan.jpg", order: 3 },
-    { name: "Dewi Anggraeni, S.Pd", positionId: "Kaur Perencanaan", positionEn: "Head of Planning", photoUrl: "/images/org/kaur-perencanaan.jpg", order: 4 },
-    { name: "Ridwan Kamil", positionId: "Kasi Pemerintahan", positionEn: "Head of Governance", photoUrl: "/images/org/kasi-pemerintahan.jpg", order: 5 },
-    { name: "Rina Wulandari", positionId: "Kasi Kesejahteraan", positionEn: "Head of Welfare", photoUrl: "/images/org/kasi-kesejahteraan.jpg", order: 6 },
-    { name: "Joko Prasetyo", positionId: "Kasi Pelayanan", positionEn: "Head of Services", photoUrl: "/images/org/kasi-pelayanan.jpg", order: 7 },
-  ];
-
-  for (const member of members) {
+  for (const member of ORGANIZATION_MEMBERS) {
     await prisma.organizationMember.create({
       data: { ...member, profileId: profile.id },
     });
   }
-  console.log("✅ Organization members created:", members.length);
+  console.log("✅ Organization members created:", ORGANIZATION_MEMBERS.length);
+
+  // ─── 3b. Mission Items ──────────────────────────────────
+  for (let i = 0; i < MISSION_ITEMS.length; i++) {
+    await prisma.missionItem.create({
+      data: {
+        textId: MISSION_ITEMS[i].textId,
+        textEn: MISSION_ITEMS[i].textEn,
+        order: i,
+        profileId: profile.id,
+      },
+    });
+  }
+  console.log("✅ Mission items created:", MISSION_ITEMS.length);
 
   // ─── 4. Products ────────────────────────────────────────
   const products = [
@@ -203,7 +194,7 @@ async function main() {
       productionImageUrl: "https://images.unsplash.com/photo-1580226463991-325b8716f9f6?w=800",
     },
     {
-      nameId: "Nasi Liwet Khas Sukamakmur", nameEn: "Sukamakmur Special Nasi Liwet",
+      nameId: "Nasi Liwet Khas Tanjungsari", nameEn: "Tanjungsari Special Nasi Liwet",
       descriptionId: "Nasi liwet tradisional dengan ikan teri, tahu, tempe, dan lalapan segar. Dimasak menggunakan kayu bakar dan santan kelapa asli. Tersedia untuk pesanan catering minimal 20 porsi.",
       descriptionEn: "Traditional nasi liwet with anchovies, tofu, tempeh, and fresh vegetables. Cooked using firewood and real coconut milk. Available for catering orders minimum 20 portions.",
       category: "KULINER" as const, price: 20000, unit: "porsi", contact: "08123456010", isActive: true,
@@ -216,9 +207,58 @@ async function main() {
   ];
 
   for (const product of products) {
-    await prisma.product.create({ data: product });
+    await prisma.product.create({
+      data: product,
+    });
   }
   console.log("✅ Products created:", products.length);
+
+  // ─── 4.5 Digital Materials ────────────────────────────
+  const materials = [
+    {
+      titleId: "Panduan BUMDes 2024",
+      titleEn: "BUMDes Guide 2024",
+      descriptionId: "Buku panduan lengkap tentang tata cara pembentukan dan pengelolaan Badan Usaha Milik Desa tahun 2024.",
+      descriptionEn: "Complete guidebook on the formation and management procedures of Village-Owned Enterprises in 2024.",
+      category: "UMUM" as const,
+      fileUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+      fileType: "PDF" as const,
+      fileSize: 2450000,
+      fileName: "panduan_bumdes_2024.pdf",
+      isPublished: true,
+    },
+    {
+      titleId: "Modul Pelatihan Pertanian Organik",
+      titleEn: "Organic Farming Training Module",
+      descriptionId: "Materi pelatihan teknik pembuatan pupuk kompos dan pestisida nabati untuk pertanian berkelanjutan.",
+      descriptionEn: "Training material on composting techniques and botanical pesticides for sustainable agriculture.",
+      category: "PERTANIAN" as const,
+      fileUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+      fileType: "PDF" as const,
+      fileSize: 5200000,
+      fileName: "modul_pertanian_organik.pdf",
+      isPublished: true,
+    },
+    {
+      titleId: "Sosialisasi Pencegahan Stunting",
+      titleEn: "Stunting Prevention Socialization",
+      descriptionId: "Video dokumentasi kegiatan sosialisasi pencegahan stunting di balai desa.",
+      descriptionEn: "Documentation video of stunting prevention socialization activities at the village hall.",
+      category: "KESEHATAN" as const,
+      fileUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+      fileType: "VIDEO" as const,
+      fileSize: 15400000,
+      fileName: "video_stunting_2023.mp4",
+      isPublished: true,
+    }
+  ];
+
+  for (const material of materials) {
+    await prisma.digitalMaterial.create({
+      data: material,
+    });
+  }
+  console.log("✅ Digital Materials created:", materials.length);
 
   // ─── 5. Finance Records ─────────────────────────────────
   const financeRecords = [
@@ -256,13 +296,13 @@ async function main() {
   // ─── 6. News ────────────────────────────────────────────
   const newsArticles = [
     {
-      titleId: "Desa Sukamakmur Raih Penghargaan Desa Digital Terbaik 2024",
-      titleEn: "Sukamakmur Village Wins Best Digital Village Award 2024",
+      titleId: "Desa Tanjungsari Raih Penghargaan Desa Digital Terbaik 2024",
+      titleEn: "Tanjungsari Village Wins Best Digital Village Award 2024",
       slug: "penghargaan-desa-digital-2024",
-      contentId: "<p>Desa Sukamakmur berhasil meraih penghargaan sebagai Desa Digital Terbaik tingkat Kabupaten Bogor tahun 2024. Penghargaan ini diberikan atas keberhasilan desa dalam mengimplementasikan sistem informasi desa terintegrasi, transparansi keuangan digital, dan pelayanan publik berbasis online.</p><p>Kepala Desa H. Ahmad Sudirman menyampaikan rasa syukur dan bangga atas pencapaian ini. \"Ini adalah hasil kerja keras seluruh perangkat desa dan partisipasi aktif masyarakat dalam mendukung digitalisasi desa,\" ujarnya.</p>",
-      contentEn: "<p>Sukamakmur Village has won the Best Digital Village award at the Bogor Regency level in 2024. The award was given for the village's success in implementing an integrated village information system, digital financial transparency, and online-based public services.</p><p>Village Head H. Ahmad Sudirman expressed gratitude and pride for this achievement. \"This is the result of hard work by all village officials and active community participation in supporting village digitalization,\" he said.</p>",
-      excerptId: "Desa Sukamakmur berhasil meraih penghargaan Desa Digital Terbaik tingkat kabupaten.",
-      excerptEn: "Sukamakmur Village wins Best Digital Village award at district level.",
+      contentId: "<p>Desa Tanjungsari berhasil meraih penghargaan sebagai Desa Digital Terbaik tingkat Kabupaten Bogor tahun 2024. Penghargaan ini diberikan atas keberhasilan desa dalam mengimplementasikan sistem informasi desa terintegrasi, transparansi keuangan digital, dan pelayanan publik berbasis online.</p><p>Kepala Desa H. Ahmad Sudirman menyampaikan rasa syukur dan bangga atas pencapaian ini. \"Ini adalah hasil kerja keras seluruh perangkat desa dan partisipasi aktif masyarakat dalam mendukung digitalisasi desa,\" ujarnya.</p>",
+      contentEn: "<p>Tanjungsari Village has won the Best Digital Village award at the Bogor Regency level in 2024. The award was given for the village's success in implementing an integrated village information system, digital financial transparency, and online-based public services.</p><p>Village Head H. Ahmad Sudirman expressed gratitude and pride for this achievement. \"This is the result of hard work by all village officials and active community participation in supporting village digitalization,\" he said.</p>",
+      excerptId: "Desa Tanjungsari berhasil meraih penghargaan Desa Digital Terbaik tingkat kabupaten.",
+      excerptEn: "Tanjungsari Village wins Best Digital Village award at district level.",
       category: "PENGUMUMAN" as const,
       isPublished: true,
       authorId: admin.id,
@@ -272,8 +312,8 @@ async function main() {
       titleId: "Pelatihan UMKM Digital Marketing untuk Warga Desa",
       titleEn: "Digital Marketing Training for Village SMEs",
       slug: "pelatihan-umkm-digital-marketing",
-      contentId: "<p>Pemerintah Desa Sukamakmur bekerja sama dengan Dinas Koperasi dan UMKM mengadakan pelatihan digital marketing selama 3 hari untuk para pelaku UMKM desa. Pelatihan mencakup penggunaan media sosial, marketplace, dan fotografi produk.</p><p>Sebanyak 45 peserta dari berbagai sektor UMKM mengikuti pelatihan yang berlangsung di Balai Desa. Para peserta diajarkan cara membuat konten menarik, mengelola toko online, dan strategi pemasaran digital yang efektif.</p>",
-      contentEn: "<p>The Sukamakmur Village Government in collaboration with the Cooperative and SME Agency held a 3-day digital marketing training for village SME practitioners. The training covered social media usage, marketplaces, and product photography.</p><p>A total of 45 participants from various SME sectors attended the training held at the Village Hall. Participants were taught how to create engaging content, manage online stores, and effective digital marketing strategies.</p>",
+      contentId: "<p>Pemerintah Desa Tanjungsari bekerja sama dengan Dinas Koperasi dan UMKM mengadakan pelatihan digital marketing selama 3 hari untuk para pelaku UMKM desa. Pelatihan mencakup penggunaan media sosial, marketplace, dan fotografi produk.</p><p>Sebanyak 45 peserta dari berbagai sektor UMKM mengikuti pelatihan yang berlangsung di Balai Desa. Para peserta diajarkan cara membuat konten menarik, mengelola toko online, dan strategi pemasaran digital yang efektif.</p>",
+      contentEn: "<p>The Tanjungsari Village Government in collaboration with the Cooperative and SME Agency held a 3-day digital marketing training for village SME practitioners. The training covered social media usage, marketplaces, and product photography.</p><p>A total of 45 participants from various SME sectors attended the training held at the Village Hall. Participants were taught how to create engaging content, manage online stores, and effective digital marketing strategies.</p>",
       excerptId: "Pelatihan digital marketing selama 3 hari untuk 45 pelaku UMKM desa.",
       excerptEn: "3-day digital marketing training for 45 village SME practitioners.",
       category: "KEGIATAN" as const,
@@ -285,8 +325,8 @@ async function main() {
       titleId: "Pembangunan Jembatan Penghubung Dusun Sukamaju Selesai",
       titleEn: "Sukamaju Hamlet Connecting Bridge Construction Completed",
       slug: "pembangunan-jembatan-sukamaju",
-      contentId: "<p>Proyek pembangunan jembatan penghubung antara Dusun Sukamaju dan Dusun Cikaret telah resmi selesai dan diresmikan oleh Camat Sukamakmur. Jembatan sepanjang 25 meter ini dibangun menggunakan Dana Desa tahun 2024 dengan total anggaran Rp 280 juta.</p><p>Dengan selesainya jembatan ini, waktu tempuh antara kedua dusun yang sebelumnya 45 menit kini hanya 10 menit. Hal ini diharapkan dapat meningkatkan aksesibilitas dan perekonomian warga di kedua dusun.</p>",
-      contentEn: "<p>The bridge construction project connecting Sukamaju and Cikaret hamlets has been officially completed and inaugurated by the Sukamakmur Sub-district Head. The 25-meter bridge was built using the 2024 Village Fund with a total budget of Rp 280 million.</p><p>With this bridge completed, travel time between the two hamlets has been reduced from 45 minutes to just 10 minutes. This is expected to improve accessibility and the economy for residents in both hamlets.</p>",
+      contentId: "<p>Proyek pembangunan jembatan penghubung antara Dusun Sukamaju dan Dusun Cikaret telah resmi selesai dan diresmikan oleh Camat Tanjungsari. Jembatan sepanjang 25 meter ini dibangun menggunakan Dana Desa tahun 2024 dengan total anggaran Rp 280 juta.</p><p>Dengan selesainya jembatan ini, waktu tempuh antara kedua dusun yang sebelumnya 45 menit kini hanya 10 menit. Hal ini diharapkan dapat meningkatkan aksesibilitas dan perekonomian warga di kedua dusun.</p>",
+      contentEn: "<p>The bridge construction project connecting Sukamaju and Cikaret hamlets has been officially completed and inaugurated by the Tanjungsari Sub-district Head. The 25-meter bridge was built using the 2024 Village Fund with a total budget of Rp 280 million.</p><p>With this bridge completed, travel time between the two hamlets has been reduced from 45 minutes to just 10 minutes. This is expected to improve accessibility and the economy for residents in both hamlets.</p>",
       excerptId: "Jembatan 25 meter penghubung Dusun Sukamaju dan Cikaret resmi selesai.",
       excerptEn: "25-meter bridge connecting Sukamaju and Cikaret hamlets officially completed.",
       category: "PEMBANGUNAN" as const,
@@ -298,8 +338,8 @@ async function main() {
       titleId: "Jadwal Posyandu dan Vaksinasi Bulan Juni 2024",
       titleEn: "June 2024 Health Post and Vaccination Schedule",
       slug: "jadwal-posyandu-juni-2024",
-      contentId: "<p>Pemerintah Desa Sukamakmur menginformasikan jadwal Posyandu dan vaksinasi untuk bulan Juni 2024. Kegiatan dilaksanakan di 4 pos yang tersebar di setiap dusun.</p><ul><li>Pos 1 (Dusun Sukamaju): Senin, 3 Juni 2024</li><li>Pos 2 (Dusun Cikaret): Selasa, 4 Juni 2024</li><li>Pos 3 (Dusun Ciherang): Rabu, 5 Juni 2024</li><li>Pos 4 (Dusun Sukamanah): Kamis, 6 Juni 2024</li></ul><p>Warga diminta membawa KTP, KK, dan buku KIA untuk anak balita.</p>",
-      contentEn: "<p>Sukamakmur Village Government informs the Health Post and vaccination schedule for June 2024. Activities will be held at 4 posts spread across each hamlet.</p><ul><li>Post 1 (Sukamaju): Monday, June 3, 2024</li><li>Post 2 (Cikaret): Tuesday, June 4, 2024</li><li>Post 3 (Ciherang): Wednesday, June 5, 2024</li><li>Post 4 (Sukamanah): Thursday, June 6, 2024</li></ul><p>Residents are asked to bring their ID card, family card, and child health book.</p>",
+      contentId: "<p>Pemerintah Desa Tanjungsari menginformasikan jadwal Posyandu dan vaksinasi untuk bulan Juni 2024. Kegiatan dilaksanakan di 4 pos yang tersebar di setiap dusun.</p><ul><li>Pos 1 (Dusun Sukamaju): Senin, 3 Juni 2024</li><li>Pos 2 (Dusun Cikaret): Selasa, 4 Juni 2024</li><li>Pos 3 (Dusun Ciherang): Rabu, 5 Juni 2024</li><li>Pos 4 (Dusun Sukamanah): Kamis, 6 Juni 2024</li></ul><p>Warga diminta membawa KTP, KK, dan buku KIA untuk anak balita.</p>",
+      contentEn: "<p>Tanjungsari Village Government informs the Health Post and vaccination schedule for June 2024. Activities will be held at 4 posts spread across each hamlet.</p><ul><li>Post 1 (Sukamaju): Monday, June 3, 2024</li><li>Post 2 (Cikaret): Tuesday, June 4, 2024</li><li>Post 3 (Ciherang): Wednesday, June 5, 2024</li><li>Post 4 (Sukamanah): Thursday, June 6, 2024</li></ul><p>Residents are asked to bring their ID card, family card, and child health book.</p>",
       excerptId: "Jadwal Posyandu di 4 pos dusun untuk bulan Juni 2024.",
       excerptEn: "Health post schedule at 4 hamlet posts for June 2024.",
       category: "PENGUMUMAN" as const,
@@ -308,11 +348,11 @@ async function main() {
       publishedAt: new Date("2024-05-28"),
     },
     {
-      titleId: "Festival Budaya Desa Sukamakmur 2024 Sukses Digelar",
-      titleEn: "Sukamakmur Village Cultural Festival 2024 Successfully Held",
+      titleId: "Festival Budaya Desa Tanjungsari 2024 Sukses Digelar",
+      titleEn: "Tanjungsari Village Cultural Festival 2024 Successfully Held",
       slug: "festival-budaya-2024",
-      contentId: "<p>Festival Budaya Desa Sukamakmur 2024 sukses digelar selama 3 hari pada tanggal 15-17 Mei 2024. Acara yang menampilkan berbagai pertunjukan seni tradisional Sunda ini berhasil menarik lebih dari 2.000 pengunjung dari dalam dan luar desa.</p><p>Rangkaian acara meliputi pertunjukan wayang golek, tari jaipong, pencak silat, serta bazar kuliner tradisional. Festival ini juga menjadi ajang promosi produk UMKM lokal yang berhasil membukukan transaksi lebih dari Rp 50 juta selama 3 hari.</p>",
-      contentEn: "<p>The 2024 Sukamakmur Village Cultural Festival was successfully held for 3 days from May 15-17, 2024. The event featuring various traditional Sundanese art performances attracted more than 2,000 visitors from inside and outside the village.</p><p>The series of events included wayang golek puppet shows, jaipong dance, pencak silat martial arts, and traditional culinary bazaar. The festival also served as a promotional platform for local SME products, recording transactions of more than Rp 50 million over 3 days.</p>",
+      contentId: "<p>Festival Budaya Desa Tanjungsari 2024 sukses digelar selama 3 hari pada tanggal 15-17 Mei 2024. Acara yang menampilkan berbagai pertunjukan seni tradisional Sunda ini berhasil menarik lebih dari 2.000 pengunjung dari dalam dan luar desa.</p><p>Rangkaian acara meliputi pertunjukan wayang golek, tari jaipong, pencak silat, serta bazar kuliner tradisional. Festival ini juga menjadi ajang promosi produk UMKM lokal yang berhasil membukukan transaksi lebih dari Rp 50 juta selama 3 hari.</p>",
+      contentEn: "<p>The 2024 Tanjungsari Village Cultural Festival was successfully held for 3 days from May 15-17, 2024. The event featuring various traditional Sundanese art performances attracted more than 2,000 visitors from inside and outside the village.</p><p>The series of events included wayang golek puppet shows, jaipong dance, pencak silat martial arts, and traditional culinary bazaar. The festival also served as a promotional platform for local SME products, recording transactions of more than Rp 50 million over 3 days.</p>",
       excerptId: "Festival budaya 3 hari berhasil menarik 2.000 pengunjung dan transaksi UMKM Rp 50 juta.",
       excerptEn: "3-day cultural festival attracted 2,000 visitors and Rp 50 million in SME transactions.",
       category: "KEGIATAN" as const,
@@ -339,7 +379,7 @@ async function main() {
     { titleId: "Air Terjun Curug Nangka", titleEn: "Curug Nangka Waterfall", type: "PHOTO" as const, url: "https://placehold.co/600x400?text=Curug", category: "Wisata" },
     { titleId: "Gotong Royong Pembangunan Jalan", titleEn: "Community Road Construction", type: "PHOTO" as const, url: "https://placehold.co/600x400?text=Pembangunan", category: "Pembangunan" },
     { titleId: "Panen Raya Padi Organik", titleEn: "Organic Rice Harvest", type: "PHOTO" as const, url: "https://placehold.co/600x400?text=Pertanian", category: "Pertanian" },
-    { titleId: "Profil Desa Sukamakmur", titleEn: "Sukamakmur Village Profile", type: "VIDEO" as const, url: "https://youtu.be/dQw4w9WgXcQ", thumbnailUrl: "https://placehold.co/600x400?text=Video+Profil", category: "Profil" },
+    { titleId: "Profil Desa Tanjungsari", titleEn: "Tanjungsari Village Profile", type: "VIDEO" as const, url: "https://youtu.be/dQw4w9WgXcQ", thumbnailUrl: "https://placehold.co/600x400?text=Video+Profil", category: "Profil" },
     { titleId: "Festival Budaya 2024 Highlights", titleEn: "Cultural Festival 2024 Highlights", type: "VIDEO" as const, url: "https://youtu.be/dQw4w9WgXcQ", thumbnailUrl: "https://placehold.co/600x400?text=Video+Festival", category: "Kegiatan" },
   ];
 
@@ -351,20 +391,20 @@ async function main() {
   // ─── 8. Map Features ────────────────────────────────────
   const mapFeatures = [
     {
-      nameId: "Batas Wilayah Desa Sukamakmur", nameEn: "Sukamakmur Village Boundary",
+      nameId: "Batas Wilayah Desa Tanjungsari", nameEn: "Tanjungsari Village Boundary",
       type: "BOUNDARY" as const,
       geometry: { type: "Polygon", coordinates: [[[106.830, -6.720], [106.850, -6.720], [106.855, -6.735], [106.845, -6.745], [106.825, -6.740], [106.820, -6.730], [106.830, -6.720]]] },
       isVisible: true,
     },
     {
-      nameId: "Kantor Desa Sukamakmur", nameEn: "Sukamakmur Village Office",
+      nameId: "Kantor Desa Tanjungsari", nameEn: "Tanjungsari Village Office",
       type: "FACILITY" as const, icon: "building",
       geometry: { type: "Point", coordinates: [106.838, -6.730] },
       descriptionId: "Kantor pelayanan pemerintahan desa", descriptionEn: "Village government service office",
       isVisible: true,
     },
     {
-      nameId: "SDN 1 Sukamakmur", nameEn: "Sukamakmur Elementary School 1",
+      nameId: "SDN 1 Tanjungsari", nameEn: "Tanjungsari Elementary School 1",
       type: "FACILITY" as const, icon: "school",
       geometry: { type: "Point", coordinates: [106.835, -6.728] },
       isVisible: true,

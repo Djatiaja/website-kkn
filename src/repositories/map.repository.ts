@@ -1,8 +1,8 @@
 import { prisma } from "@/lib/prisma";
-import type { Prisma, MapFeatureType } from "@prisma/client";
+import type { Prisma } from "@prisma/client";
 
 export interface MapFilters {
-  type?: MapFeatureType;
+  type?: string;
   isVisible?: boolean;
 }
 
@@ -11,7 +11,7 @@ export const mapRepository = {
     const { type, isVisible } = filters;
 
     const where: Prisma.MapFeatureWhereInput = {
-      ...(type && { type }),
+      ...(type && { type: type as Prisma.EnumMapFeatureTypeFilter }),
       ...(isVisible !== undefined && { isVisible }),
     };
 

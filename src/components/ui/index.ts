@@ -14,3 +14,6 @@ export { Toggle } from "./Toggle";
 export { Tabs } from "./Tabs";
 export { Breadcrumb } from "./Breadcrumb";
 export { FileUpload } from "./FileUpload";
+export { RichTextEditor } from "./RichTextEditor";
+export { ImageUploader } from "./ImageUploader";
+export { GalleryUploader } from "./GalleryUploader";

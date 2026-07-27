@@ -1,102 +1,43 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import { api } from "@/lib/api";
-import { Card } from "@/components/ui";
+import { Button, Card } from "@/components/ui";
 import type { FinanceRecord, PaginatedResponse } from "@/types";
 
-interface FinanceFormData {
-  year: number;
-  type: "INCOME" | "EXPENSE";
-  categoryId: string;
-  categoryEn: string;
-  subcategoryId: string;
-  subcategoryEn: string;
-  amount: number;
-  budget: number;
-  sourceId: string;
-  sourceEn: string;
-}
-
-const emptyForm: FinanceFormData = {
-  year: new Date().getFullYear(),
-  type: "INCOME",
-  categoryId: "",
-  categoryEn: "",
-  subcategoryId: "",
-  subcategoryEn: "",
-  amount: 0,
-  budget: 0,
-  sourceId: "",
-  sourceEn: "",
-};
-
 export default function AdminFinancePage() {
+  const router = useRouter();
   const [records, setRecords] = useState<FinanceRecord[]>([]);
   const [years, setYears] = useState<number[]>([]);
   const [filterYear, setFilterYear] = useState<number | undefined>();
   const [loading, setLoading] = useState(true);
-  const [showForm, setShowForm] = useState(false);
-  const [editingId, setEditingId] = useState<string | null>(null);
-  const [form, setForm] = useState<FinanceFormData>(emptyForm);
 
-  const fetchRecords = async () => {
+  const fetchRecords = useCallback(async () => {
     setLoading(true);
     const params = filterYear ? `?year=${filterYear}` : "";
     const res = await api.get<PaginatedResponse<FinanceRecord>>(`/finance${params}`);
     setRecords(res.data);
     setLoading(false);
-  };
+  }, [filterYear]);
 
   useEffect(() => {
     api.get<number[]>("/finance/years").then(setYears);
   }, []);
 
   useEffect(() => {
-    fetchRecords();
-  }, [filterYear]);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (editingId) {
-      await api.put(`/finance/${editingId}`, form);
-    } else {
-      await api.post("/finance", form);
-    }
-    setShowForm(false);
-    setEditingId(null);
-    setForm(emptyForm);
-    fetchRecords();
-    api.get<number[]>("/finance/years").then(setYears);
-  };
-
-  const handleEdit = (record: FinanceRecord) => {
-    setForm({
-      year: record.year,
-      type: record.type,
-      categoryId: record.categoryId,
-      categoryEn: record.categoryEn,
-      subcategoryId: record.subcategoryId || "",
-      subcategoryEn: record.subcategoryEn || "",
-      amount: record.amount,
-      budget: record.budget || 0,
-      sourceId: record.sourceId || "",
-      sourceEn: record.sourceEn || "",
-    });
-    setEditingId(record.id);
-    setShowForm(true);
-  };
+    fetchRecords().catch(console.error);
+  }, [fetchRecords]);
 
   const handleDelete = async (id: string) => {
     if (!confirm("Yakin ingin menghapus record ini?")) return;
     await api.delete(`/finance/${id}`);
-    fetchRecords();
+    fetchRecords().catch(console.error);
   };
 
   const formatRupiah = (amount: number) =>
     `Rp ${amount.toLocaleString("id-ID")}`;
 
-  // Summary calculations
   const summary = useMemo(() => {
     const income = records.filter(r => r.type === "INCOME").reduce((s, r) => s + r.amount, 0);
     const expense = records.filter(r => r.type === "EXPENSE").reduce((s, r) => s + r.amount, 0);
@@ -111,16 +52,7 @@ export default function AdminFinancePage() {
         <h1 className="text-2xl font-heading font-bold text-neutral-900">
           Kelola Keuangan
         </h1>
-        <button
-          onClick={() => {
-            setForm(emptyForm);
-            setEditingId(null);
-            setShowForm(true);
-          }}
-          className="px-4 py-2 bg-primary text-white text-sm font-medium rounded-xl hover:bg-primary-dark transition-colors"
-        >
-          + Tambah Record
-        </button>
+        <Button onClick={() => router.push("/admin/keuangan/form")}>+ Tambah Record</Button>
       </div>
 
       {/* Filter */}
@@ -139,145 +71,6 @@ export default function AdminFinancePage() {
 
       {/* Summary Cards */}
       {!loading && <FinanceSummary records={records} summary={summary} formatRupiah={formatRupiah} />}
-
-      {/* Form Modal */}
-      {showForm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white rounded-2xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto">
-            <h2 className="text-lg font-heading font-bold mb-4">
-              {editingId ? "Edit Record" : "Tambah Record"}
-            </h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm font-medium text-neutral-700">Tahun</label>
-                  <input
-                    type="number"
-                    value={form.year}
-                    onChange={(e) => setForm({ ...form, year: Number(e.target.value) })}
-                    className="mt-1 w-full px-3 py-2 border border-neutral-200 rounded-xl text-sm"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-neutral-700">Tipe</label>
-                  <select
-                    value={form.type}
-                    onChange={(e) => setForm({ ...form, type: e.target.value as "INCOME" | "EXPENSE" })}
-                    className="mt-1 w-full px-3 py-2 border border-neutral-200 rounded-xl text-sm"
-                  >
-                    <option value="INCOME">Pendapatan</option>
-                    <option value="EXPENSE">Belanja</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm font-medium text-neutral-700">Kategori (ID)</label>
-                  <input
-                    type="text"
-                    value={form.categoryId}
-                    onChange={(e) => setForm({ ...form, categoryId: e.target.value })}
-                    className="mt-1 w-full px-3 py-2 border border-neutral-200 rounded-xl text-sm"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-neutral-700">Kategori (EN)</label>
-                  <input
-                    type="text"
-                    value={form.categoryEn}
-                    onChange={(e) => setForm({ ...form, categoryEn: e.target.value })}
-                    className="mt-1 w-full px-3 py-2 border border-neutral-200 rounded-xl text-sm"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm font-medium text-neutral-700">Sub-kategori (ID)</label>
-                  <input
-                    type="text"
-                    value={form.subcategoryId}
-                    onChange={(e) => setForm({ ...form, subcategoryId: e.target.value })}
-                    className="mt-1 w-full px-3 py-2 border border-neutral-200 rounded-xl text-sm"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-neutral-700">Sub-kategori (EN)</label>
-                  <input
-                    type="text"
-                    value={form.subcategoryEn}
-                    onChange={(e) => setForm({ ...form, subcategoryEn: e.target.value })}
-                    className="mt-1 w-full px-3 py-2 border border-neutral-200 rounded-xl text-sm"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm font-medium text-neutral-700">Anggaran (Rp)</label>
-                  <input
-                    type="number"
-                    value={form.budget}
-                    onChange={(e) => setForm({ ...form, budget: Number(e.target.value) })}
-                    className="mt-1 w-full px-3 py-2 border border-neutral-200 rounded-xl text-sm"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-neutral-700">Realisasi (Rp)</label>
-                  <input
-                    type="number"
-                    value={form.amount}
-                    onChange={(e) => setForm({ ...form, amount: Number(e.target.value) })}
-                    className="mt-1 w-full px-3 py-2 border border-neutral-200 rounded-xl text-sm"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm font-medium text-neutral-700">Sumber (ID)</label>
-                  <input
-                    type="text"
-                    value={form.sourceId}
-                    onChange={(e) => setForm({ ...form, sourceId: e.target.value })}
-                    className="mt-1 w-full px-3 py-2 border border-neutral-200 rounded-xl text-sm"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-neutral-700">Sumber (EN)</label>
-                  <input
-                    type="text"
-                    value={form.sourceEn}
-                    onChange={(e) => setForm({ ...form, sourceEn: e.target.value })}
-                    className="mt-1 w-full px-3 py-2 border border-neutral-200 rounded-xl text-sm"
-                  />
-                </div>
-              </div>
-
-              <div className="flex gap-3 pt-2">
-                <button
-                  type="submit"
-                  className="px-4 py-2 bg-primary text-white text-sm font-medium rounded-xl hover:bg-primary-dark transition-colors"
-                >
-                  {editingId ? "Update" : "Simpan"}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => { setShowForm(false); setEditingId(null); }}
-                  className="px-4 py-2 bg-neutral-100 text-neutral-700 text-sm font-medium rounded-xl hover:bg-neutral-200 transition-colors"
-                >
-                  Batal
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
 
       {/* Table */}
       {loading ? (
@@ -319,7 +112,7 @@ export default function AdminFinancePage() {
                     <td className="py-3 px-4 text-center">
                       <div className="flex gap-1 justify-center">
                         <button
-                          onClick={() => handleEdit(record)}
+                          onClick={() => router.push(`/admin/keuangan/form?id=${record.id}`)}
                           className="px-2 py-1 text-xs text-primary hover:bg-primary/10 rounded-lg transition-colors"
                         >
                           Edit
@@ -371,7 +164,6 @@ function FinanceSummary({
 
   return (
     <div className="space-y-4 mb-6">
-      {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <Card className="!p-4">
           <p className="text-xs text-neutral-500 mb-1">💰 Total Pendapatan</p>
@@ -402,7 +194,6 @@ function FinanceSummary({
         </Card>
       </div>
 
-      {/* Mini Bar Chart */}
       {topCategories.length > 0 && (
         <Card className="!p-4">
           <p className="text-xs font-medium text-neutral-500 mb-3">Top 5 Kategori (Realisasi)</p>

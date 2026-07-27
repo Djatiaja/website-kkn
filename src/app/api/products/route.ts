@@ -3,13 +3,12 @@ import { withErrorHandler } from "@/lib/middleware/error";
 import { withAuth } from "@/lib/middleware/auth";
 import { productService } from "@/services/product.service";
 import { createProductSchema } from "@/lib/validations/product";
-import type { ProductCategory } from "@prisma/client";
 
 export const GET = withErrorHandler(async (req: NextRequest) => {
   const { searchParams } = new URL(req.url);
 
   const filters = {
-    category: searchParams.get("category") as ProductCategory | undefined,
+    category: searchParams.get("category") as string | undefined,
     search: searchParams.get("search") || undefined,
     isActive: searchParams.has("isActive")
       ? searchParams.get("isActive") === "true"

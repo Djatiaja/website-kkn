@@ -100,7 +100,7 @@ export function NewsDetailClient({ id, locale }: NewsDetailClientProps) {
 
         <ScrollReveal delay={200}>
           <div
-            className="prose prose-neutral max-w-none"
+            className="rich-text prose prose-neutral max-w-none overflow-hidden"
             dangerouslySetInnerHTML={{ __html: content }}
           />
         </ScrollReveal>

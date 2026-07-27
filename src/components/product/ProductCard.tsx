@@ -66,9 +66,7 @@ export function ProductCard({ product, locale }: ProductCardProps) {
             )}
           </p>
         ) : (
-          <p className="text-neutral-500 text-xs line-clamp-2 mt-1 leading-relaxed">
-            {locale === "id" ? product.descriptionId : product.descriptionEn}
-          </p>
+          <div className="rich-text-excerpt text-neutral-500 text-xs mt-1 leading-relaxed" dangerouslySetInnerHTML={{ __html: locale === "id" ? (product.descriptionId || "") : (product.descriptionEn || "") }} />
         )}
       </div>
     </Link>

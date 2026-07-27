@@ -44,7 +44,7 @@ export function FinancePageClient({ locale }: { locale: "id" | "en" }) {
 
   useEffect(() => {
     if (!selectedYear) return;
-    setLoading(true);
+    void // setLoading(true);
     Promise.all([
       api.get<PaginatedResponse<FinanceRecord>>(`/finance?year=${selectedYear}`),
       api.get<FinanceSummary>(`/finance/summary?year=${selectedYear}`),
@@ -77,8 +77,49 @@ export function FinancePageClient({ locale }: { locale: "id" | "en" }) {
         </ScrollReveal>
 
         {loading ? (
-          <div className="flex justify-center py-20">
-            <div className="animate-spin w-8 h-8 border-3 border-primary border-t-transparent rounded-full" />
+          <div className="space-y-8 animate-pulse">
+            {/* Summary Cards Skeleton */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[0, 1, 2].map((i) => (
+                <div key={i} className="bg-white rounded-2xl p-6 shadow-sm border border-neutral-100">
+                  <div className="h-4 w-20 bg-neutral-200 rounded mb-3" />
+                  <div className="h-8 w-32 bg-neutral-200 rounded" />
+                </div>
+              ))}
+            </div>
+
+            {/* Charts Skeleton */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div className="bg-white rounded-2xl p-6 shadow-sm border border-neutral-100">
+                <div className="h-5 w-40 bg-neutral-200 rounded mb-4" />
+                <div className="h-64 bg-neutral-100 rounded-xl" />
+              </div>
+              <div className="bg-white rounded-2xl p-6 shadow-sm border border-neutral-100">
+                <div className="h-5 w-40 bg-neutral-200 rounded mb-4" />
+                <div className="h-64 bg-neutral-100 rounded-full mx-auto w-64" />
+              </div>
+            </div>
+
+            {/* Trend Chart Skeleton */}
+            <div className="bg-white rounded-2xl p-6 shadow-sm border border-neutral-100">
+              <div className="h-5 w-48 bg-neutral-200 rounded mb-4" />
+              <div className="h-56 bg-neutral-100 rounded-xl" />
+            </div>
+
+            {/* Table Skeleton */}
+            <div className="bg-white rounded-2xl p-6 shadow-sm border border-neutral-100">
+              <div className="h-5 w-40 bg-neutral-200 rounded mb-6" />
+              <div className="space-y-3">
+                {[0, 1, 2, 3, 4].map((i) => (
+                  <div key={i} className="flex gap-4">
+                    <div className="h-4 flex-1 bg-neutral-100 rounded" />
+                    <div className="h-4 w-20 bg-neutral-100 rounded" />
+                    <div className="h-4 w-20 bg-neutral-100 rounded" />
+                    <div className="h-4 w-16 bg-neutral-100 rounded" />
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         ) : (
           <div className="space-y-8">

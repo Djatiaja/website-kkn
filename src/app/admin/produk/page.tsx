@@ -26,7 +26,7 @@ export default function AdminProdukPage() {
   };
 
   useEffect(() => {
-    fetchProducts();
+    fetchProducts().catch(console.error);
   }, [page]);
 
   const handleDelete = async (id: string) => {
@@ -34,7 +34,7 @@ export default function AdminProdukPage() {
     setDeleting(id);
     try {
       await api.delete(`/products/${id}`);
-      fetchProducts();
+      fetchProducts().catch(console.error);
     } catch (err) {
       alert("Gagal menghapus produk");
     }
@@ -44,7 +44,7 @@ export default function AdminProdukPage() {
   const handleToggleActive = async (product: Product) => {
     try {
       await api.put(`/products/${product.id}`, { isActive: !product.isActive });
-      fetchProducts();
+      fetchProducts().catch(console.error);
     } catch (err) {
       alert("Gagal mengubah status");
     }

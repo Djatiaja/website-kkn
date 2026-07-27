@@ -45,7 +45,7 @@ export function LocationList({ features, locale, onLocationClick }: LocationList
             <div className="min-w-0">
               <p className="font-heading font-semibold text-sm text-neutral-900 truncate">{name}</p>
               {desc && (
-                <p className="text-xs text-neutral-500 mt-0.5 line-clamp-2">{desc}</p>
+                <p className="text-xs text-neutral-500 mt-0.5 line-clamp-2 [&_a]:underline" dangerouslySetInnerHTML={{ __html: desc }} />
               )}
               <span className="inline-block mt-1 text-xs text-primary/70 bg-primary/5 px-2 py-0.5 rounded-full">
                 {feature.type}

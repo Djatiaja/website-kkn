@@ -114,18 +114,22 @@ export function ProductDetail({ product, relatedProducts, locale, labels }: Prod
             </div>
           )}
 
-          <div className="mb-6">
-            <p className="text-neutral-700 leading-relaxed whitespace-pre-wrap">{description}</p>
+          <div className="mb-6 overflow-hidden">
+            <div
+              className="rich-text text-neutral-700 leading-relaxed"
+              dangerouslySetInnerHTML={{ __html: description || "" }}
+            />
           </div>
 
           {specifications && (
-            <div className="mb-6">
+            <div className="mb-6 overflow-hidden">
               <h3 className="text-lg font-heading font-bold text-neutral-900 mb-2">
                 {locale === "id" ? "Spesifikasi" : "Specifications"}
               </h3>
-              <p className="text-neutral-700 leading-relaxed whitespace-pre-wrap">
-                {specifications}
-              </p>
+              <div
+                className="rich-text text-neutral-700 leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: specifications || "" }}
+              />
             </div>
           )}
 
@@ -146,9 +150,10 @@ export function ProductDetail({ product, relatedProducts, locale, labels }: Prod
               {product.investmentDetailsId && (
                 <div>
                   <p className="text-sm text-neutral-500 mb-1">{locale === "id" ? "Detail Penggunaan" : "Usage Details"}</p>
-                  <p className="text-neutral-700 text-sm leading-relaxed whitespace-pre-wrap">
-                    {locale === "id" ? product.investmentDetailsId : (product.investmentDetailsEn || product.investmentDetailsId)}
-                  </p>
+                  <div
+                    className="rich-text text-neutral-700 text-sm leading-relaxed overflow-hidden"
+                    dangerouslySetInnerHTML={{ __html: locale === "id" ? (product.investmentDetailsId || "") : (product.investmentDetailsEn || product.investmentDetailsId || "") }}
+                  />
                 </div>
               )}
             </div>

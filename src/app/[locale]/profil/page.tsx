@@ -8,7 +8,10 @@ import { Demographics } from "@/components/profile/Demographics";
 
 async function getProfileData() {
   const profile = await prisma.villageProfile.findFirst({
-    include: { members: { orderBy: { order: "asc" } } },
+    include: {
+      members: { orderBy: { order: "asc" } },
+      missionItems: { orderBy: { order: "asc" } },
+    },
   });
   return profile;
 }
@@ -32,8 +35,14 @@ export default async function ProfilPage({
 
   const description = locale === "id" ? profile.descriptionId : profile.descriptionEn;
   const vision = locale === "id" ? profile.visionId : profile.visionEn;
-  const mission = locale === "id" ? profile.missionId : profile.missionEn;
   const history = locale === "id" ? profile.historyId : profile.historyEn;
+
+  const missionItems = profile.missionItems.map((m) => ({
+    id: m.id,
+    textId: m.textId,
+    textEn: m.textEn,
+    order: m.order,
+  }));
 
   const members = profile.members.map((m) => ({
     id: m.id,
@@ -55,7 +64,8 @@ export default async function ProfilPage({
         visionTitle={t("vision.title")}
         missionTitle={t("mission.title")}
         vision={vision}
-        mission={mission}
+        missionItems={missionItems}
+        locale={locale as "id" | "en"}
       />
 
       <History

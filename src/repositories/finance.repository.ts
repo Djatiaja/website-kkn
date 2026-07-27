@@ -1,9 +1,9 @@
 import { prisma } from "@/lib/prisma";
-import type { Prisma, FinanceType } from "@prisma/client";
+import type { Prisma } from "@prisma/client";
 
 export interface FinanceFilters {
   year?: number;
-  type?: FinanceType;
+  type?: string;
   page?: number;
   pageSize?: number;
 }
@@ -14,7 +14,7 @@ export const financeRepository = {
 
     const where: Prisma.FinanceRecordWhereInput = {
       ...(year && { year }),
-      ...(type && { type }),
+      ...(type && { type: type as Prisma.EnumFinanceTypeFilter }),
     };
 
     const [data, total] = await Promise.all([

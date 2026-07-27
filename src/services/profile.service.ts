@@ -32,4 +32,21 @@ export const profileService = {
     if (!existing) throw new NotFoundError("Organization member");
     return profileRepository.deleteMember(id);
   },
+
+  // ─── Mission Items ──────────────────────────────────────
+  async getMissionItems(profileId: string) {
+    return profileRepository.getMissionItems(profileId);
+  },
+
+  async createMissionItem(data: Prisma.MissionItemUncheckedCreateInput) {
+    return profileRepository.createMissionItem(data);
+  },
+
+  async updateMissionItem(id: string, data: Prisma.MissionItemUpdateInput) {
+    return profileRepository.updateMissionItem(id, data);
+  },
+
+  async deleteMissionItem(id: string) {
+    return profileRepository.deleteMissionItem(id);
+  },
 };

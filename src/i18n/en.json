@@ -2,18 +2,19 @@
   "nav": {
     "home": "Home",
     "profile": "Village Profile",
-    "products": "Products & Potential",
-    "finance": "Financial Transparency",
-    "map": "Village Map",
-    "news": "News",
+    "news": "News & Announcements",
+    "products": "SME Products",
     "gallery": "Gallery",
+    "materials": "Digital Materials",
+    "map": "Potential Map",
+    "finance": "Finance",
     "admin": "Admin Panel",
     "login": "Login",
     "logout": "Logout"
   },
   "home": {
     "hero": {
-      "title": "Welcome to Sukamakmur Village",
+      "title": "Welcome to Tanjungsari Village",
       "subtitle": "Independent, Prosperous, and Cultured",
       "cta_explore": "Explore Village",
       "cta_products": "View Products"
@@ -38,7 +39,7 @@
     }
   },
   "profile": {
-    "title": "Sukamakmur Village Profile",
+    "title": "Tanjungsari Village Profile",
     "vision": { "title": "Vision" },
     "mission": { "title": "Mission" },
     "history": { "title": "Village History" },
@@ -53,7 +54,7 @@
   },
   "product": {
     "title": "Village Products & Potential Catalog",
-    "subtitle": "Discover featured products and tourist destinations of Sukamakmur Village",
+    "subtitle": "Discover featured products and tourist destinations of Tanjungsari Village",
     "search": "Search products...",
     "filter": {
       "all": "All",
@@ -92,7 +93,7 @@
     "expense_section": "Expenditure"
   },
   "map": {
-    "title": "Sukamakmur Village Map",
+    "title": "Tanjungsari Village Map",
     "legend": "Legend",
     "boundary": "Village Boundary",
     "poi": "Points of Interest",
@@ -120,20 +121,54 @@
     "empty": "No news yet"
   },
   "gallery": {
-    "title": "Sukamakmur Village Gallery",
+    "title": "Tanjungsari Village Gallery",
     "filter": { "all": "All", "photo": "Photos", "video": "Videos" },
     "load_more": "Load More",
     "empty": "No photos or videos yet"
   },
+  "materials": {
+    "title": "Digital Materials",
+    "search": "Search materials...",
+    "category": "Category",
+    "fileType": "File Type",
+    "download": "Download",
+    "downloadCount": "Downloads",
+    "noResults": "No materials found",
+    "detail": "Material Detail",
+    "preview": "Preview",
+    "fileSize": "File Size",
+    "uploadDate": "Upload Date",
+    "categories": {
+      "PENDIDIKAN": "Education",
+      "KESEHATAN": "Health",
+      "PERTANIAN": "Agriculture",
+      "TEKNOLOGI": "Technology",
+      "UMUM": "General"
+    }
+  },
+  "admin_materials": {
+    "title": "Manage Materials",
+    "add": "Add Material",
+    "edit": "Edit Material",
+    "delete": "Delete Material",
+    "form": {
+      "titleId": "Title (Indonesian)",
+      "titleEn": "Title (English)",
+      "description": "Description",
+      "file": "Upload File",
+      "thumbnail": "Thumbnail",
+      "published": "Published"
+    }
+  },
   "footer": {
-    "description": "Sukamakmur Village — Independent, Prosperous, and Cultured",
+    "description": "Tanjungsari Village — Independent, Prosperous, and Cultured",
     "navigation": "Navigation",
     "contact": "Contact",
     "address": "Address",
     "phone": "Phone",
     "email": "Email",
     "social": "Social Media",
-    "copyright": "© 2024 Sukamakmur Village. All rights reserved."
+    "copyright": "© 2024 Tanjungsari Village. All rights reserved."
   },
   "common": {
     "loading": "Loading...",
@@ -167,6 +202,20 @@
     "manage_news": "Manage News",
     "manage_gallery": "Manage Gallery",
     "manage_users": "Manage Users",
+    "materials": {
+      "title": "Manage Materials",
+      "add": "Add Material",
+      "edit": "Edit Material",
+      "delete": "Delete Material",
+      "form": {
+        "titleId": "Title (Indonesian)",
+        "titleEn": "Title (English)",
+        "description": "Description",
+        "file": "Upload File",
+        "thumbnail": "Thumbnail",
+        "published": "Published"
+      }
+    },
     "add_new": "Add New",
     "draft": "Draft",
     "published": "Published",
@@ -183,5 +232,25 @@
     "submit": "Sign In",
     "error": "Invalid email or password",
     "logout_confirm": "Are you sure you want to logout?"
+  },
+  "materials": {
+    "title": "Digital Materials",
+    "search": "Search materials...",
+    "category": "Category",
+    "fileType": "File Type",
+    "download": "Download",
+    "downloadCount": "Downloads",
+    "noResults": "No materials found",
+    "detail": "Material Detail",
+    "preview": "Preview",
+    "fileSize": "File Size",
+    "uploadDate": "Upload Date",
+    "categories": {
+      "PENDIDIKAN": "Education",
+      "KESEHATAN": "Health",
+      "PERTANIAN": "Agriculture",
+      "TEKNOLOGI": "Technology",
+      "UMUM": "General"
+    }
   }
 }

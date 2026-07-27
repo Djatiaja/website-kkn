@@ -10,7 +10,7 @@ interface ProfileHeroProps {
 
 export function ProfileHero({ title, description, imageUrl }: ProfileHeroProps) {
   return (
-    <section className="relative h-[40vh] min-h-[320px] flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[40vh] flex items-center justify-center overflow-hidden">
       {/* Background */}
       {imageUrl ? (
         <img
@@ -27,14 +27,15 @@ export function ProfileHero({ title, description, imageUrl }: ProfileHeroProps) 
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
 
       {/* Content */}
-      <div className="relative z-10 text-center px-4 max-w-3xl mx-auto">
+      <div className="relative z-10 text-center px-4 max-w-3xl mx-auto py-20">
         <ScrollReveal>
           <h1 className="text-3xl md:text-5xl font-heading font-extrabold text-white mb-3 drop-shadow-lg">
             {title}
           </h1>
-          <p className="text-white/80 text-sm md:text-base max-w-xl mx-auto">
-            {description}
-          </p>
+          <div
+            className="rich-text-hero text-white/80 text-sm md:text-base max-w-xl mx-auto"
+            dangerouslySetInnerHTML={{ __html: description }}
+          />
         </ScrollReveal>
       </div>
     </section>

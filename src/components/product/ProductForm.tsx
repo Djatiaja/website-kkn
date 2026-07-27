@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { api } from "@/lib/api";
+import { RichTextEditor } from "@/components/ui/RichTextEditor";
 import type { Product } from "@/types";
 
 interface ProductFormData {
@@ -38,7 +39,7 @@ export function ProductForm({ product, isEditing = false }: ProductFormProps) {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<ProductFormData>({
+  const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<ProductFormData>({
     defaultValues: {
       nameId: product?.nameId || "",
       nameEn: product?.nameEn || "",
@@ -147,10 +148,9 @@ export function ProductForm({ product, isEditing = false }: ProductFormProps) {
           <label className="block text-sm font-medium text-neutral-700 mb-1.5">
             Deskripsi (ID) <span className="text-error">*</span>
           </label>
-          <textarea
-            {...register("descriptionId", { required: "Wajib diisi", minLength: { value: 10, message: "Min 10 karakter" } })}
-            rows={4}
-            className="w-full px-4 py-2.5 border border-neutral-200 rounded-xl text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 resize-none"
+          <RichTextEditor
+            value={watch("descriptionId")}
+            onChange={(val) => setValue("descriptionId", val, { shouldValidate: true })}
             placeholder="Deskripsi produk..."
           />
           {errors.descriptionId && <p className="text-xs text-error mt-1">{errors.descriptionId.message}</p>}
@@ -159,10 +159,9 @@ export function ProductForm({ product, isEditing = false }: ProductFormProps) {
           <label className="block text-sm font-medium text-neutral-700 mb-1.5">
             Description (EN) <span className="text-error">*</span>
           </label>
-          <textarea
-            {...register("descriptionEn", { required: "Required", minLength: { value: 10, message: "Min 10 characters" } })}
-            rows={4}
-            className="w-full px-4 py-2.5 border border-neutral-200 rounded-xl text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 resize-none"
+          <RichTextEditor
+            value={watch("descriptionEn")}
+            onChange={(val) => setValue("descriptionEn", val, { shouldValidate: true })}
             placeholder="Product description..."
           />
           {errors.descriptionEn && <p className="text-xs text-error mt-1">{errors.descriptionEn.message}</p>}
@@ -227,10 +226,9 @@ export function ProductForm({ product, isEditing = false }: ProductFormProps) {
           <label className="block text-sm font-medium text-neutral-700 mb-1.5">
             Spesifikasi (ID)
           </label>
-          <textarea
-            {...register("specificationsId")}
-            rows={4}
-            className="w-full px-4 py-2.5 border border-neutral-200 rounded-xl text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 resize-none"
+          <RichTextEditor
+            value={watch("specificationsId") || ""}
+            onChange={(val) => setValue("specificationsId", val)}
             placeholder="Spesifikasi produk..."
           />
         </div>
@@ -238,10 +236,9 @@ export function ProductForm({ product, isEditing = false }: ProductFormProps) {
           <label className="block text-sm font-medium text-neutral-700 mb-1.5">
             Specifications (EN)
           </label>
-          <textarea
-            {...register("specificationsEn")}
-            rows={4}
-            className="w-full px-4 py-2.5 border border-neutral-200 rounded-xl text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 resize-none"
+          <RichTextEditor
+            value={watch("specificationsEn") || ""}
+            onChange={(val) => setValue("specificationsEn", val)}
             placeholder="Product specifications..."
           />
         </div>
@@ -341,10 +338,9 @@ export function ProductForm({ product, isEditing = false }: ProductFormProps) {
                   <label className="block text-sm font-medium text-neutral-700 mb-1.5">
                     Detail Investasi (ID)
                   </label>
-                  <textarea
-                    {...register("investmentDetailsId")}
-                    rows={4}
-                    className="w-full px-4 py-2.5 border border-neutral-200 rounded-xl text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 resize-none"
+                  <RichTextEditor
+                    value={watch("investmentDetailsId") || ""}
+                    onChange={(val) => setValue("investmentDetailsId", val)}
                     placeholder="Contoh: Dibutuhkan investasi untuk pembangunan akses jalan dan gazebo..."
                   />
                 </div>
@@ -352,10 +348,9 @@ export function ProductForm({ product, isEditing = false }: ProductFormProps) {
                   <label className="block text-sm font-medium text-neutral-700 mb-1.5">
                     Investment Details (EN)
                   </label>
-                  <textarea
-                    {...register("investmentDetailsEn")}
-                    rows={4}
-                    className="w-full px-4 py-2.5 border border-neutral-200 rounded-xl text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 resize-none"
+                  <RichTextEditor
+                    value={watch("investmentDetailsEn") || ""}
+                    onChange={(val) => setValue("investmentDetailsEn", val)}
                     placeholder="Example: Investment needed for road access and gazebos..."
                   />
                 </div>

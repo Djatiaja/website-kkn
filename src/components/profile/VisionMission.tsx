@@ -7,11 +7,26 @@ interface VisionMissionProps {
   visionTitle: string;
   missionTitle: string;
   vision: string;
-  mission: string;
+  missionItems: { id: string; textId: string; textEn: string; order: number }[];
+  locale: "id" | "en";
 }
 
-export function VisionMission({ visionTitle, missionTitle, vision, mission }: VisionMissionProps) {
-  const missionItems = mission.split("\n").filter((line) => line.trim());
+/**
+ * Convert Quill HTML to inline-only text (strip <p> wrappers but keep bold/italic).
+ * This prevents the <p> from creating block breaks inside the blockquote.
+ */
+function flattenQuillHtml(html: string): string {
+  // Remove <p> and </p> tags, keep their content and inline formatting
+  return html
+    .replace(/<p[^>]*>/gi, "")
+    .replace(/<\/p>/gi, "")
+    .replace(/<br\s*\/?>/gi, " ")
+    .replace(/&nbsp;/g, " ")
+    .trim();
+}
+
+export function VisionMission({ visionTitle, missionTitle, vision, missionItems, locale }: VisionMissionProps) {
+  const sorted = [...missionItems].sort((a, b) => a.order - b.order);
 
   return (
     <section className="py-16 bg-white">
@@ -23,8 +38,11 @@ export function VisionMission({ visionTitle, missionTitle, vision, mission }: Vi
               <Target className="w-6 h-6 text-primary" /> {visionTitle}
             </h2>
             <div className="w-16 h-1 bg-primary mx-auto rounded-full mb-6" />
-            <blockquote className="text-lg md:text-xl text-neutral-700 italic leading-relaxed bg-primary/5 p-6 rounded-2xl border-l-4 border-primary">
-              &ldquo;{vision}&rdquo;
+            <blockquote className="text-lg md:text-xl text-neutral-700 italic leading-relaxed bg-primary/5 p-6 rounded-2xl border-l-4 border-primary text-center">
+              <span
+                className="rich-text [&_p]:inline [&_p]:m-0 [&_strong]:font-semibold [&_em]:italic"
+                dangerouslySetInnerHTML={{ __html: `&ldquo;${flattenQuillHtml(vision)}&rdquo;` }}
+              />
             </blockquote>
           </div>
         </ScrollReveal>
@@ -36,19 +54,20 @@ export function VisionMission({ visionTitle, missionTitle, vision, mission }: Vi
               <Flag className="w-6 h-6 text-primary" /> {missionTitle}
             </h2>
             <div className="space-y-3">
-              {missionItems.map((item, idx) => {
-                const text = item.replace(/^\d+\.\s*/, "");
+              {sorted.map((item, idx) => {
+                const text = locale === "id" ? item.textId : item.textEn;
                 return (
                   <div
-                    key={idx}
+                    key={item.id}
                     className="flex items-start gap-4 p-4 rounded-xl bg-neutral-50 border border-neutral-100 hover:border-primary/20 hover:bg-primary/5 transition-colors duration-300"
                   >
                     <span className="flex-shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold">
                       {idx + 1}
                     </span>
-                    <p className="text-neutral-700 text-sm md:text-base pt-1">
-                      {text}
-                    </p>
+                    <div
+                      className="rich-text text-neutral-700 text-sm md:text-base pt-1 [&_p]:inline [&_p]:m-0"
+                      dangerouslySetInnerHTML={{ __html: text }}
+                    />
                   </div>
                 );
               })}

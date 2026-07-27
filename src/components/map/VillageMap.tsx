@@ -125,7 +125,7 @@ export function VillageMap({ features, locale, flyTo }: VillageMapProps) {
             <Popup>
               <div className="text-sm">
                 <strong>{name}</strong>
-                {desc && <p className="mt-1 text-neutral-600">{desc}</p>}
+                {desc && <p className="mt-1 text-neutral-600 [&_a]:underline [&_p]:mb-1 [&_ul]:list-disc [&_ul]:ml-4 [&_ol]:list-decimal [&_ol]:ml-4" dangerouslySetInnerHTML={{ __html: desc }} />}
               </div>
             </Popup>
           </Marker>

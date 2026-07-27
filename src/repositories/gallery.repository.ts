@@ -1,8 +1,8 @@
 import { prisma } from "@/lib/prisma";
-import type { Prisma, GalleryType } from "@prisma/client";
+import type { Prisma } from "@prisma/client";
 
 export interface GalleryFilters {
-  type?: GalleryType;
+  type?: string;
   category?: string;
   page?: number;
   pageSize?: number;
@@ -13,7 +13,7 @@ export const galleryRepository = {
     const { type, category, page = 1, pageSize = 12 } = filters;
 
     const where: Prisma.GalleryItemWhereInput = {
-      ...(type && { type }),
+      ...(type && { type: type as Prisma.EnumGalleryTypeFilter }),
       ...(category && { category }),
     };
 

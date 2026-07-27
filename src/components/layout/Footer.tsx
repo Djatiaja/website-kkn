@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Home, MapPin, Phone, Mail } from "lucide-react";
+import { VILLAGE_CONFIG } from "@/lib/constants";
 
 interface FooterProps {
   locale: "id" | "en";
@@ -29,7 +30,7 @@ export function Footer({ locale }: FooterProps) {
             <div className="flex items-center gap-2 mb-4">
               <Home className="w-6 h-6 text-primary" />
               <h3 className="font-heading font-bold text-lg">
-                Desa Sukamakmur
+                {VILLAGE_CONFIG.name}
               </h3>
             </div>
             <p className="text-neutral-400 text-sm leading-relaxed mb-4">
@@ -38,7 +39,7 @@ export function Footer({ locale }: FooterProps) {
             {/* Social Media */}
             <div className="flex gap-3">
               <a
-                href="https://facebook.com/desasukamakmur"
+                href={VILLAGE_CONFIG.socialMedia.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center text-sm hover:bg-primary transition-colors"
@@ -47,7 +48,7 @@ export function Footer({ locale }: FooterProps) {
                 FB
               </a>
               <a
-                href="https://instagram.com/desasukamakmur"
+                href={VILLAGE_CONFIG.socialMedia.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center text-sm hover:bg-primary transition-colors"
@@ -56,7 +57,7 @@ export function Footer({ locale }: FooterProps) {
                 IG
               </a>
               <a
-                href="https://youtube.com/@desasukamakmur"
+                href={VILLAGE_CONFIG.socialMedia.youtube}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center text-sm hover:bg-primary transition-colors"
@@ -96,8 +97,7 @@ export function Footer({ locale }: FooterProps) {
                     {t("address")}
                   </p>
                   <p>
-                    Jl. Raya Sukamakmur No. 1, Kec. Sukamakmur, Kab. Bogor,
-                    Jawa Barat 16830
+                    {VILLAGE_CONFIG.address}
                   </p>
                 </div>
               </div>
@@ -107,7 +107,7 @@ export function Footer({ locale }: FooterProps) {
                   <span className="font-medium text-neutral-300">
                     {t("phone")}:
                   </span>{" "}
-                  0251-8000123
+                  {VILLAGE_CONFIG.phone}
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -116,7 +116,7 @@ export function Footer({ locale }: FooterProps) {
                   <span className="font-medium text-neutral-300">
                     {t("email")}:
                   </span>{" "}
-                  desa@sukamakmur.desa.id
+                  {VILLAGE_CONFIG.email}
                 </div>
               </div>
             </div>

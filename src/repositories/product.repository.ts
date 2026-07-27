@@ -1,8 +1,8 @@
 import { prisma } from "@/lib/prisma";
-import type { Prisma, ProductCategory } from "@prisma/client";
+import type { Prisma } from "@prisma/client";
 
 export interface ProductFilters {
-  category?: ProductCategory;
+  category?: string;
   search?: string;
   isActive?: boolean;
   page?: number;
@@ -14,7 +14,7 @@ export const productRepository = {
     const { category, search, isActive, page = 1, pageSize = 12 } = filters;
 
     const where: Prisma.ProductWhereInput = {
-      ...(category && { category }),
+      ...(category && { category: category as Prisma.EnumProductCategoryFilter }),
       ...(isActive !== undefined && { isActive }),
       ...(search && {
         OR: [

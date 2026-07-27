@@ -46,6 +46,22 @@ enum GalleryType {
   VIDEO
 }
 
+enum MaterialCategory {
+  PENDIDIKAN
+  KESEHATAN
+  PERTANIAN
+  TEKNOLOGI
+  UMUM
+}
+
+enum MaterialFileType {
+  PDF
+  DOC
+  VIDEO
+  IMAGE
+  OTHER
+}
+
 // ─── Models ─────────────────────────────────────────────
 
 model User {
@@ -82,8 +98,22 @@ model VillageProfile {
   createdAt     DateTime @default(now()) @map("created_at")
   updatedAt     DateTime @updatedAt @map("updated_at")
   members       OrganizationMember[]
+  missionItems  MissionItem[]
 
   @@map("village_profiles")
+}
+
+model MissionItem {
+  id        String         @id @default(cuid())
+  textId    String         @map("text_id") @db.Text
+  textEn    String         @map("text_en") @db.Text
+  order     Int
+  profileId String         @map("profile_id")
+  profile   VillageProfile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  createdAt DateTime       @default(now()) @map("created_at")
+  updatedAt DateTime       @updatedAt @map("updated_at")
+
+  @@map("mission_items")
 }
 
 model OrganizationMember {
@@ -210,4 +240,27 @@ model GalleryItem {
 
   @@index([type])
   @@map("gallery_items")
+}
+
+model DigitalMaterial {
+  id             String           @id @default(cuid())
+  titleId        String           @map("title_id")
+  titleEn        String           @map("title_en")
+  descriptionId  String?          @map("description_id") @db.Text
+  descriptionEn  String?          @map("description_en") @db.Text
+  category       MaterialCategory
+  fileUrl        String           @map("file_url")
+  fileType       MaterialFileType @map("file_type")
+  fileSize       Int              @map("file_size")
+  fileName       String           @map("file_name")
+  thumbnailUrl   String?          @map("thumbnail_url")
+  downloadCount  Int              @default(0) @map("download_count")
+  isPublished    Boolean          @default(true) @map("is_published")
+  createdAt      DateTime         @default(now()) @map("created_at")
+  updatedAt      DateTime         @updatedAt @map("updated_at")
+
+  @@index([category])
+  @@index([fileType])
+  @@index([isPublished])
+  @@map("digital_materials")
 }

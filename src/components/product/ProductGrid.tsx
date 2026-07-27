@@ -65,7 +65,7 @@ export function ProductGrid({ locale, labels }: ProductGridProps) {
   }, [category, search, page]);
 
   useEffect(() => {
-    fetchProducts();
+    fetchProducts().catch(console.error);
   }, [fetchProducts]);
 
   const updateParams = (key: string, value: string) => {

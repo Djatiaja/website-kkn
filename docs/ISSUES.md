@@ -1,4 +1,4 @@
-# Identifikasi Permasalahan — Desa Sukamakmur Web App
+# Identifikasi Permasalahan — Desa Tanjungsari Web App
 
 Dokumen ini mencatat bug dan kekurangan yang perlu diperbaiki sebelum deploy.
 
@@ -150,7 +150,7 @@ npm run dev
 
 # 4. Test login
 # Browser: http://localhost:3000/admin/login
-# Email: admin@sukamakmur.desa.id
+# Email: admin@Tanjungsari.desa.id
 # Password: Admin@Desa2024
 
 # 5. Test fitur utama

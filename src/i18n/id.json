@@ -2,18 +2,19 @@
   "nav": {
     "home": "Beranda",
     "profile": "Profil Desa",
-    "products": "Produk & Potensi",
-    "finance": "Transparansi Keuangan",
-    "map": "Peta Desa",
-    "news": "Berita",
+    "news": "Berita & Pengumuman",
+    "products": "Produk UMKM",
     "gallery": "Galeri",
+    "materials": "Materi Digital",
+    "map": "Peta Potensi",
+    "finance": "Keuangan",
     "admin": "Admin Panel",
     "login": "Masuk",
     "logout": "Keluar"
   },
   "home": {
     "hero": {
-      "title": "Selamat Datang di Desa Sukamakmur",
+      "title": "Selamat Datang di Desa Tanjungsari",
       "subtitle": "Mandiri, Sejahtera, dan Berbudaya",
       "cta_explore": "Jelajahi Desa",
       "cta_products": "Lihat Produk"
@@ -38,7 +39,7 @@
     }
   },
   "profile": {
-    "title": "Profil Desa Sukamakmur",
+    "title": "Profil Desa Tanjungsari",
     "vision": { "title": "Visi" },
     "mission": { "title": "Misi" },
     "history": { "title": "Sejarah Desa" },
@@ -53,7 +54,7 @@
   },
   "product": {
     "title": "Katalog Produk & Potensi Desa",
-    "subtitle": "Temukan produk unggulan dan destinasi wisata Desa Sukamakmur",
+    "subtitle": "Temukan produk unggulan dan destinasi wisata Desa Tanjungsari",
     "search": "Cari produk...",
     "filter": {
       "all": "Semua",
@@ -92,7 +93,7 @@
     "expense_section": "Belanja"
   },
   "map": {
-    "title": "Peta Desa Sukamakmur",
+    "title": "Peta Desa Tanjungsari",
     "legend": "Legenda",
     "boundary": "Batas Wilayah",
     "poi": "Titik Lokasi",
@@ -120,20 +121,54 @@
     "empty": "Belum ada berita"
   },
   "gallery": {
-    "title": "Galeri Desa Sukamakmur",
+    "title": "Galeri Desa Tanjungsari",
     "filter": { "all": "Semua", "photo": "Foto", "video": "Video" },
     "load_more": "Muat Lebih Banyak",
     "empty": "Belum ada foto atau video"
   },
+  "materials": {
+    "title": "Materi Digital",
+    "search": "Cari materi...",
+    "category": "Kategori",
+    "fileType": "Tipe File",
+    "download": "Unduh",
+    "downloadCount": "Unduhan",
+    "noResults": "Materi tidak ditemukan",
+    "detail": "Detail Materi",
+    "preview": "Pratinjau",
+    "fileSize": "Ukuran File",
+    "uploadDate": "Tanggal Upload",
+    "categories": {
+      "PENDIDIKAN": "Pendidikan",
+      "KESEHATAN": "Kesehatan",
+      "PERTANIAN": "Pertanian",
+      "TEKNOLOGI": "Teknologi",
+      "UMUM": "Umum"
+    }
+  },
+  "admin_materials": {
+    "title": "Kelola Materi",
+    "add": "Tambah Materi",
+    "edit": "Edit Materi",
+    "delete": "Hapus Materi",
+    "form": {
+      "titleId": "Judul (Indonesia)",
+      "titleEn": "Judul (Inggris)",
+      "description": "Deskripsi",
+      "file": "Unggah File",
+      "thumbnail": "Gambar Mini",
+      "published": "Dipublikasi"
+    }
+  },
   "footer": {
-    "description": "Desa Sukamakmur — Mandiri, Sejahtera, dan Berbudaya",
+    "description": "Desa Tanjungsari — Mandiri, Sejahtera, dan Berbudaya",
     "navigation": "Navigasi",
     "contact": "Kontak",
     "address": "Alamat",
     "phone": "Telepon",
     "email": "Email",
     "social": "Media Sosial",
-    "copyright": "© 2024 Desa Sukamakmur. Hak cipta dilindungi."
+    "copyright": "© 2024 Desa Tanjungsari. Hak cipta dilindungi."
   },
   "common": {
     "loading": "Memuat...",
@@ -167,6 +202,20 @@
     "manage_news": "Kelola Berita",
     "manage_gallery": "Kelola Galeri",
     "manage_users": "Kelola Pengguna",
+    "materials": {
+      "title": "Kelola Materi",
+      "add": "Tambah Materi",
+      "edit": "Edit Materi",
+      "delete": "Hapus Materi",
+      "form": {
+        "titleId": "Judul (Indonesia)",
+        "titleEn": "Judul (Inggris)",
+        "description": "Deskripsi",
+        "file": "Unggah File",
+        "thumbnail": "Gambar Mini",
+        "published": "Dipublikasi"
+      }
+    },
     "add_new": "Tambah Baru",
     "draft": "Draf",
     "published": "Dipublikasikan",
@@ -183,5 +232,25 @@
     "submit": "Masuk",
     "error": "Email atau kata sandi salah",
     "logout_confirm": "Yakin ingin keluar?"
+  },
+  "materials": {
+    "title": "Materi Digital",
+    "search": "Cari materi...",
+    "category": "Kategori",
+    "fileType": "Tipe File",
+    "download": "Unduh",
+    "downloadCount": "Unduhan",
+    "noResults": "Materi tidak ditemukan",
+    "detail": "Detail Materi",
+    "preview": "Pratinjau",
+    "fileSize": "Ukuran File",
+    "uploadDate": "Tanggal Upload",
+    "categories": {
+      "PENDIDIKAN": "Pendidikan",
+      "KESEHATAN": "Kesehatan",
+      "PERTANIAN": "Pertanian",
+      "TEKNOLOGI": "Teknologi",
+      "UMUM": "Umum"
+    }
   }
 }

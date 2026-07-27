@@ -5,6 +5,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import { VILLAGE_CONFIG } from "@/lib/constants";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -53,7 +54,7 @@ export default function LoginPage() {
           <h1 className="text-2xl font-heading font-bold text-white">
             Admin Panel
           </h1>
-          <p className="text-sm text-white/60 mt-1">Desa Sukamakmur</p>
+          <p className="text-sm text-white/60 mt-1">{VILLAGE_CONFIG.name}</p>
         </div>
 
         {/* Login Card */}
@@ -66,7 +67,7 @@ export default function LoginPage() {
             <Input
               label="Alamat Email"
               type="email"
-              placeholder="admin@sukamakmur.desa.id"
+              placeholder={VILLAGE_CONFIG.email}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -103,7 +104,7 @@ export default function LoginPage() {
 
         {/* Footer */}
         <p className="text-center text-xs text-white/40 mt-6">
-          © 2024 Desa Sukamakmur. Hak cipta dilindungi.
+          © 2024 {VILLAGE_CONFIG.name}. Hak cipta dilindungi.
         </p>
       </div>
     </div>

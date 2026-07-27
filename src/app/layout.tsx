@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Inter } from "next/font/google";
 import { ToastProvider } from "@/components/ui/Toast";
+import { VILLAGE_CONFIG } from "@/lib/constants";
 import "./globals.css";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -17,19 +18,11 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Desa Sukamakmur — Mandiri, Sejahtera, dan Berbudaya",
-    template: "%s | Desa Sukamakmur",
+    default: `${VILLAGE_CONFIG.name} — ${VILLAGE_CONFIG.tagline}`,
+    template: `%s | ${VILLAGE_CONFIG.name}`,
   },
-  description:
-    "Website resmi Desa Sukamakmur, Kecamatan Sukamakmur, Kabupaten Bogor, Jawa Barat. Informasi profil desa, produk unggulan, transparansi keuangan, dan berita terbaru.",
-  keywords: [
-    "Desa Sukamakmur",
-    "desa",
-    "Bogor",
-    "website desa",
-    "profil desa",
-    "produk desa",
-  ],
+  description: VILLAGE_CONFIG.seoDescription,
+  keywords: [...VILLAGE_CONFIG.seoKeywords],
 };
 
 export default function RootLayout({

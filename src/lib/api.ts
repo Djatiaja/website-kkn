@@ -12,7 +12,44 @@ class ApiError extends Error {
   }
 }
 
+// ─── API Throttle ──────────────────────────────────────────
+// Prevents duplicate/repeated API calls within a short window.
+// Key = url + method; value = timestamp of last call.
+const THROTTLE_WINDOW_MS = 1000; // 1 second
+const recentRequests = new Map<string, number>();
+
+function isThrottled(key: string): boolean {
+  const now = Date.now();
+  const lastCall = recentRequests.get(key);
+  if (lastCall && now - lastCall < THROTTLE_WINDOW_MS) {
+    return true;
+  }
+  recentRequests.set(key, now);
+  return false;
+}
+
+// Clean up stale entries periodically (every 30s) to prevent memory leaks
+if (!isServer) {
+  setInterval(() => {
+    const now = Date.now();
+    for (const [key, timestamp] of recentRequests.entries()) {
+      if (now - timestamp > THROTTLE_WINDOW_MS * 10) {
+        recentRequests.delete(key);
+      }
+    }
+  }, 30_000);
+}
+
 async function request<T>(url: string, options?: RequestInit): Promise<T> {
+  const method = options?.method || "GET";
+  const throttleKey = `${method}:${url}`;
+
+  // Throttle GET requests to prevent infinite loop re-fetching
+  if (method === "GET" && !isServer && isThrottled(throttleKey)) {
+    console.warn(`[API Throttle] Blocked duplicate request: ${method} ${url}`);
+    throw new ApiError(429, "Request throttled — too many requests");
+  }
+
   const defaultHeaders: Record<string, string> = {};
   if (!(options?.body instanceof FormData)) {
     defaultHeaders["Content-Type"] = "application/json";

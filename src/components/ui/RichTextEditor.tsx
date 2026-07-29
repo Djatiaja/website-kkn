@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useMemo, useRef, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import 'react-quill-new/dist/quill.snow.css';
 import { toast } from 'sonner';
@@ -27,7 +27,8 @@ export const RichTextEditor = ({ value, onChange, placeholder, saveImageMode, fo
   // Resolve mode: prop override > env var > default "storage"
   const useStorage = saveImageMode ?? (process.env.NEXT_PUBLIC_UPLOAD_MODE !== "blob");
 
-  const imageHandler = () => {
+  // Wrap imageHandler in useCallback to prevent re-creating modules object
+  const imageHandler = useCallback(() => {
     const input = document.createElement('input');
     input.setAttribute('type', 'file');
     input.setAttribute('accept', 'image/*');
@@ -76,7 +77,7 @@ export const RichTextEditor = ({ value, onChange, placeholder, saveImageMode, fo
         }
       }
     };
-  };
+  }, [useStorage, folder]);
 
   const modules = useMemo(() => ({
     toolbar: {

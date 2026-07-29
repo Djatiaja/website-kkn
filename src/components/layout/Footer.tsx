@@ -1,15 +1,48 @@
 import Link from "next/link";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Home, MapPin, Phone, Mail } from "lucide-react";
 import { VILLAGE_CONFIG } from "@/lib/constants";
 
-interface FooterProps {
-  locale: "id" | "en";
+interface FooterProfileData {
+  name: string;
+  address: string;
+  phone?: string | null;
+  email?: string | null;
+  socialMedia?: {
+    facebook?: string;
+    instagram?: string;
+    youtube?: string;
+  } | null;
+  footerDescriptionId?: string | null;
+  footerDescriptionEn?: string | null;
+  copyrightId?: string | null;
+  copyrightEn?: string | null;
 }
 
-export function Footer({ locale }: FooterProps) {
+interface FooterProps {
+  locale: "id" | "en";
+  profile?: FooterProfileData;
+}
+
+export function Footer({ locale, profile }: FooterProps) {
   const t = useTranslations("footer");
   const tNav = useTranslations("nav");
+
+  // ponytail: fallback to VILLAGE_CONFIG if no profile data from DB
+  const name = profile?.name || VILLAGE_CONFIG.name;
+  const address = profile?.address || VILLAGE_CONFIG.address;
+  const phone = profile?.phone || VILLAGE_CONFIG.phone;
+  const email = profile?.email || VILLAGE_CONFIG.email;
+  const social = profile?.socialMedia || VILLAGE_CONFIG.socialMedia;
+
+  const footerDescription = locale === "id"
+    ? (profile?.footerDescriptionId || t("description"))
+    : (profile?.footerDescriptionEn || t("description"));
+
+  const copyright = locale === "id"
+    ? (profile?.copyrightId || t("copyright"))
+    : (profile?.copyrightEn || t("copyright"));
 
   const navLinks = [
     { label: tNav("home"), href: `/${locale}` },
@@ -22,50 +55,54 @@ export function Footer({ locale }: FooterProps) {
   ];
 
   return (
+    <>
     <footer className="bg-neutral-900 text-white">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Village Info */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <Home className="w-6 h-6 text-primary" />
-              <h3 className="font-heading font-bold text-lg">
-                {VILLAGE_CONFIG.name}
-              </h3>
+              <h3 className="font-heading font-bold text-lg">{name}</h3>
             </div>
             <p className="text-neutral-400 text-sm leading-relaxed mb-4">
-              {t("description")}
+              {footerDescription}
             </p>
             {/* Social Media */}
-            <div className="flex gap-3">
-              <a
-                href={VILLAGE_CONFIG.socialMedia.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center text-sm hover:bg-primary transition-colors"
-                aria-label="Facebook"
-              >
-                FB
-              </a>
-              <a
-                href={VILLAGE_CONFIG.socialMedia.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center text-sm hover:bg-primary transition-colors"
-                aria-label="Instagram"
-              >
-                IG
-              </a>
-              <a
-                href={VILLAGE_CONFIG.socialMedia.youtube}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center text-sm hover:bg-primary transition-colors"
-                aria-label="YouTube"
-              >
-                YT
-              </a>
+            <div className="flex gap-3 mb-4">
+              {social?.facebook && (
+                <a href={social.facebook} target="_blank" rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center text-sm hover:bg-primary transition-colors"
+                  aria-label="Facebook">FB</a>
+              )}
+              {social?.instagram && (
+                <a href={social.instagram} target="_blank" rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center text-sm hover:bg-primary transition-colors"
+                  aria-label="Instagram">IG</a>
+              )}
+              {social?.youtube && (
+                <a href={social.youtube} target="_blank" rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center text-sm hover:bg-primary transition-colors"
+                  aria-label="YouTube">YT</a>
+              )}
             </div>
+            {/* Logos - side by side */}
+            <div className="flex items-center gap-4">
+              <Image
+                src="/kknwindusari.png"
+                alt="Windusari Asri"
+                width={100}
+                height={28}
+                className="opacity-60 hover:opacity-90 transition-opacity"
+              />
+              <Image
+                src="/KKN-UGM.png"
+                alt="KKN UGM"
+                width={100}
+                height={28}
+                className="opacity-60 hover:opacity-90 transition-opacity"
+              />
+            </div>
+            
           </div>
 
           {/* Navigation */}
@@ -93,45 +130,32 @@ export function Footer({ locale }: FooterProps) {
               <div className="flex items-start gap-2">
                 <MapPin className="w-5 h-5 text-neutral-400 mt-0.5" />
                 <div>
-                  <p className="font-medium text-neutral-300">
-                    {t("address")}
-                  </p>
-                  <p>
-                    {VILLAGE_CONFIG.address}
-                  </p>
+                  <p className="font-medium text-neutral-300">{t("address")}</p>
+                  <p>{address}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
-                <Phone className="w-5 h-5 text-neutral-400" />
-                <div>
-                  <span className="font-medium text-neutral-300">
-                    {t("phone")}:
-                  </span>{" "}
-                  {VILLAGE_CONFIG.phone}
+              {phone && (
+                <div className="flex items-center gap-2">
+                  <Phone className="w-5 h-5 text-neutral-400" />
+                  <div>
+                    <span className="font-medium text-neutral-300">{t("phone")}:</span> {phone}
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <Mail className="w-5 h-5 text-neutral-400" />
-                <div>
-                  <span className="font-medium text-neutral-300">
-                    {t("email")}:
-                  </span>{" "}
-                  {VILLAGE_CONFIG.email}
+              )}
+              {email && (
+                <div className="flex items-center gap-2">
+                  <Mail className="w-5 h-5 text-neutral-400" />
+                  <div>
+                    <span className="font-medium text-neutral-300">{t("email")}:</span> {email}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Copyright */}
-      <div className="border-t border-white/10">
-        <div className="container mx-auto px-4 py-4">
-          <p className="text-center text-xs text-neutral-500">
-            {t("copyright")}
-          </p>
-        </div>
-      </div>
     </footer>
+    </>
   );
 }

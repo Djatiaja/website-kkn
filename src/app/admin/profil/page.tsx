@@ -34,6 +34,10 @@ interface ProfileData {
     instagram?: string;
     youtube?: string;
   };
+  footerDescriptionId?: string;
+  footerDescriptionEn?: string;
+  copyrightId?: string;
+  copyrightEn?: string;
   missionItems?: MissionItem[];
 }
 
@@ -43,6 +47,10 @@ export default function AdminProfilPage() {
   const [saving, setSaving] = useState(false);
   const [success, setSuccess] = useState(false);
   const [missionItems, setMissionItems] = useState<MissionItem[]>([]);
+  const [passwordData, setPasswordData] = useState({ currentPassword: "", newPassword: "", confirmPassword: "" });
+  const [passwordSaving, setPasswordSaving] = useState(false);
+  const [passwordSuccess, setPasswordSuccess] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   useEffect(() => {
     api.get<ProfileData>("/profile").then((data) => {
@@ -94,6 +102,35 @@ export default function AdminProfilPage() {
     setSuccess(false);
   };
 
+  const handlePasswordChange = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setPasswordError("");
+    setPasswordSuccess("");
+
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+      setPasswordError("Password baru tidak cocok");
+      return;
+    }
+
+    if (passwordData.newPassword.length < 6) {
+      setPasswordError("Password minimal 6 karakter");
+      return;
+    }
+
+    setPasswordSaving(true);
+    try {
+      await api.put("/auth/change-password", {
+        currentPassword: passwordData.currentPassword,
+        newPassword: passwordData.newPassword,
+      });
+      setPasswordSuccess("Password berhasil diubah");
+      setPasswordData({ currentPassword: "", newPassword: "", confirmPassword: "" });
+    } catch (err) {
+      setPasswordError(err instanceof Error ? err.message : "Gagal mengubah password");
+    }
+    setPasswordSaving(false);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!profile) return;
@@ -117,6 +154,10 @@ export default function AdminProfilPage() {
       population: profile.population,
       area: profile.area,
       socialMedia: profile.socialMedia,
+      footerDescriptionId: profile.footerDescriptionId,
+      footerDescriptionEn: profile.footerDescriptionEn,
+      copyrightId: profile.copyrightId,
+      copyrightEn: profile.copyrightEn,
     });
 
     setSaving(false);
@@ -315,6 +356,47 @@ export default function AdminProfilPage() {
           </div>
         </Card>
 
+        {/* Footer Settings */}
+        <Card>
+          <h2 className="text-lg font-heading font-semibold mb-4">Pengaturan Footer</h2>
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-neutral-700 mb-1.5">Deskripsi Footer (ID)</label>
+              <Textarea
+                value={profile.footerDescriptionId || ""}
+                onChange={(e) => handleChange("footerDescriptionId", e.target.value)}
+                rows={3}
+                placeholder="Deskripsi singkat untuk footer dalam Bahasa Indonesia"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-neutral-700 mb-1.5">Deskripsi Footer (EN)</label>
+              <Textarea
+                value={profile.footerDescriptionEn || ""}
+                onChange={(e) => handleChange("footerDescriptionEn", e.target.value)}
+                rows={3}
+                placeholder="Short description for footer in English"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-neutral-700 mb-1.5">Copyright (ID)</label>
+              <Input
+                value={profile.copyrightId || ""}
+                onChange={(e) => handleChange("copyrightId", e.target.value)}
+                placeholder="© 2024 Desa Tanjungsari. Hak cipta dilindungi."
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-neutral-700 mb-1.5">Copyright (EN)</label>
+              <Input
+                value={profile.copyrightEn || ""}
+                onChange={(e) => handleChange("copyrightEn", e.target.value)}
+                placeholder="© 2024 Tanjungsari Village. All rights reserved."
+              />
+            </div>
+          </div>
+        </Card>
+
         {/* Submit */}
         <div className="flex justify-end">
           <Button type="submit" isLoading={saving}>
@@ -322,6 +404,50 @@ export default function AdminProfilPage() {
           </Button>
         </div>
       </form>
+
+      {/* Change Password Section */}
+      <Card className="mt-6">
+        <h2 className="text-lg font-heading font-semibold mb-4">Ubah Password</h2>
+        <form onSubmit={handlePasswordChange} className="space-y-4">
+          {passwordError && (
+            <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-600">
+              {passwordError}
+            </div>
+          )}
+          {passwordSuccess && (
+            <div className="p-3 bg-green-50 border border-green-200 rounded-lg text-sm text-green-600">
+              {passwordSuccess}
+            </div>
+          )}
+          <Input
+            type="password"
+            label="Password Lama"
+            value={passwordData.currentPassword}
+            onChange={(e) => setPasswordData({ ...passwordData, currentPassword: e.target.value })}
+            required
+          />
+          <Input
+            type="password"
+            label="Password Baru"
+            value={passwordData.newPassword}
+            onChange={(e) => setPasswordData({ ...passwordData, newPassword: e.target.value })}
+            required
+            minLength={6}
+          />
+          <Input
+            type="password"
+            label="Konfirmasi Password Baru"
+            value={passwordData.confirmPassword}
+            onChange={(e) => setPasswordData({ ...passwordData, confirmPassword: e.target.value })}
+            required
+          />
+          <div className="flex justify-end">
+            <Button type="submit" isLoading={passwordSaving}>
+              Ubah Password
+            </Button>
+          </div>
+        </form>
+      </Card>
     </div>
   );
 }

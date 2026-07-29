@@ -1,65 +1,68 @@
 // Konfigurasi data desa - Edit file ini untuk mengganti informasi desa
 // Semua data di sini akan digunakan di seed dan aplikasi
+// Data berdasarkan riset dari Wikipedia & website resmi Desa Tanjungsari (Windusari, Magelang)
 
 export const VILLAGE_CONFIG = {
   // Informasi dasar desa
   name: "Desa Tanjungsari",
-  email: "desa@Tanjungsari.desa.id",
-  domain: "Tanjungsari.desa.id",
+  email: "tanjungsaripemdes08@gmail.com",
+  domain: "tanjungsari.desa.id",
   
   // Lokasi dan kontak
-  address: "Jl. Raya Tanjungsari No. 1, Kec. Tanjungsari, Kab. Bogor, Jawa Barat 16830",
-  phone: "0251-8000123",
+  address: "Jl. Grogol Indah No.2, Desa Tanjungsari, Kec. Windusari, Kab. Magelang, Jawa Tengah 56152",
+  phone: null, // belum diketahui secara pasti
   
   // Demografi
-  population: 5247,
-  area: 1200.5, // dalam hektar
+  population: 3978,
+  area: 158.566, // dalam hektar
   
-  // Media sosial
+  // Media sosial — belum diketahui, dikosongkan
   socialMedia: {
-    facebook: "https://facebook.com/desaTanjungsari",
-    instagram: "https://instagram.com/desasukmakur",
-    youtube: "https://youtube.com/@desaTanjungsari",
+    facebook: null,
+    instagram: null,
+    youtube: null,
   },
   
   // Deskripsi dalam Bahasa Indonesia
   descriptionId:
-    "Desa Tanjungsari terletak di kaki Gunung Salak, Kabupaten Bogor, Jawa Barat. Desa ini dikenal dengan keindahan alam, hasil pertanian yang melimpah, dan keramahan penduduknya. Dengan luas wilayah 1.200 hektar, desa ini menjadi rumah bagi lebih dari 5.200 jiwa yang hidup harmonis dalam keberagaman.",
+    "Desa Tanjungsari terletak di lembah Gunung Sumbing, Kecamatan Windusari, Kabupaten Magelang, Jawa Tengah. Desa ini berada di ketinggian 900–1100 mdpl dengan suhu rata-rata 27–30°C dan curah hujan 2000–3000 mm per tahun. Terdiri dari 6 dusun yaitu Grogol, Pendekan, Ngabean, Sudimoro Krajan/Pasar, Sudimoro Dukuh, dan Sudimoro Jurang. Seluruh warga masyarakat beragama Islam dan merupakan masyarakat yang religius, dengan terdapat 2 pondok pesantren di Dusun Sudimoro.",
   
   visionId:
-    "Mewujudkan Desa Tanjungsari yang mandiri, sejahtera, dan berbudaya berbasis potensi lokal.",
+    "Mewujudkan Desa Tanjungsari yang mandiri, sejahtera, dan religius berbasis pertanian dan kearifan lokal di lereng Gunung Sumbing.",
   
   missionId:
-    "1. Meningkatkan kualitas pelayanan publik yang transparan dan akuntabel\n2. Mengembangkan potensi ekonomi lokal melalui UMKM dan wisata desa\n3. Membangun infrastruktur yang merata dan berkelanjutan\n4. Melestarikan budaya dan kearifan lokal\n5. Meningkatkan kualitas sumber daya manusia melalui pendidikan dan pelatihan",
+    "1. Meningkatkan kualitas pelayanan publik yang transparan dan akuntabel\n2. Mengembangkan potensi pertanian dan ekonomi lokal melalui UMKM dan BUMDes\n3. Membangun infrastruktur yang merata dan berkelanjutan\n4. Melestarikan budaya, tradisi, dan nilai-nilai religius masyarakat\n5. Meningkatkan kualitas sumber daya manusia melalui pendidikan dan pelatihan",
   
   historyId:
-    "Desa Tanjungsari berdiri pada tahun 1945 setelah kemerdekaan Indonesia. Awalnya merupakan bagian dari Desa Ciapus sebelum dimekarkan pada tahun 1970. Nama 'Tanjungsari' berasal dari bahasa Sunda yang berarti 'senang dan makmur', mencerminkan harapan para pendiri desa akan kehidupan yang sejahtera bagi seluruh warganya. Pada tahun 2015, desa ini mulai mengembangkan sektor wisata dan berhasil meraih penghargaan Desa Wisata Terbaik tingkat kabupaten pada tahun 2022.",
+    "Desa Tanjungsari berada di lembah Gunung Sumbing. Nama 'Tanjungsari' berasal dari kata 'tanjung' yang berarti sebuah tanjung atau gumuk (bukit kecil), dan 'sari' yang diartikan makmur/sejahtera, yang konon dahulu masyarakatnya menjunjung tinggi nilai adat istiadat dan budayanya sehingga kehidupannya sangat makmur. Awalnya Desa Tanjungsari hanya terdiri dari 4 dusun yaitu Dusun Grogol, Pendekan, Ngabean, dan Sudimoro. Dengan berkembangnya penduduk, maka Dusun Sudimoro dipecah menjadi 3 yaitu Sudimoro Krajan/Pasar, Sudimoro Dukuh, dan Sudimoro Jurang, sehingga sampai sekarang Desa Tanjungsari terdiri dari 6 dusun. Dusun Grogol pertama kali dihuni oleh seorang kyai bernama Kyai Gragi yang membuka lahan dari hutan belantara. Dusun Pendekan pertama kali dihuni oleh Kyai Pendek. Dusun Ngabean pertama kali dibuka oleh Kyai Ahmadi Salim. Desa ini juga dilalui jalan kabupaten yang menghubungkan antar kecamatan di Kabupaten Magelang, yaitu Windusari–Kaliangkrik–Kajoran–Salaman–Borobudur.",
   
   // Deskripsi dalam Bahasa Inggris
   descriptionEn:
-    "Tanjungsari Village is located at the foot of Mount Salak, Bogor Regency, West Java. The village is known for its natural beauty, abundant agricultural products, and the hospitality of its residents. With an area of 1,200 hectares, this village is home to more than 5,200 people living in harmony.",
+    "Tanjungsari Village is located in the valley of Mount Sumbing, Windusari District, Magelang Regency, Central Java. The village sits at an altitude of 900–1,100 meters above sea level with an average temperature of 27–30°C and annual rainfall of 2,000–3,000 mm. It consists of 6 hamlets: Grogol, Pendekan, Ngabean, Sudimoro Krajan/Pasar, Sudimoro Dukuh, and Sudimoro Jurang. The entire community practices Islam and is deeply religious, with 2 Islamic boarding schools (pondok pesantren) in Sudimoro Hamlet.",
   
   visionEn:
-    "To realize Tanjungsari Village as an independent, prosperous, and cultured village based on local potential.",
+    "To realize Tanjungsari Village as an independent, prosperous, and religious village based on agriculture and local wisdom on the slopes of Mount Sumbing.",
   
   missionEn:
-    "1. Improve the quality of transparent and accountable public services\n2. Develop local economic potential through SMEs and village tourism\n3. Build equitable and sustainable infrastructure\n4. Preserve culture and local wisdom\n5. Improve human resource quality through education and training",
+    "1. Improve the quality of transparent and accountable public services\n2. Develop agricultural and local economic potential through SMEs and Village-Owned Enterprises\n3. Build equitable and sustainable infrastructure\n4. Preserve culture, traditions, and religious values of the community\n5. Improve human resource quality through education and training",
   
   historyEn:
-    "Tanjungsari Village was established in 1945 after Indonesian independence. It was originally part of Ciapus Village before being divided in 1970. The name 'Tanjungsari' comes from Sundanese meaning 'happy and prosperous', reflecting the founders' hopes for a prosperous life for all residents. In 2015, the village began developing its tourism sector and won the Best Tourism Village award at the district level in 2022.",
+    "Tanjungsari Village is located in the valley of Mount Sumbing. The name 'Tanjungsari' comes from 'tanjung' meaning a cape or small hill, and 'sari' meaning prosperous, referring to a community that once upheld traditional customs and culture, leading to a prosperous life. Initially, the village consisted of only 4 hamlets: Grogol, Pendekan, Ngabean, and Sudimoro. As the population grew, Sudimoro was split into 3: Sudimoro Krajan/Pasar, Sudimoro Dukuh, and Sudimoro Jurang, making a total of 6 hamlets today. Grogol Hamlet was first settled by a religious leader named Kyai Gragi who cleared the land from wilderness. Pendekan Hamlet was first settled by Kyai Pendek. Ngabean Hamlet was first opened by Kyai Ahmadi Salim. The village is also traversed by a district road connecting Windusari–Kaliangkrik–Kajoran–Salaman–Borobudur.",
 
   // Tagline & SEO
-  tagline: "Mandiri, Sejahtera, dan Berbudaya",
-  taglineEn: "Independent, Prosperous, and Cultured",
+  tagline: "Mandiri, Sejahtera, dan Religius",
+  taglineEn: "Independent, Prosperous, and Religious",
   seoDescription:
-    "Website resmi Desa Tanjungsari, Kecamatan Tanjungsari, Kabupaten Bogor, Jawa Barat. Informasi profil desa, produk unggulan, transparansi keuangan, dan berita terbaru.",
+    "Website resmi Desa Tanjungsari, Kecamatan Windusari, Kabupaten Magelang, Jawa Tengah. Informasi profil desa, produk unggulan, transparansi keuangan, dan berita terbaru.",
   seoKeywords: [
     "Desa Tanjungsari",
-    "desa",
-    "Bogor",
+    "Tanjungsari",
+    "Windusari",
+    "Magelang",
     "website desa",
     "profil desa",
     "produk desa",
+    "Jawa Tengah",
   ],
 } as const;
 
@@ -70,16 +73,16 @@ export const MISSION_ITEMS = [
     textEn: "Improve the quality of transparent and accountable public services",
   },
   {
-    textId: "Mengembangkan potensi ekonomi lokal melalui UMKM dan wisata desa",
-    textEn: "Develop local economic potential through SMEs and village tourism",
+    textId: "Mengembangkan potensi pertanian dan ekonomi lokal melalui UMKM dan BUMDes",
+    textEn: "Develop agricultural and local economic potential through SMEs and Village-Owned Enterprises",
   },
   {
     textId: "Membangun infrastruktur yang merata dan berkelanjutan",
     textEn: "Build equitable and sustainable infrastructure",
   },
   {
-    textId: "Melestarikan budaya dan kearifan lokal",
-    textEn: "Preserve culture and local wisdom",
+    textId: "Melestarikan budaya, tradisi, dan nilai-nilai religius masyarakat",
+    textEn: "Preserve culture, traditions, and religious values of the community",
   },
   {
     textId: "Meningkatkan kualitas sumber daya manusia melalui pendidikan dan pelatihan",

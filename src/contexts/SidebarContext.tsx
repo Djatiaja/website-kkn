@@ -10,15 +10,14 @@ interface SidebarContextType {
 const SidebarContext = createContext<SidebarContextType | null>(null);
 
 export function SidebarProvider({ children }: { children: React.ReactNode }) {
-  const [isOpen, setIsOpen] = useState(true);
-
-  // Load from localStorage on mount
-  useEffect(() => {
-    const stored = localStorage.getItem("admin-sidebar-open");
-    if (stored !== null) {
-      setTimeout(() => setIsOpen(stored === "true"), 0);
+  // Use lazy initializer to read from localStorage immediately, avoiding double-render
+  const [isOpen, setIsOpen] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem("admin-sidebar-open");
+      return stored !== null ? stored === "true" : true;
     }
-  }, []);
+    return true;
+  });
 
   const toggle = () => {
     setIsOpen((prev) => {

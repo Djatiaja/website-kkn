@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { signOut } from "next-auth/react";
 import { 
   LayoutDashboard, FileText, ShoppingBag, DollarSign, Map as MapIcon, 
-  Newspaper, Image as ImageIcon, Users, Home, ExternalLink, LogOut, Megaphone, BookOpen, Wallet 
+  Newspaper, Image as ImageIcon, Users, Home, ExternalLink, LogOut, Megaphone, BookOpen, Wallet, UserCog
 } from "lucide-react";
 
 interface AdminSidebarProps {
@@ -17,6 +17,7 @@ interface AdminSidebarProps {
 const menuItems = [
   { label: "Dashboard", icon: LayoutDashboard, href: "/admin" },
   { label: "Profil Desa", icon: FileText, href: "/admin/profil" },
+  { label: "Perangkat Desa", icon: UserCog, href: "/admin/profil/organisasi" },
   { label: "Produk", icon: ShoppingBag, href: "/admin/produk" },
   { label: "Keuangan", icon: Wallet, href: "/admin/keuangan" },
   { label: "Materi Digital", icon: BookOpen, href: "/admin/materi" },
@@ -86,7 +87,7 @@ export function AdminSidebar({ userRole }: AdminSidebarProps) {
           const isActive =
             item.href === "/admin"
               ? pathname === "/admin"
-              : pathname?.startsWith(item.href);
+              : pathname === item.href || pathname?.startsWith(item.href + "/");
 
           return (
             <Link

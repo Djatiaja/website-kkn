@@ -1,20 +1,9 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Inter } from "next/font/google";
 import { ToastProvider } from "@/components/ui/Toast";
 import { VILLAGE_CONFIG } from "@/lib/constants";
 import "./globals.css";
-
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  variable: "--font-heading",
-  weight: ["600", "700", "800"],
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-body",
-  weight: ["400", "500", "600"],
-});
+import "@fontsource-variable/plus-jakarta-sans";
+import "@fontsource-variable/inter";
 
 export const metadata: Metadata = {
   title: {
@@ -32,9 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id" suppressHydrationWarning>
-      <body
-        className={`${plusJakarta.variable} ${inter.variable} font-body antialiased`}
-      >
+      <body className="font-body antialiased">
         <ToastProvider>{children}</ToastProvider>
       </body>
     </html>

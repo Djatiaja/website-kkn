@@ -31,10 +31,10 @@ export const materialRepository = {
       ...(isPublished !== undefined && { isPublished }),
       ...(search && {
         OR: [
-          { titleId: { contains: search, mode: "insensitive" as const } },
-          { titleEn: { contains: search, mode: "insensitive" as const } },
-          { descriptionId: { contains: search, mode: "insensitive" as const } },
-          { descriptionEn: { contains: search, mode: "insensitive" as const } },
+          { titleId: { contains: search } },
+          { titleEn: { contains: search } },
+          { descriptionId: { contains: search } },
+          { descriptionEn: { contains: search } },
         ],
       }),
     };

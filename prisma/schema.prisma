@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -95,6 +95,10 @@ model VillageProfile {
   population    Int?
   area          Float?
   socialMedia   Json?    @map("social_media")
+  footerDescriptionId String? @map("footer_description_id") @db.Text
+  footerDescriptionEn String? @map("footer_description_en") @db.Text
+  copyrightId   String?  @map("copyright_id")
+  copyrightEn   String?  @map("copyright_en")
   createdAt     DateTime @default(now()) @map("created_at")
   updatedAt     DateTime @updatedAt @map("updated_at")
   members       OrganizationMember[]

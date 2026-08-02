@@ -8,6 +8,7 @@ import { toast } from "sonner";
 interface GalleryUploaderProps {
   value: string;          // newline-separated URLs
   onChange: (val: string) => void;
+  onRemove?: (url: string) => void; // called with old URL when removing
   folder?: string;
   maxSize?: number;
   className?: string;
@@ -16,6 +17,7 @@ interface GalleryUploaderProps {
 export function GalleryUploader({
   value,
   onChange,
+  onRemove,
   folder = "products",
   maxSize = 10_000_000,
   className,
@@ -68,8 +70,10 @@ export function GalleryUploader({
   );
 
   const removeUrl = (index: number) => {
+    const removed = urls[index];
     const newUrls = urls.filter((_, i) => i !== index);
     onChange(newUrls.join("\n"));
+    if (onRemove) onRemove(removed);
   };
 
   return (

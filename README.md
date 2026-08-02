@@ -34,3 +34,32 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Deploy on Shared Hosting
+
+This app needs a Node.js server because it uses API routes, auth, Prisma, and server actions. It cannot be deployed as a pure static export without breaking those features.
+
+Use the standalone build output for the smallest production bundle:
+
+```bash
+npm install
+npm run build
+```
+
+After the build completes, deploy these files to the hosting account:
+
+```bash
+.next/standalone
+.next/static
+public
+```
+
+If the host runs a custom Node app, start the bundled server with:
+
+```bash
+node .next/standalone/server.js
+```
+
+Set the required environment variables on the hosting panel before starting the app, especially database, auth, and upload settings.
+
+If your shared host does not support Node.js applications, this project will not run there as-is. In that case you will need a VPS, a platform with Node app support, or a separate backend/frontend split.

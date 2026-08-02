@@ -8,6 +8,7 @@ import { toast } from "sonner";
 interface ImageUploaderProps {
   value?: string;              // current URL or base64
   onChange: (url: string) => void;
+  onRemove?: (url: string) => void; // called with old URL when removing
   folder?: string;             // upload subfolder (storage mode)
   accept?: string;
   maxSize?: number;
@@ -17,6 +18,7 @@ interface ImageUploaderProps {
 export function ImageUploader({
   value,
   onChange,
+  onRemove,
   folder = "images",
   accept = "image/*",
   maxSize = 10_000_000,
@@ -81,7 +83,7 @@ export function ImageUploader({
           />
           <button
             type="button"
-            onClick={() => onChange("")}
+            onClick={() => { if (onRemove && value) onRemove(value); onChange(""); }}
             className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
           >
             <X className="w-4 h-4" />

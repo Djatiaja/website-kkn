@@ -115,6 +115,14 @@ export const api = {
     return request<T>(url, requestOptions);
   },
   delete: <T>(url: string) => request<T>(url, { method: "DELETE" }),
+  upload: async <T = { url: string }>(file: File, folder = "images"): Promise<T> => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("folder", folder);
+    const res = await fetch("/api/upload", { method: "POST", body: formData });
+    if (!res.ok) throw new ApiError(res.status, "Upload failed");
+    return res.json();
+  },
 };
 
 export { ApiError };

@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { api } from "@/lib/api";
 import { RichTextEditor } from "@/components/ui/RichTextEditor";
+import { ImageUploader } from "@/components/ui/ImageUploader";
+import { GalleryUploader } from "@/components/ui/GalleryUploader";
 import type { Product } from "@/types";
 
 interface ProductFormData {
@@ -38,6 +40,7 @@ export function ProductForm({ product, isEditing = false }: ProductFormProps) {
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const removedUrls = useRef<Set<string>>(new Set());
 
   const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<ProductFormData>({
     defaultValues: {
@@ -91,6 +94,19 @@ export function ProductForm({ product, isEditing = false }: ProductFormProps) {
         await api.put(`/products/${product.id}`, payload);
       } else {
         await api.post("/products", payload);
+      }
+
+      // Delete removed files from disk
+      if (removedUrls.current.size > 0) {
+        await Promise.allSettled(
+          Array.from(removedUrls.current).map((url) =>
+            fetch("/api/upload", {
+              method: "DELETE",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ url }),
+            })
+          )
+        );
       }
       router.push("/admin/produk");
       router.refresh();
@@ -244,26 +260,28 @@ export function ProductForm({ product, isEditing = false }: ProductFormProps) {
         </div>
       </div>
 
-      {/* Image URLs */}
+      {/* Image Uploads */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-neutral-700 mb-1.5">
-            URL Gambar Toko
+            Gambar Toko
           </label>
-          <input
-            {...register("storeImageUrl")}
-            className="w-full px-4 py-2.5 border border-neutral-200 rounded-xl text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10"
-            placeholder="https://..."
+          <ImageUploader
+            value={watch("storeImageUrl")}
+            onChange={(url) => setValue("storeImageUrl", url)}
+            onRemove={(url) => removedUrls.current.add(url)}
+            folder="products"
           />
         </div>
         <div>
           <label className="block text-sm font-medium text-neutral-700 mb-1.5">
-            URL Gambar Proses Produksi
+            Gambar Proses Produksi
           </label>
-          <input
-            {...register("productionImageUrl")}
-            className="w-full px-4 py-2.5 border border-neutral-200 rounded-xl text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10"
-            placeholder="https://..."
+          <ImageUploader
+            value={watch("productionImageUrl")}
+            onChange={(url) => setValue("productionImageUrl", url)}
+            onRemove={(url) => removedUrls.current.add(url)}
+            folder="products"
           />
         </div>
       </div>
@@ -271,13 +289,13 @@ export function ProductForm({ product, isEditing = false }: ProductFormProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-neutral-700 mb-1.5">
-            Galeri (1 URL per baris)
+            Galeri Foto
           </label>
-          <textarea
-            {...register("gallery")}
-            rows={4}
-            className="w-full px-4 py-2.5 border border-neutral-200 rounded-xl text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 resize-none"
-            placeholder="https://...&#10;https://..."
+          <GalleryUploader
+            value={watch("gallery")}
+            onChange={(val) => setValue("gallery", val)}
+            onRemove={(url) => removedUrls.current.add(url)}
+            folder="products"
           />
         </div>
         <div>

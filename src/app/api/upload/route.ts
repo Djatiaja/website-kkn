@@ -28,3 +28,26 @@ export async function POST(req: Request) {
     );
   }
 }
+
+export async function DELETE(req: Request) {
+  try {
+    const session = await auth();
+    if (!session || session.user.role !== "ADMIN") {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+
+    const { url } = await req.json();
+    if (!url || typeof url !== "string" || !url.startsWith("/uploads/")) {
+      return NextResponse.json({ message: "Invalid URL" }, { status: 400 });
+    }
+
+    await uploadService.deleteFile(url);
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("Delete error:", error);
+    return NextResponse.json(
+      { message: error instanceof Error ? error.message : "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}

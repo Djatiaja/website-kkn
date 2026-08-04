@@ -34,10 +34,18 @@
   },
   "profile": {
     "title": "Profil Desa Pasangsari",
-    "vision": { "title": "Visi" },
-    "mission": { "title": "Misi" },
-    "history": { "title": "Sejarah Desa" },
-    "org": { "title": "Struktur Organisasi" },
+    "vision": {
+      "title": "Visi"
+    },
+    "mission": {
+      "title": "Misi"
+    },
+    "history": {
+      "title": "Sejarah Desa"
+    },
+    "org": {
+      "title": "Struktur Organisasi"
+    },
     "demographics": {
       "title": "Data Kependudukan",
       "total": "Total Penduduk",
@@ -84,7 +92,11 @@
   },
   "gallery": {
     "title": "Galeri Desa Pasangsari",
-    "filter": { "all": "Semua", "photo": "Foto", "video": "Video" },
+    "filter": {
+      "all": "Semua",
+      "photo": "Foto",
+      "video": "Video"
+    },
     "load_more": "Muat Lebih Banyak",
     "empty": "Belum ada foto atau video"
   },

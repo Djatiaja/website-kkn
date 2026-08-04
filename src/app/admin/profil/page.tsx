@@ -88,7 +88,7 @@ export default function AdminProfilPage() {
   };
 
   const handleUpdateMissionItem = async (id: string, field: "textId" | "textEn", value: string) => {
-    setMissionItems(missionItems.map(item => 
+    setMissionItems(missionItems.map(item =>
       item.id === id ? { ...item, [field]: value } : item
     ));
     await api.put(`/profile/mission-items/${id}`, { [field]: value });

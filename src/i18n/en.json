@@ -34,10 +34,18 @@
   },
   "profile": {
     "title": "Pasangsari Village Profile",
-    "vision": { "title": "Vision" },
-    "mission": { "title": "Mission" },
-    "history": { "title": "Village History" },
-    "org": { "title": "Organization Structure" },
+    "vision": {
+      "title": "Vision"
+    },
+    "mission": {
+      "title": "Mission"
+    },
+    "history": {
+      "title": "Village History"
+    },
+    "org": {
+      "title": "Organization Structure"
+    },
     "demographics": {
       "title": "Demographics",
       "total": "Total Population",
@@ -84,7 +92,11 @@
   },
   "gallery": {
     "title": "Pasangsari Village Gallery",
-    "filter": { "all": "All", "photo": "Photos", "video": "Videos" },
+    "filter": {
+      "all": "All",
+      "photo": "Photos",
+      "video": "Videos"
+    },
     "load_more": "Load More",
     "empty": "No photos or videos yet"
   },

@@ -7,45 +7,45 @@ export const VILLAGE_CONFIG = {
   name: "Desa Pasangsari",
   email: "pasangsaripemdes08@gmail.com",
   domain: "pasangsari.desa.id",
-  
+
   // Lokasi dan kontak
   address: "Desa Pasangsari, Kec. Windusari, Kab. Magelang, Jawa Tengah",
   phone: null, // belum diketahui secara pasti
-  
+
   // Demografi
   population: 3978,
   area: 158.566, // dalam hektar
-  
+
   // Media sosial — belum diketahui, dikosongkan
   socialMedia: {
     facebook: null,
     instagram: null,
     youtube: null,
   },
-  
+
   // Deskripsi dalam Bahasa Indonesia
   descriptionId:
     "Desa Pasangsari terletak di Kecamatan Windusari, Kabupaten Magelang, Jawa Tengah. Desa ini berada di kaki Gunung Sumbing dengan udara sejuk dan pemandangan alam yang indah.",
-  
+
   visionId:
     "Mewujudkan Desa Pasangsari yang mandiri, sejahtera, dan religius berbasis pertanian dan kearifan lokal di lereng Gunung Sumbing.",
-  
+
   missionId:
     "1. Meningkatkan kualitas pelayanan publik yang transparan dan akuntabel\n2. Mengembangkan potensi pertanian dan ekonomi lokal melalui UMKM dan BUMDes\n3. Membangun infrastruktur yang merata dan berkelanjutan\n4. Melestarikan budaya, tradisi, dan nilai-nilai religius masyarakat\n5. Meningkatkan kualitas sumber daya manusia melalui pendidikan dan pelatihan",
-  
+
   historyId:
     "Desa Pasangsari berada di Kecamatan Windusari, Kabupaten Magelang, di lereng Gunung Sumbing. Desa ini memiliki sejarah panjang sebagai permukiman agraris dengan masyarakat yang religius dan menjunjung tinggi gotong royong.",
-  
+
   // Deskripsi dalam Bahasa Inggris
   descriptionEn:
     "Pasangsari Village is located in Windusari District, Magelang Regency, Central Java. The village sits at the foot of Mount Sumbing with cool weather and beautiful natural scenery.",
-  
+
   visionEn:
     "To realize Pasangsari Village as an independent, prosperous, and religious village based on agriculture and local wisdom on the slopes of Mount Sumbing.",
-  
+
   missionEn:
     "1. Improve the quality of transparent and accountable public services\n2. Develop agricultural and local economic potential through SMEs and Village-Owned Enterprises\n3. Build equitable and sustainable infrastructure\n4. Preserve culture, traditions, and religious values of the community\n5. Improve human resource quality through education and training",
-  
+
   historyEn:
     "Pasangsari Village is located in Windusari District, Magelang Regency, on the slopes of Mount Sumbing. The village has a long history as an agrarian settlement with a religious community that upholds mutual cooperation.",
 

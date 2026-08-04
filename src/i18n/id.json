@@ -6,8 +6,6 @@
     "products": "Produk UMKM",
     "gallery": "Galeri",
     "materials": "Materi Digital",
-    "map": "Peta Potensi",
-    "finance": "Keuangan",
     "admin": "Admin Panel",
     "login": "Masuk",
     "logout": "Keluar"
@@ -32,10 +30,6 @@
     "news": {
       "title": "Berita & Pengumuman Terbaru",
       "view_all": "Lihat Semua Berita"
-    },
-    "map": {
-      "title": "Lokasi Desa",
-      "view_full": "Lihat Peta Lengkap"
     }
   },
   "profile": {
@@ -70,38 +64,6 @@
     "related": "Produk Terkait",
     "empty": "Belum ada produk dalam kategori ini",
     "back": "Kembali ke Katalog"
-  },
-  "finance": {
-    "title": "Transparansi Keuangan Desa",
-    "subtitle": "Keterbukaan informasi keuangan untuk masyarakat",
-    "year": "Tahun Anggaran",
-    "income": "Total Pendapatan",
-    "expense": "Total Belanja",
-    "balance": "Sisa Anggaran",
-    "yoy": "dari tahun sebelumnya",
-    "chart_bar": { "title": "Anggaran vs Realisasi" },
-    "chart_donut": { "title": "Distribusi Belanja" },
-    "chart_line": { "title": "Tren Keuangan 5 Tahun" },
-    "table": {
-      "title": "Detail Anggaran & Realisasi",
-      "category": "Kategori",
-      "budget": "Anggaran",
-      "actual": "Realisasi",
-      "percentage": "Persentase"
-    },
-    "income_section": "Pendapatan",
-    "expense_section": "Belanja"
-  },
-  "map": {
-    "title": "Peta Desa Tanjungsari",
-    "legend": "Legenda",
-    "boundary": "Batas Wilayah",
-    "poi": "Titik Lokasi",
-    "facility": "Fasilitas Umum",
-    "road": "Jalan",
-    "locations": { "title": "Lokasi Penting" },
-    "layer": { "satellite": "Satelit", "street": "Jalan" },
-    "fullscreen": "Layar Penuh"
   },
   "news": {
     "title": "Berita & Pengumuman",
@@ -194,11 +156,8 @@
     "total_products": "Total Produk",
     "total_news": "Total Berita",
     "total_gallery": "Total Galeri",
-    "total_income": "Pendapatan Tahun Ini",
     "manage_profile": "Kelola Profil Desa",
     "manage_products": "Kelola Produk",
-    "manage_finance": "Kelola Keuangan",
-    "manage_map": "Kelola Peta",
     "manage_news": "Kelola Berita",
     "manage_gallery": "Kelola Galeri",
     "manage_users": "Kelola Pengguna",

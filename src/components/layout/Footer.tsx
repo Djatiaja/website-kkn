@@ -48,8 +48,6 @@ export function Footer({ locale, profile }: FooterProps) {
     { label: tNav("home"), href: `/${locale}` },
     { label: tNav("profile"), href: `/${locale}/profil` },
     { label: tNav("products"), href: `/${locale}/produk` },
-    { label: tNav("finance"), href: `/${locale}/keuangan` },
-    { label: tNav("map"), href: `/${locale}/peta` },
     { label: tNav("news"), href: `/${locale}/berita` },
     { label: tNav("gallery"), href: `/${locale}/galeri` },
   ];

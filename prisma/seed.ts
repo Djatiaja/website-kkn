@@ -260,39 +260,6 @@ async function main() {
   }
   console.log("✅ Digital Materials created:", materials.length);
 
-  // ─── 5. Finance Records ─────────────────────────────────
-  const financeRecords = [
-    // 2024 — Income
-    { year: 2024, type: "INCOME" as const, categoryId: "Dana Desa", categoryEn: "Village Fund", amount: 850000000, budget: 850000000, sourceId: "APBN", sourceEn: "National Budget" },
-    { year: 2024, type: "INCOME" as const, categoryId: "Alokasi Dana Desa", categoryEn: "Village Fund Allocation", amount: 420000000, budget: 450000000, sourceId: "APBD Kabupaten", sourceEn: "District Budget" },
-    { year: 2024, type: "INCOME" as const, categoryId: "Pendapatan Asli Desa", categoryEn: "Village Original Income", amount: 180000000, budget: 200000000, sourceId: "Retribusi & BUMDES", sourceEn: "Fees & Village Enterprise" },
-    { year: 2024, type: "INCOME" as const, categoryId: "Bantuan Provinsi", categoryEn: "Provincial Aid", amount: 150000000, budget: 150000000, sourceId: "APBD Provinsi", sourceEn: "Provincial Budget" },
-    { year: 2024, type: "INCOME" as const, categoryId: "Lain-lain Pendapatan", categoryEn: "Other Income", amount: 45000000, budget: 50000000, sourceId: "Hibah & Sumbangan", sourceEn: "Grants & Donations" },
-    // 2024 — Expense
-    { year: 2024, type: "EXPENSE" as const, categoryId: "Pembangunan Infrastruktur", categoryEn: "Infrastructure Development", subcategoryId: "Jalan, jembatan, irigasi", subcategoryEn: "Roads, bridges, irrigation", amount: 520000000, budget: 600000000 },
-    { year: 2024, type: "EXPENSE" as const, categoryId: "Pendidikan & Pelatihan", categoryEn: "Education & Training", subcategoryId: "Beasiswa, pelatihan UMKM", subcategoryEn: "Scholarships, SME training", amount: 280000000, budget: 300000000 },
-    { year: 2024, type: "EXPENSE" as const, categoryId: "Kesehatan", categoryEn: "Health", subcategoryId: "Posyandu, sanitasi, air bersih", subcategoryEn: "Health post, sanitation, clean water", amount: 195000000, budget: 200000000 },
-    { year: 2024, type: "EXPENSE" as const, categoryId: "Pemerintahan Desa", categoryEn: "Village Governance", subcategoryId: "Operasional, gaji perangkat", subcategoryEn: "Operations, staff salaries", amount: 320000000, budget: 320000000 },
-    { year: 2024, type: "EXPENSE" as const, categoryId: "Pemberdayaan Masyarakat", categoryEn: "Community Empowerment", subcategoryId: "PKK, Karang Taruna, BUMDES", subcategoryEn: "Women's group, Youth org, Village Enterprise", amount: 130000000, budget: 150000000 },
-    // 2023 — Income
-    { year: 2023, type: "INCOME" as const, categoryId: "Dana Desa", categoryEn: "Village Fund", amount: 800000000, budget: 800000000 },
-    { year: 2023, type: "INCOME" as const, categoryId: "Alokasi Dana Desa", categoryEn: "Village Fund Allocation", amount: 400000000, budget: 420000000 },
-    { year: 2023, type: "INCOME" as const, categoryId: "Pendapatan Asli Desa", categoryEn: "Village Original Income", amount: 150000000, budget: 180000000 },
-    { year: 2023, type: "INCOME" as const, categoryId: "Bantuan Provinsi", categoryEn: "Provincial Aid", amount: 130000000, budget: 130000000 },
-    { year: 2023, type: "INCOME" as const, categoryId: "Lain-lain Pendapatan", categoryEn: "Other Income", amount: 40000000, budget: 50000000 },
-    // 2023 — Expense
-    { year: 2023, type: "EXPENSE" as const, categoryId: "Pembangunan Infrastruktur", categoryEn: "Infrastructure Development", amount: 480000000, budget: 550000000 },
-    { year: 2023, type: "EXPENSE" as const, categoryId: "Pendidikan & Pelatihan", categoryEn: "Education & Training", amount: 250000000, budget: 280000000 },
-    { year: 2023, type: "EXPENSE" as const, categoryId: "Kesehatan", categoryEn: "Health", amount: 170000000, budget: 180000000 },
-    { year: 2023, type: "EXPENSE" as const, categoryId: "Pemerintahan Desa", categoryEn: "Village Governance", amount: 300000000, budget: 300000000 },
-    { year: 2023, type: "EXPENSE" as const, categoryId: "Pemberdayaan Masyarakat", categoryEn: "Community Empowerment", amount: 110000000, budget: 130000000 },
-  ];
-
-  for (const record of financeRecords) {
-    await prisma.financeRecord.create({ data: record });
-  }
-  console.log("✅ Finance records created:", financeRecords.length);
-
   // ─── 6. News ────────────────────────────────────────────
   const newsArticles = [
     {
@@ -387,54 +354,6 @@ async function main() {
     await prisma.galleryItem.create({ data: item });
   }
   console.log("✅ Gallery items created:", galleryItems.length);
-
-  // ─── 8. Map Features ────────────────────────────────────
-  const mapFeatures = [
-    {
-      nameId: "Batas Wilayah Desa Tanjungsari", nameEn: "Tanjungsari Village Boundary",
-      type: "BOUNDARY" as const,
-      geometry: { type: "Polygon", coordinates: [[[110.08, -7.38], [110.12, -7.38], [110.13, -7.40], [110.11, -7.42], [110.07, -7.41], [110.06, -7.39], [110.08, -7.38]]] },
-      isVisible: true,
-    },
-    {
-      nameId: "Kantor Desa Tanjungsari", nameEn: "Tanjungsari Village Office",
-      type: "FACILITY" as const, icon: "building",
-      geometry: { type: "Point", coordinates: [110.10, -7.40] },
-      descriptionId: "Kantor pelayanan pemerintahan desa di Dusun Grogol", descriptionEn: "Village government service office in Grogol Hamlet",
-      isVisible: true,
-    },
-    {
-      nameId: "SD Inpres Tanjungsari", nameEn: "Tanjungsari Elementary School",
-      type: "FACILITY" as const, icon: "school",
-      geometry: { type: "Point", coordinates: [110.098, -7.398] },
-      isVisible: true,
-    },
-    {
-      nameId: "Masjid Agung Tanjungsari", nameEn: "Tanjungsari Grand Mosque",
-      type: "FACILITY" as const, icon: "mosque",
-      geometry: { type: "Point", coordinates: [110.102, -7.402] },
-      isVisible: true,
-    },
-    {
-      nameId: "Pasar Windusari", nameEn: "Windusari Market",
-      type: "POI" as const, icon: "market",
-      geometry: { type: "Point", coordinates: [110.105, -7.405] },
-      descriptionId: "Pasar tradisional di Dusun Sudimoro Krajan", descriptionEn: "Traditional market in Sudimoro Krajan Hamlet",
-      isVisible: true,
-    },
-    {
-      nameId: "Pondok Pesantren Sudimoro", nameEn: "Sudimoro Islamic Boarding School",
-      type: "FACILITY" as const, icon: "school",
-      geometry: { type: "Point", coordinates: [110.095, -7.408] },
-      descriptionId: "Salah satu dari 2 pondok pesantren di Dusun Sudimoro", descriptionEn: "One of 2 Islamic boarding schools in Sudimoro Hamlet",
-      isVisible: true,
-    },
-  ];
-
-  for (const feature of mapFeatures) {
-    await prisma.mapFeature.create({ data: feature });
-  }
-  console.log("✅ Map features created:", mapFeatures.length);
 
   console.log("\n🎉 Seeding completed!");
 }

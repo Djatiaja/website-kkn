@@ -3,7 +3,6 @@ import { HeroVideo } from "@/components/home/HeroVideo";
 import { VillageHighlights } from "@/components/home/VillageHighlights";
 import { FeaturedProducts } from "@/components/home/FeaturedProducts";
 import { LatestNews } from "@/components/home/LatestNews";
-import { MiniMap } from "@/components/home/MiniMap";
 import { prisma } from "@/lib/prisma";
 import { Users, Sprout, ShoppingBag, MountainSnow } from "lucide-react";
 
@@ -99,11 +98,6 @@ export default async function HomePage({
         title={t("news.title")}
         viewAllText={t("news.view_all")}
         readMoreText={tNews("read_more")}
-      />
-
-      <MiniMap
-        title={t("map.title")}
-        viewFullText={t("map.view_full")}
       />
     </>
   );

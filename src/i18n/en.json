@@ -6,8 +6,6 @@
     "products": "SME Products",
     "gallery": "Gallery",
     "materials": "Digital Materials",
-    "map": "Potential Map",
-    "finance": "Finance",
     "admin": "Admin Panel",
     "login": "Login",
     "logout": "Logout"
@@ -32,10 +30,6 @@
     "news": {
       "title": "Latest News & Announcements",
       "view_all": "View All News"
-    },
-    "map": {
-      "title": "Village Location",
-      "view_full": "View Full Map"
     }
   },
   "profile": {
@@ -70,38 +64,6 @@
     "related": "Related Products",
     "empty": "No products in this category yet",
     "back": "Back to Catalog"
-  },
-  "finance": {
-    "title": "Village Financial Transparency",
-    "subtitle": "Financial information transparency for the community",
-    "year": "Fiscal Year",
-    "income": "Total Income",
-    "expense": "Total Expenditure",
-    "balance": "Budget Balance",
-    "yoy": "from previous year",
-    "chart_bar": { "title": "Budget vs Realization" },
-    "chart_donut": { "title": "Expenditure Distribution" },
-    "chart_line": { "title": "5-Year Financial Trend" },
-    "table": {
-      "title": "Budget & Realization Detail",
-      "category": "Category",
-      "budget": "Budget",
-      "actual": "Actual",
-      "percentage": "Percentage"
-    },
-    "income_section": "Income",
-    "expense_section": "Expenditure"
-  },
-  "map": {
-    "title": "Tanjungsari Village Map",
-    "legend": "Legend",
-    "boundary": "Village Boundary",
-    "poi": "Points of Interest",
-    "facility": "Public Facilities",
-    "road": "Roads",
-    "locations": { "title": "Key Locations" },
-    "layer": { "satellite": "Satellite", "street": "Street" },
-    "fullscreen": "Fullscreen"
   },
   "news": {
     "title": "News & Announcements",
@@ -194,11 +156,8 @@
     "total_products": "Total Products",
     "total_news": "Total News",
     "total_gallery": "Total Gallery",
-    "total_income": "This Year's Income",
     "manage_profile": "Manage Village Profile",
     "manage_products": "Manage Products",
-    "manage_finance": "Manage Finance",
-    "manage_map": "Manage Map",
     "manage_news": "Manage News",
     "manage_gallery": "Manage Gallery",
     "manage_users": "Manage Users",

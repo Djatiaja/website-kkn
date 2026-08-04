@@ -9,14 +9,6 @@ interface DashboardStats {
   products: number;
   news: number;
   gallery: number;
-  mapFeatures: number;
-  totalIncome: number;
-}
-
-function formatRupiah(n: number) {
-  if (n >= 1_000_000_000) return `Rp ${(n / 1_000_000_000).toFixed(1)} M`;
-  if (n >= 1_000_000) return `Rp ${(n / 1_000_000).toFixed(1)} Jt`;
-  return `Rp ${n.toLocaleString("id-ID")}`;
 }
 
 export default function AdminDashboardPage() {
@@ -30,8 +22,6 @@ export default function AdminDashboardPage() {
     { label: "Total Produk", value: stats?.products ?? "-", icon: "🛍️", color: "bg-primary/10 text-primary" },
     { label: "Total Berita", value: stats?.news ?? "-", icon: "📰", color: "bg-secondary/10 text-secondary" },
     { label: "Total Galeri", value: stats?.gallery ?? "-", icon: "📸", color: "bg-accent/10 text-accent" },
-    { label: "Pendapatan " + new Date().getFullYear(), value: stats ? formatRupiah(stats.totalIncome) : "-", icon: "💰", color: "bg-income/10 text-income" },
-    { label: "Lokasi Peta", value: stats?.mapFeatures ?? "-", icon: "🗺️", color: "bg-primary/10 text-primary" },
   ];
 
   return (
@@ -46,7 +36,7 @@ export default function AdminDashboardPage() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         {cards.map((stat) => (
           <Card key={stat.label} className="relative overflow-hidden">
             <div className="flex items-center justify-between">
@@ -76,8 +66,6 @@ export default function AdminDashboardPage() {
             { label: "Tambah Produk", icon: "🛍️", href: "/admin/produk" },
             { label: "Tulis Berita", icon: "📝", href: "/admin/berita" },
             { label: "Upload Galeri", icon: "📸", href: "/admin/galeri" },
-            { label: "Kelola Peta", icon: "🗺️", href: "/admin/peta" },
-            { label: "Keuangan", icon: "💰", href: "/admin/keuangan" },
             { label: "Edit Profil", icon: "📋", href: "/admin/profil" },
           ].map((action) => (
             <a

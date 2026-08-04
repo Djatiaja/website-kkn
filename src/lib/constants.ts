@@ -53,7 +53,7 @@ export const VILLAGE_CONFIG = {
   tagline: "Mandiri, Sejahtera, dan Religius",
   taglineEn: "Independent, Prosperous, and Religious",
   seoDescription:
-    "Website resmi Desa Tanjungsari, Kecamatan Windusari, Kabupaten Magelang, Jawa Tengah. Informasi profil desa, produk unggulan, transparansi keuangan, dan berita terbaru.",
+    "Website resmi Desa Tanjungsari, Kecamatan Windusari, Kabupaten Magelang, Jawa Tengah. Informasi profil desa, produk unggulan, dan berita terbaru.",
   seoKeywords: [
     "Desa Tanjungsari",
     "Tanjungsari",

@@ -17,10 +17,8 @@ const navLinks = [
   { key: "home", href: "/" },
   { key: "profile", href: "/profil" },
   { key: "products", href: "/produk" },
-  { key: "finance", href: "/keuangan" },
   { key: "gallery", href: "/galeri" },
   { key: "materials", href: "/materi" },
-  { key: "map", href: "/peta" },
   { key: "news", href: "/berita" },
 ];
 

@@ -43,31 +43,6 @@ export interface Product {
   updatedAt: string;
 }
 
-// ─── Finance ─────────────────────────────────────────────
-export interface FinanceRecord {
-  id: string;
-  year: number;
-  type: "INCOME" | "EXPENSE";
-  categoryId: string;
-  categoryEn: string;
-  subcategoryId: string | null;
-  subcategoryEn: string | null;
-  amount: number;
-  budget: number | null;
-  sourceId: string | null;
-  sourceEn: string | null;
-  descriptionId: string | null;
-  descriptionEn: string | null;
-}
-
-export interface FinanceSummary {
-  totalIncome: number;
-  totalExpense: number;
-  balance: number;
-  incomeChange: number;
-  expenseChange: number;
-}
-
 // ─── News ────────────────────────────────────────────────
 export interface News {
   id: string;
@@ -84,20 +59,6 @@ export interface News {
   authorId: string;
   publishedAt: string | null;
   createdAt: string;
-}
-
-// ─── Map ─────────────────────────────────────────────────
-export interface MapFeature {
-  id: string;
-  nameId: string;
-  nameEn: string;
-  type: "BOUNDARY" | "POI" | "ROAD" | "FACILITY";
-  icon: string | null;
-  geometry: object;
-  properties: Record<string, unknown> | null;
-  descriptionId: string | null;
-  descriptionEn: string | null;
-  isVisible: boolean;
 }
 
 // ─── Gallery ─────────────────────────────────────────────

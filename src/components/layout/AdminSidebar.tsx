@@ -6,8 +6,8 @@ import { useSidebar } from "@/contexts/SidebarContext";
 import { cn } from "@/lib/utils";
 import { signOut } from "next-auth/react";
 import { 
-  LayoutDashboard, FileText, ShoppingBag, DollarSign, Map as MapIcon, 
-  Newspaper, Image as ImageIcon, Users, Home, ExternalLink, LogOut, Megaphone, BookOpen, Wallet, UserCog
+  LayoutDashboard, FileText, ShoppingBag, 
+  Newspaper, Image as ImageIcon, Users, Home, ExternalLink, LogOut, Megaphone, BookOpen, UserCog
 } from "lucide-react";
 
 interface AdminSidebarProps {
@@ -19,9 +19,7 @@ const menuItems = [
   { label: "Profil Desa", icon: FileText, href: "/admin/profil" },
   { label: "Perangkat Desa", icon: UserCog, href: "/admin/profil/organisasi" },
   { label: "Produk", icon: ShoppingBag, href: "/admin/produk" },
-  { label: "Keuangan", icon: Wallet, href: "/admin/keuangan" },
   { label: "Materi Digital", icon: BookOpen, href: "/admin/materi" },
-  { label: "Peta Potensi", icon: MapIcon, href: "/admin/peta" },
   { label: "Berita", icon: Newspaper, href: "/admin/berita" },
   { label: "Galeri", icon: ImageIcon, href: "/admin/galeri" },
 ];

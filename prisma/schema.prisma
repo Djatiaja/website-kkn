@@ -22,18 +22,6 @@ enum ProductCategory {
   KULINER
 }
 
-enum FinanceType {
-  INCOME
-  EXPENSE
-}
-
-enum MapFeatureType {
-  BOUNDARY
-  POI
-  ROAD
-  FACILITY
-}
-
 enum NewsCategory {
   PENGUMUMAN
   KEGIATAN
@@ -163,46 +151,6 @@ model Product {
   @@index([category])
   @@index([isActive])
   @@map("products")
-}
-
-model FinanceRecord {
-  id             String      @id @default(cuid())
-  year           Int
-  type           FinanceType
-  categoryId     String      @map("category_id")
-  categoryEn     String      @map("category_en")
-  subcategoryId  String?     @map("subcategory_id")
-  subcategoryEn  String?     @map("subcategory_en")
-  amount         Float
-  budget         Float?
-  sourceId       String?     @map("source_id")
-  sourceEn       String?     @map("source_en")
-  descriptionId  String?     @map("description_id") @db.Text
-  descriptionEn  String?     @map("description_en") @db.Text
-  createdAt      DateTime    @default(now()) @map("created_at")
-  updatedAt      DateTime    @updatedAt @map("updated_at")
-
-  @@index([year])
-  @@index([type])
-  @@map("finance_records")
-}
-
-model MapFeature {
-  id            String         @id @default(cuid())
-  nameId        String         @map("name_id")
-  nameEn        String         @map("name_en")
-  type          MapFeatureType
-  icon          String?
-  geometry      Json
-  properties    Json?
-  descriptionId String?        @map("description_id") @db.Text
-  descriptionEn String?        @map("description_en") @db.Text
-  isVisible     Boolean        @default(true) @map("is_visible")
-  createdAt     DateTime       @default(now()) @map("created_at")
-  updatedAt     DateTime       @updatedAt @map("updated_at")
-
-  @@index([type])
-  @@map("map_features")
 }
 
 model News {

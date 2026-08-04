@@ -1,15 +1,15 @@
 // Konfigurasi data desa - Edit file ini untuk mengganti informasi desa
 // Semua data di sini akan digunakan di seed dan aplikasi
-// Data berdasarkan riset dari Wikipedia & website resmi Desa Tanjungsari (Windusari, Magelang)
+// Data berdasarkan riset dari Wikipedia & website resmi Desa Pasangsari (Windusari, Magelang)
 
 export const VILLAGE_CONFIG = {
   // Informasi dasar desa
-  name: "Desa Tanjungsari",
-  email: "tanjungsaripemdes08@gmail.com",
-  domain: "tanjungsari.desa.id",
+  name: "Desa Pasangsari",
+  email: "pasangsaripemdes08@gmail.com",
+  domain: "pasangsari.desa.id",
   
   // Lokasi dan kontak
-  address: "Jl. Grogol Indah No.2, Desa Tanjungsari, Kec. Windusari, Kab. Magelang, Jawa Tengah 56152",
+  address: "Desa Pasangsari, Kec. Windusari, Kab. Magelang, Jawa Tengah",
   phone: null, // belum diketahui secara pasti
   
   // Demografi
@@ -25,38 +25,38 @@ export const VILLAGE_CONFIG = {
   
   // Deskripsi dalam Bahasa Indonesia
   descriptionId:
-    "Desa Tanjungsari terletak di lembah Gunung Sumbing, Kecamatan Windusari, Kabupaten Magelang, Jawa Tengah. Desa ini berada di ketinggian 900–1100 mdpl dengan suhu rata-rata 27–30°C dan curah hujan 2000–3000 mm per tahun. Terdiri dari 6 dusun yaitu Grogol, Pendekan, Ngabean, Sudimoro Krajan/Pasar, Sudimoro Dukuh, dan Sudimoro Jurang. Seluruh warga masyarakat beragama Islam dan merupakan masyarakat yang religius, dengan terdapat 2 pondok pesantren di Dusun Sudimoro.",
+    "Desa Pasangsari terletak di Kecamatan Windusari, Kabupaten Magelang, Jawa Tengah. Desa ini berada di kaki Gunung Sumbing dengan udara sejuk dan pemandangan alam yang indah.",
   
   visionId:
-    "Mewujudkan Desa Tanjungsari yang mandiri, sejahtera, dan religius berbasis pertanian dan kearifan lokal di lereng Gunung Sumbing.",
+    "Mewujudkan Desa Pasangsari yang mandiri, sejahtera, dan religius berbasis pertanian dan kearifan lokal di lereng Gunung Sumbing.",
   
   missionId:
     "1. Meningkatkan kualitas pelayanan publik yang transparan dan akuntabel\n2. Mengembangkan potensi pertanian dan ekonomi lokal melalui UMKM dan BUMDes\n3. Membangun infrastruktur yang merata dan berkelanjutan\n4. Melestarikan budaya, tradisi, dan nilai-nilai religius masyarakat\n5. Meningkatkan kualitas sumber daya manusia melalui pendidikan dan pelatihan",
   
   historyId:
-    "Desa Tanjungsari berada di lembah Gunung Sumbing. Nama 'Tanjungsari' berasal dari kata 'tanjung' yang berarti sebuah tanjung atau gumuk (bukit kecil), dan 'sari' yang diartikan makmur/sejahtera, yang konon dahulu masyarakatnya menjunjung tinggi nilai adat istiadat dan budayanya sehingga kehidupannya sangat makmur. Awalnya Desa Tanjungsari hanya terdiri dari 4 dusun yaitu Dusun Grogol, Pendekan, Ngabean, dan Sudimoro. Dengan berkembangnya penduduk, maka Dusun Sudimoro dipecah menjadi 3 yaitu Sudimoro Krajan/Pasar, Sudimoro Dukuh, dan Sudimoro Jurang, sehingga sampai sekarang Desa Tanjungsari terdiri dari 6 dusun. Dusun Grogol pertama kali dihuni oleh seorang kyai bernama Kyai Gragi yang membuka lahan dari hutan belantara. Dusun Pendekan pertama kali dihuni oleh Kyai Pendek. Dusun Ngabean pertama kali dibuka oleh Kyai Ahmadi Salim. Desa ini juga dilalui jalan kabupaten yang menghubungkan antar kecamatan di Kabupaten Magelang, yaitu Windusari–Kaliangkrik–Kajoran–Salaman–Borobudur.",
+    "Desa Pasangsari berada di Kecamatan Windusari, Kabupaten Magelang, di lereng Gunung Sumbing. Desa ini memiliki sejarah panjang sebagai permukiman agraris dengan masyarakat yang religius dan menjunjung tinggi gotong royong.",
   
   // Deskripsi dalam Bahasa Inggris
   descriptionEn:
-    "Tanjungsari Village is located in the valley of Mount Sumbing, Windusari District, Magelang Regency, Central Java. The village sits at an altitude of 900–1,100 meters above sea level with an average temperature of 27–30°C and annual rainfall of 2,000–3,000 mm. It consists of 6 hamlets: Grogol, Pendekan, Ngabean, Sudimoro Krajan/Pasar, Sudimoro Dukuh, and Sudimoro Jurang. The entire community practices Islam and is deeply religious, with 2 Islamic boarding schools (pondok pesantren) in Sudimoro Hamlet.",
+    "Pasangsari Village is located in Windusari District, Magelang Regency, Central Java. The village sits at the foot of Mount Sumbing with cool weather and beautiful natural scenery.",
   
   visionEn:
-    "To realize Tanjungsari Village as an independent, prosperous, and religious village based on agriculture and local wisdom on the slopes of Mount Sumbing.",
+    "To realize Pasangsari Village as an independent, prosperous, and religious village based on agriculture and local wisdom on the slopes of Mount Sumbing.",
   
   missionEn:
     "1. Improve the quality of transparent and accountable public services\n2. Develop agricultural and local economic potential through SMEs and Village-Owned Enterprises\n3. Build equitable and sustainable infrastructure\n4. Preserve culture, traditions, and religious values of the community\n5. Improve human resource quality through education and training",
   
   historyEn:
-    "Tanjungsari Village is located in the valley of Mount Sumbing. The name 'Tanjungsari' comes from 'tanjung' meaning a cape or small hill, and 'sari' meaning prosperous, referring to a community that once upheld traditional customs and culture, leading to a prosperous life. Initially, the village consisted of only 4 hamlets: Grogol, Pendekan, Ngabean, and Sudimoro. As the population grew, Sudimoro was split into 3: Sudimoro Krajan/Pasar, Sudimoro Dukuh, and Sudimoro Jurang, making a total of 6 hamlets today. Grogol Hamlet was first settled by a religious leader named Kyai Gragi who cleared the land from wilderness. Pendekan Hamlet was first settled by Kyai Pendek. Ngabean Hamlet was first opened by Kyai Ahmadi Salim. The village is also traversed by a district road connecting Windusari–Kaliangkrik–Kajoran–Salaman–Borobudur.",
+    "Pasangsari Village is located in Windusari District, Magelang Regency, on the slopes of Mount Sumbing. The village has a long history as an agrarian settlement with a religious community that upholds mutual cooperation.",
 
   // Tagline & SEO
   tagline: "Mandiri, Sejahtera, dan Religius",
   taglineEn: "Independent, Prosperous, and Religious",
   seoDescription:
-    "Website resmi Desa Tanjungsari, Kecamatan Windusari, Kabupaten Magelang, Jawa Tengah. Informasi profil desa, produk unggulan, dan berita terbaru.",
+    "Website resmi Desa Pasangsari, Kecamatan Windusari, Kabupaten Magelang, Jawa Tengah. Informasi profil desa, produk unggulan, dan berita terbaru.",
   seoKeywords: [
-    "Desa Tanjungsari",
-    "Tanjungsari",
+    "Desa Pasangsari",
+    "Pasangsari",
     "Windusari",
     "Magelang",
     "website desa",

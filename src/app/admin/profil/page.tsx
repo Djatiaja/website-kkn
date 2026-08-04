@@ -383,7 +383,7 @@ export default function AdminProfilPage() {
               <Input
                 value={profile.copyrightId || ""}
                 onChange={(e) => handleChange("copyrightId", e.target.value)}
-                placeholder="© 2024 Desa Tanjungsari. Hak cipta dilindungi."
+                placeholder="© 2024 Desa Pasangsari. Hak cipta dilindungi."
               />
             </div>
             <div>
@@ -391,7 +391,7 @@ export default function AdminProfilPage() {
               <Input
                 value={profile.copyrightEn || ""}
                 onChange={(e) => handleChange("copyrightEn", e.target.value)}
-                placeholder="© 2024 Tanjungsari Village. All rights reserved."
+                placeholder="© 2024 Pasangsari Village. All rights reserved."
               />
             </div>
           </div>

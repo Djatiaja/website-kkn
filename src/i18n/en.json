@@ -12,7 +12,7 @@
   },
   "home": {
     "hero": {
-      "title": "Welcome to Tanjungsari Village",
+      "title": "Welcome to Pasangsari Village, Windusari",
       "subtitle": "Independent, Prosperous, and Cultured",
       "cta_explore": "Explore Village",
       "cta_products": "View Products"
@@ -33,7 +33,7 @@
     }
   },
   "profile": {
-    "title": "Tanjungsari Village Profile",
+    "title": "Pasangsari Village Profile",
     "vision": { "title": "Vision" },
     "mission": { "title": "Mission" },
     "history": { "title": "Village History" },
@@ -48,7 +48,7 @@
   },
   "product": {
     "title": "Village Products & Potential Catalog",
-    "subtitle": "Discover featured products and tourist destinations of Tanjungsari Village",
+    "subtitle": "Discover featured products and tourist destinations of Pasangsari Village",
     "search": "Search products...",
     "filter": {
       "all": "All",
@@ -83,7 +83,7 @@
     "empty": "No news yet"
   },
   "gallery": {
-    "title": "Tanjungsari Village Gallery",
+    "title": "Pasangsari Village Gallery",
     "filter": { "all": "All", "photo": "Photos", "video": "Videos" },
     "load_more": "Load More",
     "empty": "No photos or videos yet"
@@ -123,14 +123,14 @@
     }
   },
   "footer": {
-    "description": "Tanjungsari Village — Independent, Prosperous, and Cultured",
+    "description": "Pasangsari Village — Independent, Prosperous, and Cultured",
     "navigation": "Navigation",
     "contact": "Contact",
     "address": "Address",
     "phone": "Phone",
     "email": "Email",
     "social": "Social Media",
-    "copyright": "© 2024 Tanjungsari Village. All rights reserved."
+    "copyright": "© 2024 Pasangsari Village. All rights reserved."
   },
   "common": {
     "loading": "Loading...",

@@ -12,7 +12,7 @@
   },
   "home": {
     "hero": {
-      "title": "Selamat Datang di Desa Tanjungsari",
+      "title": "Selamat Datang di Desa Pasangsari, Kecamatan Windusari",
       "subtitle": "Mandiri, Sejahtera, dan Berbudaya",
       "cta_explore": "Jelajahi Desa",
       "cta_products": "Lihat Produk"
@@ -33,7 +33,7 @@
     }
   },
   "profile": {
-    "title": "Profil Desa Tanjungsari",
+    "title": "Profil Desa Pasangsari",
     "vision": { "title": "Visi" },
     "mission": { "title": "Misi" },
     "history": { "title": "Sejarah Desa" },
@@ -48,7 +48,7 @@
   },
   "product": {
     "title": "Katalog Produk & Potensi Desa",
-    "subtitle": "Temukan produk unggulan dan destinasi wisata Desa Tanjungsari",
+    "subtitle": "Temukan produk unggulan dan destinasi wisata Desa Pasangsari",
     "search": "Cari produk...",
     "filter": {
       "all": "Semua",
@@ -83,7 +83,7 @@
     "empty": "Belum ada berita"
   },
   "gallery": {
-    "title": "Galeri Desa Tanjungsari",
+    "title": "Galeri Desa Pasangsari",
     "filter": { "all": "Semua", "photo": "Foto", "video": "Video" },
     "load_more": "Muat Lebih Banyak",
     "empty": "Belum ada foto atau video"
@@ -123,14 +123,14 @@
     }
   },
   "footer": {
-    "description": "Desa Tanjungsari — Mandiri, Sejahtera, dan Berbudaya",
+    "description": "Desa Pasangsari — Mandiri, Sejahtera, dan Berbudaya",
     "navigation": "Navigasi",
     "contact": "Kontak",
     "address": "Alamat",
     "phone": "Telepon",
     "email": "Email",
     "social": "Media Sosial",
-    "copyright": "© 2024 Desa Tanjungsari. Hak cipta dilindungi."
+    "copyright": "© 2024 Desa Pasangsari. Hak cipta dilindungi."
   },
   "common": {
     "loading": "Memuat...",

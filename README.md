@@ -63,3 +63,50 @@ node .next/standalone/server.js
 Set the required environment variables on the hosting panel before starting the app, especially database, auth, and upload settings.
 
 If your shared host does not support Node.js applications, this project will not run there as-is. In that case you will need a VPS, a platform with Node app support, or a separate backend/frontend split.
+
+## Deploy on DirectAdmin
+
+DirectAdmin works if your hosting plan includes a Node.js application manager or a way to run a custom Node process behind a domain or subdomain.
+
+1. Build the app locally:
+
+```bash
+npm install
+npm run build
+```
+
+2. Upload these production folders to your DirectAdmin account:
+
+```bash
+.next/standalone
+.next/static
+public
+```
+
+3. In DirectAdmin, create a Node.js app for the site or subdomain and point the startup file to:
+
+```bash
+.next/standalone/server.js
+```
+
+4. Set the environment variables in DirectAdmin before starting the app, especially:
+
+```bash
+NODE_ENV=production
+DATABASE_URL=...
+NEXTAUTH_SECRET=...
+NEXTAUTH_URL=https://your-domain.example
+```
+
+5. If your DirectAdmin setup exposes a custom port, keep the default server start command and let the panel manage `PORT`. The standalone server reads the runtime port from the environment.
+
+6. Run any Prisma migration or seed step before going live if your database is empty:
+
+```bash
+npx prisma migrate deploy
+npx prisma db seed
+```
+
+7. If uploads are stored on disk, make sure the `public/uploads` path is writable by the Node process.
+
+If your DirectAdmin plan does not include Node.js support, this app will not run correctly there without a VPS or a separate backend/frontend deployment.

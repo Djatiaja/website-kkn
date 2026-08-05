@@ -17,6 +17,8 @@ export const profileSchema = z.object({
   population: z.number().int().min(0).optional().nullable(),
   area: z.number().min(0).optional().nullable(),
   socialMedia: z.record(z.string(), z.string()).optional().nullable(),
+  mapCenterLat: z.number().optional().nullable(),
+  mapCenterLng: z.number().optional().nullable(),
 });
 
 export const updateProfileSchema = profileSchema.partial();

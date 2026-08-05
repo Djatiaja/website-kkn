@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { api } from "@/lib/api";
 import { Button, Input, Textarea, Card } from "@/components/ui";
 import { RichTextEditor } from "@/components/ui/RichTextEditor";
@@ -34,6 +34,8 @@ interface ProfileData {
     instagram?: string;
     youtube?: string;
   };
+  mapCenterLat?: number | null;
+  mapCenterLng?: number | null;
   footerDescriptionId?: string;
   footerDescriptionEn?: string;
   copyrightId?: string;
@@ -87,11 +89,28 @@ export default function AdminProfilPage() {
     setSuccess(false);
   };
 
-  const handleUpdateMissionItem = async (id: string, field: "textId" | "textEn", value: string) => {
-    setMissionItems(missionItems.map(item => 
+  const pendingUpdates = useRef<Map<string, Record<string, string>>>(new Map());
+  const debounceTimers = useRef<Map<string, ReturnType<typeof setTimeout>>>(new Map());
+
+  const flushUpdate = useCallback(async (id: string) => {
+    const data = pendingUpdates.current.get(id);
+    if (!data) return;
+    pendingUpdates.current.delete(id);
+    try {
+      await api.put(`/profile/mission-items/${id}`, data);
+    } catch { /* retry on next save */ }
+  }, []);
+
+  const handleUpdateMissionItem = (id: string, field: "textId" | "textEn", value: string) => {
+    setMissionItems(prev => prev.map(item =>
       item.id === id ? { ...item, [field]: value } : item
     ));
-    await api.put(`/profile/mission-items/${id}`, { [field]: value });
+    // ponytail: single debounce per item, 500ms idle. upgrade: useDeferredValue + batch API
+    const existing = pendingUpdates.current.get(id) || {};
+    existing[field] = value;
+    pendingUpdates.current.set(id, existing);
+    clearTimeout(debounceTimers.current.get(id));
+    debounceTimers.current.set(id, setTimeout(() => flushUpdate(id), 500));
     setSuccess(false);
   };
 
@@ -137,6 +156,16 @@ export default function AdminProfilPage() {
     setSaving(true);
     setSuccess(false);
 
+    // Flush any pending debounced mission item updates
+    for (const [id, timer] of debounceTimers.current) {
+      clearTimeout(timer);
+    }
+    const flushes: Promise<void>[] = [];
+    for (const id of pendingUpdates.current.keys()) {
+      flushes.push(flushUpdate(id));
+    }
+    await Promise.all(flushes);
+
     await api.put("/profile", {
       name: profile.name,
       descriptionId: profile.descriptionId,
@@ -158,6 +187,8 @@ export default function AdminProfilPage() {
       footerDescriptionEn: profile.footerDescriptionEn,
       copyrightId: profile.copyrightId,
       copyrightEn: profile.copyrightEn,
+      mapCenterLat: profile.mapCenterLat ?? -7.400,
+      mapCenterLng: profile.mapCenterLng ?? 110.100,
     });
 
     setSaving(false);
@@ -231,6 +262,26 @@ export default function AdminProfilPage() {
               value={profile.address}
               onChange={(e) => handleChange("address", e.target.value)}
               rows={2}
+            />
+          </div>
+        </Card>
+
+        {/* Peta Pusat */}
+        <Card>
+          <h2 className="text-lg font-heading font-semibold mb-4">Pusat Peta</h2>
+          <p className="text-sm text-neutral-500 mb-4">Koordinat pusat peta pada halaman publik. Default: Desa Tanjungsari, Windusari, Magelang (-7.400, 110.100)</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Input
+              label="Latitude"
+              type="number"
+              value={String(profile.mapCenterLat ?? "-7.400")}
+              onChange={(e) => handleChange("mapCenterLat", parseFloat(e.target.value) || 0)}
+            />
+            <Input
+              label="Longitude"
+              type="number"
+              value={String(profile.mapCenterLng ?? "110.100")}
+              onChange={(e) => handleChange("mapCenterLng", parseFloat(e.target.value) || 0)}
             />
           </div>
         </Card>

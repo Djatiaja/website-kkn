@@ -43,6 +43,8 @@ async function main() {
       population: VILLAGE_CONFIG.population,
       area: VILLAGE_CONFIG.area,
       socialMedia: VILLAGE_CONFIG.socialMedia,
+      mapCenterLat: -7.400,
+      mapCenterLng: 110.100,
     },
   });
   console.log("✅ Village profile created:", profile.name);

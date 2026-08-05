@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { Map as MapIcon } from "lucide-react";
 import { api } from "@/lib/api";
 import { ScrollReveal } from "@/components/home/ScrollReveal";
-import type { MapFeature } from "@/types";
+import type { MapFeature, VillageProfile } from "@/types";
 
 const VillageMap = dynamic(() => import("@/components/map/VillageMap").then(m => m.VillageMap), {
   ssr: false,
@@ -26,12 +26,19 @@ export function MapPageClient({ locale }: { locale: "id" | "en" }) {
   const [features, setFeatures] = useState<MapFeature[]>([]);
   const [loading, setLoading] = useState(true);
   const [flyTo, setFlyTo] = useState<[number, number] | null>(null);
+  const [mapCenter, setMapCenter] = useState<[number, number] | undefined>(undefined);
 
   useEffect(() => {
-    api.get<MapFeature[]>("/map?isVisible=true").then((data) => {
-      setFeatures(data);
+    Promise.all([
+      api.get<MapFeature[]>("/map?isVisible=true"),
+      api.get<VillageProfile>("/profile"),
+    ]).then(([mapData, profile]) => {
+      setFeatures(mapData);
+      if (profile.mapCenterLat != null && profile.mapCenterLng != null) {
+        setMapCenter([profile.mapCenterLat, profile.mapCenterLng]);
+      }
       setLoading(false);
-    });
+    }).catch(() => setLoading(false));
   }, []);
 
   const handleLocationClick = (coords: [number, number]) => {
@@ -56,7 +63,7 @@ export function MapPageClient({ locale }: { locale: "id" | "en" }) {
                 <div className="animate-spin w-8 h-8 border-3 border-primary border-t-transparent rounded-full" />
               </div>
             ) : (
-              <VillageMap features={features} locale={locale} flyTo={flyTo} />
+              <VillageMap features={features} locale={locale} flyTo={flyTo} mapCenter={mapCenter} />
             )}
           </div>
         </ScrollReveal>

@@ -3,6 +3,13 @@ import { withErrorHandler } from "@/lib/middleware/error";
 import { withAuth } from "@/lib/middleware/auth";
 import { mapService } from "@/services/map.service";
 
+export const GET = withErrorHandler(async (_req: NextRequest, context: unknown) => {
+  const { id } = await (context as { params: Promise<{ id: string }> }).params;
+  const feature = await mapService.getById(id);
+  if (!feature) return NextResponse.json({ message: "Not found" }, { status: 404 });
+  return NextResponse.json(feature);
+});
+
 export const PUT = withAuth(
   withErrorHandler(async (req: NextRequest, context: unknown) => {
     const { id } = await (context as { params: Promise<{ id: string }> }).params;

@@ -133,6 +133,8 @@ export interface VillageProfile {
   population: number | null;
   area: number | null;
   socialMedia: Record<string, string> | null;
+  mapCenterLat: number | null;
+  mapCenterLng: number | null;
   members: OrganizationMember[];
 }
 

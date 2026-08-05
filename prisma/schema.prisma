@@ -99,6 +99,8 @@ model VillageProfile {
   footerDescriptionEn String? @map("footer_description_en") @db.Text
   copyrightId   String?  @map("copyright_id")
   copyrightEn   String?  @map("copyright_en")
+  mapCenterLat  Float?   @map("map_center_lat")
+  mapCenterLng  Float?   @map("map_center_lng")
   createdAt     DateTime @default(now()) @map("created_at")
   updatedAt     DateTime @updatedAt @map("updated_at")
   members       OrganizationMember[]

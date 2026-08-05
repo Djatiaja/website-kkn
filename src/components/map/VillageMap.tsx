@@ -58,26 +58,30 @@ interface VillageMapProps {
   features: MapFeature[];
   locale: "id" | "en";
   flyTo?: [number, number] | null;
+  mapCenter?: [number, number];
 }
 
-export function VillageMap({ features, locale, flyTo }: VillageMapProps) {
+export function VillageMap({ features, locale, flyTo, mapCenter }: VillageMapProps) {
   const boundaries = features.filter(f => f.type === "BOUNDARY");
   const points = features.filter(f => f.type === "POI" || f.type === "FACILITY");
 
-  // Center on first boundary or first point
+  // Center on provided mapCenter, or first boundary/point, or fallback
   const center: [number, number] = (() => {
+    if (mapCenter) return mapCenter;
     if (boundaries.length > 0) {
-      const geom = boundaries[0].geometry as { coordinates: number[][][] };
-      const coords = geom.coordinates[0];
-      const lat = coords.reduce((s, c) => s + c[1], 0) / coords.length;
-      const lng = coords.reduce((s, c) => s + c[0], 0) / coords.length;
+      const geom = boundaries[0].geometry as { type: string; coordinates: unknown };
+      const coords = geom.type === "MultiPolygon"
+        ? (geom.coordinates as number[][][][])[0][0]
+        : (geom.coordinates as number[][][])[0];
+      const lat = coords.reduce((s: number, c: number[]) => s + c[1], 0) / coords.length;
+      const lng = coords.reduce((s: number, c: number[]) => s + c[0], 0) / coords.length;
       return [lat, lng];
     }
     if (points.length > 0) {
       const geom = points[0].geometry as { coordinates: [number, number] };
       return [geom.coordinates[1], geom.coordinates[0]];
     }
-    return [-6.730, 106.838];
+    return [-7.400, 110.100];
   })();
 
   return (
@@ -92,23 +96,27 @@ export function VillageMap({ features, locale, flyTo }: VillageMapProps) {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
-      {/* Boundaries */}
-      {boundaries.map((b) => (
-        <GeoJSON
-          key={b.id}
-          data={{
-            type: "Feature",
-            geometry: b.geometry,
-            properties: { name: locale === "id" ? b.nameId : b.nameEn },
-          } as GeoJSON.Feature}
-          style={{
-            color: "#2D6A4F",
-            weight: 3,
-            fillColor: "#2D6A4F",
-            fillOpacity: 0.1,
-          }}
-        />
-      ))}
+      {/* Boundaries — different colors for overlapping regions */}
+      {boundaries.map((b, i) => {
+        const colors = ["#2D6A4F", "#1B4332", "#40916C", "#52B788", "#74C69D"];
+        const color = colors[i % colors.length];
+        return (
+          <GeoJSON
+            key={b.id}
+            data={{
+              type: "Feature",
+              geometry: b.geometry,
+              properties: { name: locale === "id" ? b.nameId : b.nameEn },
+            } as GeoJSON.Feature}
+            style={{
+              color,
+              weight: 3,
+              fillColor: color,
+              fillOpacity: 0.15,
+            }}
+          />
+        );
+      })}
 
       {/* Point markers */}
       {points.map((p) => {

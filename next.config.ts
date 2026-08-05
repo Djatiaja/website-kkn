@@ -4,8 +4,7 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const nextConfig: NextConfig = {
-  output: "standalone",
-  // Allow images from any domain for development
+  // Allow images from deployment domain + any subdomain
   images: {
     remotePatterns: [
       {
